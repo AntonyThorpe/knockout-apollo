@@ -15,7 +15,7 @@ global.jQuery = require('jquery');
 ko.plus = require("ko.plus");
 import 'knockoutcrud';
 import gql from 'graphql-tag';
-import '@antonythorpe/knockout-apollo';
+import 'knockout-apollo';
 
 
 var PokemonCard = function(data) {
