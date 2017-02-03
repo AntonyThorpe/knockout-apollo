@@ -1,0 +1,28 @@
+{
+	"name": "knockout-apollo",
+	"version": "0.1.0",
+	"description": "A knockoutjs extension to connect to a GraphQL endpoint through an ApolloClient instance",
+	"main": "knockout-apollo.js",
+	"repository": {
+		"type": "git",
+		"url": "https://AntonyThorpe@github.com/AntonyThorpe/knockout-apollo.git"
+	},
+	"dependencies": {
+		"apollo-client": ">=0.5.0 <1.0.0",
+		"graphql-tag": "^1.1.2",
+		"knockout": "^3.4.1",
+		"ko.plus": "^0.0.27",
+		"jquery": "*"
+	},
+	"keywords": [
+		"apollo client",
+		"graphql",
+		"knockoutjs"
+	],
+	"author": "Antony Thorpe",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/AntonyThorpe/knockout-apollo/issues"
+	},
+	"homepage": "https://github.com/AntonyThorpe/knockout-apollo"
+}

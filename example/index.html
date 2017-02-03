@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="./src/favicon.png">
+    <title>Pokedex Knockout-Apollo App</title>
+  </head>
+  <body>
+    <div id="knockout">
+        <div class="w-100 bg-light-gray min-vh-100">
+            <h1 data-bind="visible: trainers.apollo.isRunning">Loading</h1>
+            <div data-bind="visible: !trainers.apollo.isRunning()" style="display:none">
+                <pokedex params="trainers: trainers"></pokedex>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
