@@ -1,6 +1,12 @@
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
-import 'tachyons'
-import './index.css'
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import 'tachyons';
+import './index.css';
+import gql from 'graphql-tag';
+global.jQuery = require('jquery');
+import ko from 'knockout';
+ko.plus = require("ko.plus");
+import 'knockoutcrud';
+import 'knockout-apollo';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface(
@@ -8,14 +14,6 @@ const client = new ApolloClient({
   ),
   dataIdFromObject: o => o.id
 });
-
-// Knockout plugins
-import ko from 'knockout';
-global.jQuery = require('jquery');
-ko.plus = require("ko.plus");
-import 'knockoutcrud';
-import gql from 'graphql-tag';
-import 'knockout-apollo';
 
 
 var PokemonCard = function(data) {
@@ -272,7 +270,7 @@ var ViewModel = function(){
     self.trainers.apollo({
         query: TrainerQuery,
         variables: {
-            name: "Antony Thorpe"
+            name: "Your Name"
         }
     }, {
         resolve: function(data){

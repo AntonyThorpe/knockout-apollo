@@ -15,6 +15,9 @@ Attaches additional methods to Observables/Observable Arrays via a [Custom Funct
 * [ko.plus](http://stevegreatrex.github.io/ko.plus/)
 * [jQuery](http://jquery.com)
 
+## Demo
+Find out info about the Pokemon from https://graphql-pokemon.now.sh/ endpoint at [http://antonythorpe.github.io/knockout-apollo](http://antonythorpe.github.io/knockout-apollo)
+
 ## Installation
 In the command line:
 ```sh
@@ -24,18 +27,26 @@ npm install --save apollo-client graphql-tag knockout knockout-apollo ko.plus jq
 ## Getting Started
 ```js
 // set the JavaScript template literal tag that parses GraphQL query strings into the standard GraphQL AST
+import ApolloClient, {
+	createNetworkInterface
+} from 'apollo-client';
 import gql from 'graphql-tag';
+global.jQuery = require('jquery');
+import ko from 'knockout';
+require('ko.plus');
+import 'knockout-apollo.js';
 
 // Create an ApolloClient
-var apolloClient = new ApolloClient({
+const apolloClient = new ApolloClient({
       networkInterface: createNetworkInterface({ uri: https://yourwebsite.net/graphql})
 });
 
 // Next initialise via a Custom Function
-this.yourObservable = ko.observable().launchApollo(apolloClient, errorCallback);
+var self = this;
+self.yourObservable = ko.observable().launchApollo(apolloClient, errorCallback);
 
 // Now we are ready to make queries etc with Apollo.  Outline below:
-this.yourObservable.apollo({object for Apollo}, {object of callbacks});
+self.yourObservable.apollo({object for Apollo}, {object of callbacks});
 ```
 
 ## Query with Parameters
@@ -64,7 +75,7 @@ var query = gql`query PingMessage($message: String!) {
     ping(message: $message)
 }`;
 
-this.yourObservable.apollo(
+self.yourObservable.apollo(
     {
         query: query,
         variables: {
@@ -75,10 +86,11 @@ this.yourObservable.apollo(
         // callback when successful
         resolve: function(data) {
             console.log(data); //An ApolloQueryResult
+            self.observableToUpdate(data.data.PingMessage);
         },
         // callback to report errors (optional)
         reject: function(error) {
-            console.log(error);
+            self.yourObservable.failMessage("Hey, that didnt work " + error);
         },
         always: function(){
             // called for both success and failure (optional)
@@ -91,7 +103,7 @@ this.yourObservable.apollo(
 Thanks to the `ko.plus` knockout plugin there are a couple of useful public observables.  A loading indicator can be used through `yourObservable.apollo.isRunning` and if failed through `yourObservable.apollo.failed`.  See [link](https://github.com/stevegreatrex/ko.plus/blob/master/README.md#example-implementation).
 
 ## Error Callback
-The default is to console log the error.  For an alternative, provide a callback function as a second arguement to the `launchApollo` function when initialising (or you can simply pass it in with the call).
+The default is to console log the error.  For an alternative, provide a callback function as a second arguement to the `launchApollo` function when initialising (or you can simply pass it in with the call - `ko.plus` provides a `failMessage` observable that can be set within the reject callback).
 
 ## Example
 Under the example folder, is code modified from [Learn Apollo](https://www.learnapollo.com).  If you want to get this up and running:
@@ -99,12 +111,12 @@ Under the example folder, is code modified from [Learn Apollo](https://www.learn
 * cd to exercise 6 and `npm install`
 * copy `index.html` and `index.js` from the example folder and replace the code in exercise 6
 * replace the `client` variable with the configuration noted above from `Learn Apollo`.
+* add your name as the trainer in `index.js` (line 273)
 * then `npm install --save graphql-tag knockout knockout-apollo ko.plus jquery knockoutcrud`
 * To launch a browser `npm start`
 Hope this works :)
 
 ## Todo
-* build Apollo for the browser
 * watchQuery
 * subscriptions
 * tests

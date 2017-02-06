@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="A simple query using knockout-apollo to retrieve data from a GraphQL API">
+		<title>Knockout Apollo Query Example</title>
+	</head>
+	<body>
+		<div id="demo">
+			<h1>Knockout Apollo Query Example</h1>
+			<h2>Pokemons Stats</h2>
+			<h3>Try Pikachu, Eevee, Snorlax, Ditto</h3>
+			<input data-bind="textInput: pokemon" />
+			<button data-bind="click: getPokemon">Click to find out about <span data-bind="text: pokemon"></span></button>
+			<h3 data-bind="visible: pokemon.apollo.isRunning">Loading</h3>
+	        <div data-bind="if: result">
+				<pre data-bind="text: result"></pre>
+	        </div>
+		</div>
+	</body>
+		<script src="demojs/bundle.js"></script>
+</html>
