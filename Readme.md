@@ -116,6 +116,9 @@ Under the example folder, is code modified from [Learn Apollo](https://www.learn
 * To launch a browser `npm start`
 Hope this works :)
 
+## Contributions
+Pull requests most welcome!
+
 ## Todo
 * watchQuery
 * subscriptions
