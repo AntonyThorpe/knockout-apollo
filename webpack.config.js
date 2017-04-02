@@ -1,10 +1,9 @@
 // ./node_modules/webpack/bin/webpack.js
 
 module.exports = {
-	entry: "./js/main.js",
+	entry: "./demojs/main.js",
 	output: {
-		path: "js",
-		filename: "bundle.js"
+		filename: "./demojs/bundle.js"
 	},
 	module: {
 		loaders: [{

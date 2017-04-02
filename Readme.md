@@ -120,7 +120,6 @@ Hope this works :)
 Pull requests most welcome!
 
 ## Todo
-* watchQuery
 * subscriptions
 * tests
 

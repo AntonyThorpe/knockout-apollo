@@ -1,4 +1,5 @@
 # Changelog of Knockout Apollo
 
-0.1.0 Initial commit - Queries and Mutations
+0.2.0 Upgrade to Apollo Client v1
 0.1.1 Added demo
+0.1.0 Initial commit - Queries and Mutations
