@@ -1,9 +1,15 @@
 // ./node_modules/webpack/bin/webpack.js
 
 module.exports = {
-	entry: "./demojs/main.js",
+	entry: { 
+		demo: "./src/demo.js",
+		umd: "./src/createUMD.js"
+	},
 	output: {
-		filename: "./demojs/bundle.js"
+		filename: "[name].bundle.js",
+		path: __dirname + '/dist',
+		libraryTarget: "umd",
+		umdNamedDefine: true
 	},
 	module: {
 		loaders: [{

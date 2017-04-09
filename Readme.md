@@ -2,7 +2,7 @@
 A knockoutjs extension to connect to a GraphQL endpoint through an ApolloClient instance
 
 ## Approach
-* Provide public access to the an instance of the ApolloClient class, as well as, ObservableQuery for the watchQuery/subscribe methods (not fully implemented yet)
+* Provide public access to the an instance of the ApolloClient class, as well as, ObservableQuery for the query, subscribe, etc., methods (subscriptions not fully implemented yet)
 * Utilise the structure and loading features of [ko.plus](http://stevegreatrex.github.io/ko.plus/)
 
 ## How it works
@@ -19,10 +19,25 @@ Attaches additional methods to Observables/Observable Arrays via a [Custom Funct
 Find out info about the Pokemon from https://graphql-pokemon.now.sh/ endpoint at [http://antonythorpe.github.io/knockout-apollo](http://antonythorpe.github.io/knockout-apollo)
 
 ## Installation
-In the command line:
+### Option 1
+From the command line:
 ```sh
 npm install --save apollo-client graphql-tag knockout knockout-apollo ko.plus jquery
 ```
+###Option 2
+A little less flexible way is to install the above dependencies using bower and add as script tags to your html.  From the command line:
+```sh
+bower install --save knockout ko.plus jquery https://github.com/AntonyThorpe/knockout-apollo.git
+```
+Example below:
+```html
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
+<script type="text/javascript" src="bower_components/ko.plus/dist/ko.plus.min.js"></script>
+<script type="text/javascript" src="bower_components/knockout-apollo/knockout-apollo.js"></script>
+<script type="text/javascript" src="bower_components/knockout-apollo/dist/umd.bundle.js"></script>
+```
+The `umd.bundle.js` exposes `ApolloClient`, `createNetworkInterface` (of the Apollo Client library) and `gql` (from GraphQL Tag).
 
 ## Getting Started
 ```js
@@ -92,8 +107,9 @@ self.yourObservable.apollo(
         reject: function(error) {
             self.yourObservable.failMessage("Hey, that didnt work " + error);
         },
+        // called for both success and failure (optional)
         always: function(){
-            // called for both success and failure (optional)
+            ...
         }
     }
 );
@@ -103,7 +119,7 @@ self.yourObservable.apollo(
 Thanks to the `ko.plus` knockout plugin there are a couple of useful public observables.  A loading indicator can be used through `yourObservable.apollo.isRunning` and if failed through `yourObservable.apollo.failed`.  See [link](https://github.com/stevegreatrex/ko.plus/blob/master/README.md#example-implementation).
 
 ## Error Callback
-The default is to console log the error.  For an alternative, provide a callback function as a second arguement to the `launchApollo` function when initialising (or you can simply pass it in with the call - `ko.plus` provides a `failMessage` observable that can be set within the reject callback).
+The default `errorCallback` is to console log the error.  For an alternative, provide a callback function as a second arguement to the `launchApollo` function when initialising (or the third option is that you can simply pass it in with the call).  Note that `ko.plus` provides a `failMessage` observable that can be set within the error callback.
 
 ## Example
 Under the example folder, is code modified from [Learn Apollo](https://www.learnapollo.com).  If you want to get this up and running:
