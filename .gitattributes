@@ -1,10 +1,13 @@
-/.gitattributes export-ignore
-/.gitignore export-ignore
-/css export-ignore
-/src export-ignore
+/demo export-ignore
+/dist/onlinedemo.umd.bundle.js
+/dist/onlinedemo.umd.bundle.min.js
+/learn_apollo_example export-ignore
+/src/apollo-client.js export-ignore
+/src/onlinedemo.js export-ignore
+/src/subscription-transport-ws.js export-ignore
 /tests export-ignore
-/node_modules
-changelog.md export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+.npmignore export-ignore
 index.html export-ignore
-LICENSE export-ignore
-package.json export-ignore
+webpack.config.js export-ignore
