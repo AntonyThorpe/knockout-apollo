@@ -16,9 +16,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 74);
+/******/ 	return __webpack_require__(__webpack_require__.s = 57);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,15 +81,16 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["h"] = valueToObjectRepresentation;
 /* harmony export (immutable) */ __webpack_exports__["g"] = storeKeyNameFromField;
 /* harmony export (immutable) */ __webpack_exports__["b"] = storeKeyNameFromFieldNameAndArgs;
 /* harmony export (immutable) */ __webpack_exports__["d"] = resultKeyNameFromField;
 /* harmony export (immutable) */ __webpack_exports__["c"] = isField;
 /* harmony export (immutable) */ __webpack_exports__["e"] = isInlineFragment;
-/* harmony export (immutable) */ __webpack_exports__["h"] = graphQLResultHasError;
+/* harmony export (immutable) */ __webpack_exports__["i"] = graphQLResultHasError;
 /* harmony export (immutable) */ __webpack_exports__["f"] = isIdValue;
 /* harmony export (immutable) */ __webpack_exports__["a"] = toIdValue;
-/* harmony export (immutable) */ __webpack_exports__["i"] = isJsonValue;
+/* harmony export (immutable) */ __webpack_exports__["j"] = isJsonValue;
 function isStringValue(value) {
     return value.kind === 'StringValue';
 }
@@ -201,15 +202,18 @@ function isJsonValue(jsonObject) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export getMutationDefinition */
-/* harmony export (immutable) */ __webpack_exports__["g"] = checkDocument;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getMutationDefinition;
+/* harmony export (immutable) */ __webpack_exports__["i"] = checkDocument;
 /* harmony export (immutable) */ __webpack_exports__["f"] = getOperationName;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getFragmentDefinitions;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getFragmentDefinitions;
 /* harmony export (immutable) */ __webpack_exports__["b"] = getQueryDefinition;
-/* harmony export (immutable) */ __webpack_exports__["e"] = getOperationDefinition;
+/* harmony export (immutable) */ __webpack_exports__["h"] = getOperationDefinition;
 /* unused harmony export getFragmentDefinition */
 /* harmony export (immutable) */ __webpack_exports__["a"] = createFragmentMap;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getFragmentQueryDocument;
+/* harmony export (immutable) */ __webpack_exports__["e"] = getFragmentQueryDocument;
+/* harmony export (immutable) */ __webpack_exports__["g"] = getDefaultValues;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_storeUtils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_assign__ = __webpack_require__(3);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -218,6 +222,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+
+
 function getMutationDefinition(doc) {
     checkDocument(doc);
     var mutationDef = null;
@@ -253,7 +259,7 @@ function checkDocument(doc) {
     });
 }
 function getOperationName(doc) {
-    var res = '';
+    var res = null;
     doc.definitions.forEach(function (definition) {
         if (definition.kind === 'OperationDefinition' && definition.name) {
             res = definition.name.value;
@@ -358,6 +364,23 @@ function getFragmentQueryDocument(document, fragmentName) {
         ].concat(document.definitions) });
     return query;
 }
+function getDefaultValues(definition) {
+    if (definition.variableDefinitions && definition.variableDefinitions.length) {
+        var defaultValues = definition.variableDefinitions
+            .filter(function (_a) {
+            var defaultValue = _a.defaultValue;
+            return defaultValue;
+        })
+            .map(function (_a) {
+            var variable = _a.variable, defaultValue = _a.defaultValue;
+            var defaultValueObj = {};
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__data_storeUtils__["h" /* valueToObjectRepresentation */])(defaultValueObj, variable.name, defaultValue);
+            return defaultValueObj;
+        });
+        return __WEBPACK_IMPORTED_MODULE_1__util_assign__["a" /* assign */].apply(void 0, [{}].concat(defaultValues));
+    }
+    return {};
+}
 //# sourceMappingURL=getFromAST.js.map
 
 /***/ }),
@@ -365,15 +388,16 @@ function getFragmentQueryDocument(document, fragmentName) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_anywhere__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_anywhere___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_graphql_anywhere__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__storeUtils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_getFromAST__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_isEqual__ = __webpack_require__(7);
 /* unused harmony export ID_KEY */
 /* harmony export (immutable) */ __webpack_exports__["a"] = readQueryFromStore;
 /* harmony export (immutable) */ __webpack_exports__["b"] = diffQueryAgainstStore;
 /* unused harmony export assertIdValue */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_anywhere__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_anywhere___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_graphql_anywhere__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__storeUtils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_getFromAST__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_isEqual__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_assign__ = __webpack_require__(3);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -382,6 +406,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+
 
 
 
@@ -416,7 +441,7 @@ var readStoreResolver = function (fieldName, idValue, args, context, _a) {
         context.hasMissingField = true;
         return fieldValue;
     }
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["i" /* isJsonValue */])(fieldValue)) {
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["j" /* isJsonValue */])(fieldValue)) {
         if (idValue.previousResult && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_isEqual__["a" /* isEqual */])(idValue.previousResult[resultKey], fieldValue.json)) {
             return idValue.previousResult[resultKey];
         }
@@ -429,7 +454,8 @@ var readStoreResolver = function (fieldName, idValue, args, context, _a) {
 };
 function diffQueryAgainstStore(_a) {
     var store = _a.store, query = _a.query, variables = _a.variables, previousResult = _a.previousResult, _b = _a.returnPartialData, returnPartialData = _b === void 0 ? true : _b, _c = _a.rootId, rootId = _c === void 0 ? 'ROOT_QUERY' : _c, fragmentMatcherFunction = _a.fragmentMatcherFunction, config = _a.config;
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_getFromAST__["b" /* getQueryDefinition */])(query);
+    var queryDefinition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_getFromAST__["b" /* getQueryDefinition */])(query);
+    variables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_assign__["a" /* assign */])({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_getFromAST__["g" /* getDefaultValues */])(queryDefinition), variables);
     var context = {
         store: store,
         returnPartialData: returnPartialData,
@@ -463,7 +489,7 @@ function addPreviousResultToIdValues(value, previousResult) {
         var idToPreviousResult_1 = {};
         if (Array.isArray(previousResult)) {
             previousResult.forEach(function (item) {
-                if (item[ID_KEY]) {
+                if (item && item[ID_KEY]) {
                     idToPreviousResult_1[item[ID_KEY]] = item;
                 }
             });
@@ -512,302 +538,26 @@ function areNestedArrayItemsStrictlyEqual(a, b) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__storeUtils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_directives__ = __webpack_require__(42);
-/* harmony export (immutable) */ __webpack_exports__["a"] = writeQueryToStore;
-/* harmony export (immutable) */ __webpack_exports__["b"] = writeResultToStore;
-/* unused harmony export writeSelectionSetToStore */
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
+/* harmony export (immutable) */ __webpack_exports__["a"] = assign;
+function assign(target) {
+    var sources = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        sources[_i - 1] = arguments[_i];
     }
-    return t;
-};
-
-
-
-
-function writeQueryToStore(_a) {
-    var result = _a.result, query = _a.query, _b = _a.store, store = _b === void 0 ? {} : _b, variables = _a.variables, dataIdFromObject = _a.dataIdFromObject, _c = _a.fragmentMap, fragmentMap = _c === void 0 ? {} : _c;
-    var queryDefinition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["b" /* getQueryDefinition */])(query);
-    return writeSelectionSetToStore({
-        dataId: 'ROOT_QUERY',
-        result: result,
-        selectionSet: queryDefinition.selectionSet,
-        context: {
-            store: store,
-            variables: variables,
-            dataIdFromObject: dataIdFromObject,
-            fragmentMap: fragmentMap,
-        },
-    });
-}
-function writeResultToStore(_a) {
-    var result = _a.result, dataId = _a.dataId, document = _a.document, _b = _a.store, store = _b === void 0 ? {} : _b, variables = _a.variables, dataIdFromObject = _a.dataIdFromObject;
-    var selectionSet = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["e" /* getOperationDefinition */])(document).selectionSet;
-    var fragmentMap = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["a" /* createFragmentMap */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["c" /* getFragmentDefinitions */])(document));
-    return writeSelectionSetToStore({
-        result: result,
-        dataId: dataId,
-        selectionSet: selectionSet,
-        context: {
-            store: store,
-            variables: variables,
-            dataIdFromObject: dataIdFromObject,
-            fragmentMap: fragmentMap,
-        },
-    });
-}
-function writeSelectionSetToStore(_a) {
-    var result = _a.result, dataId = _a.dataId, selectionSet = _a.selectionSet, context = _a.context;
-    var variables = context.variables, store = context.store, dataIdFromObject = context.dataIdFromObject, fragmentMap = context.fragmentMap;
-    selectionSet.selections.forEach(function (selection) {
-        var included = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_directives__["a" /* shouldInclude */])(selection, variables);
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["c" /* isField */])(selection)) {
-            var resultFieldKey = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["d" /* resultKeyNameFromField */])(selection);
-            var value = result[resultFieldKey];
-            if (value !== undefined) {
-                writeFieldToStore({
-                    dataId: dataId,
-                    value: value,
-                    field: selection,
-                    context: context,
-                });
-            }
+    sources.forEach(function (source) {
+        if (typeof (source) === 'undefined' || source === null) {
+            return;
         }
-        else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["e" /* isInlineFragment */])(selection)) {
-            if (included) {
-                writeSelectionSetToStore({
-                    result: result,
-                    selectionSet: selection.selectionSet,
-                    dataId: dataId,
-                    context: context,
-                });
-            }
-        }
-        else {
-            var fragment = void 0;
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["e" /* isInlineFragment */])(selection)) {
-                fragment = selection;
-            }
-            else {
-                fragment = (fragmentMap || {})[selection.name.value];
-                if (!fragment) {
-                    throw new Error("No fragment named " + selection.name.value + ".");
-                }
-            }
-            if (included) {
-                writeSelectionSetToStore({
-                    result: result,
-                    selectionSet: fragment.selectionSet,
-                    dataId: dataId,
-                    context: context,
-                });
-            }
-        }
-    });
-    return store;
-}
-function isGeneratedId(id) {
-    return (id[0] === '$');
-}
-function mergeWithGenerated(generatedKey, realKey, cache) {
-    var generated = cache[generatedKey];
-    var real = cache[realKey];
-    Object.keys(generated).forEach(function (key) {
-        var value = generated[key];
-        var realValue = real[key];
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(value)
-            && isGeneratedId(value.id)
-            && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(realValue)) {
-            mergeWithGenerated(value.id, realValue.id, cache);
-        }
-        delete cache[generatedKey];
-        cache[realKey] = __assign({}, generated, real);
-    });
-}
-function writeFieldToStore(_a) {
-    var field = _a.field, value = _a.value, dataId = _a.dataId, context = _a.context;
-    var variables = context.variables, dataIdFromObject = context.dataIdFromObject, store = context.store, fragmentMap = context.fragmentMap;
-    var storeValue;
-    var storeFieldName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["g" /* storeKeyNameFromField */])(field, variables);
-    var shouldMerge = false;
-    var generatedKey = '';
-    if (!field.selectionSet || value === null) {
-        storeValue =
-            value != null && typeof value === 'object'
-                ? { type: 'json', json: value }
-                : value;
-    }
-    else if (Array.isArray(value)) {
-        var generatedId = dataId + "." + storeFieldName;
-        storeValue = processArrayValue(value, generatedId, field.selectionSet, context);
-    }
-    else {
-        var valueDataId = dataId + "." + storeFieldName;
-        var generated = true;
-        if (!isGeneratedId(valueDataId)) {
-            valueDataId = '$' + valueDataId;
-        }
-        if (dataIdFromObject) {
-            var semanticId = dataIdFromObject(value);
-            if (semanticId && isGeneratedId(semanticId)) {
-                throw new Error('IDs returned by dataIdFromObject cannot begin with the "$" character.');
-            }
-            if (semanticId) {
-                valueDataId = semanticId;
-                generated = false;
-            }
-        }
-        writeSelectionSetToStore({
-            dataId: valueDataId,
-            result: value,
-            selectionSet: field.selectionSet,
-            context: context,
+        Object.keys(source).forEach(function (key) {
+            target[key] = source[key];
         });
-        storeValue = {
-            type: 'id',
-            id: valueDataId,
-            generated: generated,
-        };
-        if (store[dataId] && store[dataId][storeFieldName] !== storeValue) {
-            var escapedId = store[dataId][storeFieldName];
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(storeValue) && storeValue.generated
-                && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(escapedId) && !escapedId.generated) {
-                throw new Error("Store error: the application attempted to write an object with no provided id" +
-                    (" but the store already contains an id of " + escapedId.id + " for this object."));
-            }
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(escapedId) && escapedId.generated) {
-                generatedKey = escapedId.id;
-                shouldMerge = true;
-            }
-        }
-    }
-    var newStoreObj = __assign({}, store[dataId], (_b = {}, _b[storeFieldName] = storeValue, _b));
-    if (shouldMerge) {
-        mergeWithGenerated(generatedKey, storeValue.id, store);
-    }
-    if (!store[dataId] || storeValue !== store[dataId][storeFieldName]) {
-        store[dataId] = newStoreObj;
-    }
-    var _b;
-}
-function processArrayValue(value, generatedId, selectionSet, context) {
-    return value.map(function (item, index) {
-        if (item === null) {
-            return null;
-        }
-        var itemDataId = generatedId + "." + index;
-        if (Array.isArray(item)) {
-            return processArrayValue(item, itemDataId, selectionSet, context);
-        }
-        var generated = true;
-        if (context.dataIdFromObject) {
-            var semanticId = context.dataIdFromObject(item);
-            if (semanticId) {
-                itemDataId = semanticId;
-                generated = false;
-            }
-        }
-        writeSelectionSetToStore({
-            dataId: itemDataId,
-            result: item,
-            selectionSet: selectionSet,
-            context: context,
-        });
-        var idStoreValue = {
-            type: 'id',
-            id: itemDataId,
-            generated: generated,
-        };
-        return idStoreValue;
     });
+    return target;
 }
-//# sourceMappingURL=writeToStore.js.map
+//# sourceMappingURL=assign.js.map
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NetworkStatus; });
-/* harmony export (immutable) */ __webpack_exports__["b"] = isNetworkRequestInFlight;
-var NetworkStatus;
-(function (NetworkStatus) {
-    NetworkStatus[NetworkStatus["loading"] = 1] = "loading";
-    NetworkStatus[NetworkStatus["setVariables"] = 2] = "setVariables";
-    NetworkStatus[NetworkStatus["fetchMore"] = 3] = "fetchMore";
-    NetworkStatus[NetworkStatus["refetch"] = 4] = "refetch";
-    NetworkStatus[NetworkStatus["poll"] = 6] = "poll";
-    NetworkStatus[NetworkStatus["ready"] = 7] = "ready";
-    NetworkStatus[NetworkStatus["error"] = 8] = "error";
-})(NetworkStatus || (NetworkStatus = {}));
-function isNetworkRequestInFlight(networkStatus) {
-    return networkStatus < 7;
-}
-//# sourceMappingURL=networkStatus.js.map
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = isQueryResultAction;
-/* harmony export (immutable) */ __webpack_exports__["j"] = isQueryErrorAction;
-/* harmony export (immutable) */ __webpack_exports__["i"] = isQueryInitAction;
-/* harmony export (immutable) */ __webpack_exports__["k"] = isQueryResultClientAction;
-/* harmony export (immutable) */ __webpack_exports__["l"] = isQueryStopAction;
-/* harmony export (immutable) */ __webpack_exports__["a"] = isMutationInitAction;
-/* harmony export (immutable) */ __webpack_exports__["c"] = isMutationResultAction;
-/* harmony export (immutable) */ __webpack_exports__["b"] = isMutationErrorAction;
-/* harmony export (immutable) */ __webpack_exports__["f"] = isUpdateQueryResultAction;
-/* harmony export (immutable) */ __webpack_exports__["g"] = isStoreResetAction;
-/* harmony export (immutable) */ __webpack_exports__["e"] = isSubscriptionResultAction;
-/* harmony export (immutable) */ __webpack_exports__["h"] = isWriteAction;
-function isQueryResultAction(action) {
-    return action.type === 'APOLLO_QUERY_RESULT';
-}
-function isQueryErrorAction(action) {
-    return action.type === 'APOLLO_QUERY_ERROR';
-}
-function isQueryInitAction(action) {
-    return action.type === 'APOLLO_QUERY_INIT';
-}
-function isQueryResultClientAction(action) {
-    return action.type === 'APOLLO_QUERY_RESULT_CLIENT';
-}
-function isQueryStopAction(action) {
-    return action.type === 'APOLLO_QUERY_STOP';
-}
-function isMutationInitAction(action) {
-    return action.type === 'APOLLO_MUTATION_INIT';
-}
-function isMutationResultAction(action) {
-    return action.type === 'APOLLO_MUTATION_RESULT';
-}
-;
-function isMutationErrorAction(action) {
-    return action.type === 'APOLLO_MUTATION_ERROR';
-}
-function isUpdateQueryResultAction(action) {
-    return action.type === 'APOLLO_UPDATE_QUERY_RESULT';
-}
-function isStoreResetAction(action) {
-    return action.type === 'APOLLO_STORE_RESET';
-}
-function isSubscriptionResultAction(action) {
-    return action.type === 'APOLLO_SUBSCRIPTION_RESULT';
-}
-function isWriteAction(action) {
-    return action.type === 'APOLLO_WRITE';
-}
-//# sourceMappingURL=actions.js.map
-
-/***/ }),
-/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -817,8 +567,8 @@ function isWriteAction(action) {
 /* harmony export (immutable) */ __webpack_exports__["b"] = isDevelopment;
 /* harmony export (immutable) */ __webpack_exports__["c"] = isTest;
 function getEnv() {
-    if (typeof process !== 'undefined' && process.env.NODE_ENV) {
-        return process.env.NODE_ENV;
+    if (typeof process !== 'undefined' && undefined) {
+        return undefined;
     }
     return 'development';
 }
@@ -835,42 +585,10 @@ function isTest() {
     return isEnv('test') === true;
 }
 //# sourceMappingURL=environment.js.map
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(11)))
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = isEqual;
-function isEqual(a, b) {
-    if (a === b) {
-        return true;
-    }
-    if (a != null && typeof a === 'object' && b != null && typeof b === 'object') {
-        for (var key in a) {
-            if (a.hasOwnProperty(key)) {
-                if (!b.hasOwnProperty(key)) {
-                    return false;
-                }
-                if (!isEqual(a[key], b[key])) {
-                    return false;
-                }
-            }
-        }
-        for (var key in b) {
-            if (!a.hasOwnProperty(key)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    return false;
-}
-//# sourceMappingURL=isEqual.js.map
-
-/***/ }),
-/* 8 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -881,7 +599,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.print = print;
 
-var _visitor = __webpack_require__(56);
+var _visitor = __webpack_require__(21);
 
 /**
  * Converts an AST into a string, using one set of reasonable
@@ -1158,18 +876,73 @@ function indent(maybeString) {
 }
 
 /***/ }),
-/* 9 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_Observable__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__errors_ApolloError__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_errorHandling__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_isEqual__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_maybeDeepFreeze__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__ = __webpack_require__(4);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObservableQuery; });
+/* harmony export (immutable) */ __webpack_exports__["d"] = isQueryResultAction;
+/* harmony export (immutable) */ __webpack_exports__["j"] = isQueryErrorAction;
+/* harmony export (immutable) */ __webpack_exports__["i"] = isQueryInitAction;
+/* harmony export (immutable) */ __webpack_exports__["k"] = isQueryResultClientAction;
+/* harmony export (immutable) */ __webpack_exports__["l"] = isQueryStopAction;
+/* harmony export (immutable) */ __webpack_exports__["a"] = isMutationInitAction;
+/* harmony export (immutable) */ __webpack_exports__["c"] = isMutationResultAction;
+/* harmony export (immutable) */ __webpack_exports__["b"] = isMutationErrorAction;
+/* harmony export (immutable) */ __webpack_exports__["f"] = isUpdateQueryResultAction;
+/* harmony export (immutable) */ __webpack_exports__["g"] = isStoreResetAction;
+/* harmony export (immutable) */ __webpack_exports__["e"] = isSubscriptionResultAction;
+/* harmony export (immutable) */ __webpack_exports__["h"] = isWriteAction;
+function isQueryResultAction(action) {
+    return action.type === 'APOLLO_QUERY_RESULT';
+}
+function isQueryErrorAction(action) {
+    return action.type === 'APOLLO_QUERY_ERROR';
+}
+function isQueryInitAction(action) {
+    return action.type === 'APOLLO_QUERY_INIT';
+}
+function isQueryResultClientAction(action) {
+    return action.type === 'APOLLO_QUERY_RESULT_CLIENT';
+}
+function isQueryStopAction(action) {
+    return action.type === 'APOLLO_QUERY_STOP';
+}
+function isMutationInitAction(action) {
+    return action.type === 'APOLLO_MUTATION_INIT';
+}
+function isMutationResultAction(action) {
+    return action.type === 'APOLLO_MUTATION_RESULT';
+}
+function isMutationErrorAction(action) {
+    return action.type === 'APOLLO_MUTATION_ERROR';
+}
+function isUpdateQueryResultAction(action) {
+    return action.type === 'APOLLO_UPDATE_QUERY_RESULT';
+}
+function isStoreResetAction(action) {
+    return action.type === 'APOLLO_STORE_RESET';
+}
+function isSubscriptionResultAction(action) {
+    return action.type === 'APOLLO_SUBSCRIPTION_RESULT';
+}
+function isWriteAction(action) {
+    return action.type === 'APOLLO_WRITE';
+}
+//# sourceMappingURL=actions.js.map
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = writeQueryToStore;
+/* harmony export (immutable) */ __webpack_exports__["b"] = writeResultToStore;
+/* unused harmony export writeSelectionSetToStore */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__storeUtils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_directives__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_environment__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_assign__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1194,797 +967,330 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 
 
 
-
-var ObservableQuery = (function (_super) {
-    __extends(ObservableQuery, _super);
-    function ObservableQuery(_a) {
-        var scheduler = _a.scheduler, options = _a.options, _b = _a.shouldSubscribe, shouldSubscribe = _b === void 0 ? true : _b;
-        var _this = this;
-        var queryManager = scheduler.queryManager;
-        var queryId = queryManager.generateQueryId();
-        var subscriberFunction = function (observer) {
-            return _this.onSubscribe(observer);
-        };
-        _this = _super.call(this, subscriberFunction) || this;
-        _this.isCurrentlyPolling = false;
-        _this.options = options;
-        _this.variables = _this.options.variables || {};
-        _this.scheduler = scheduler;
-        _this.queryManager = queryManager;
-        _this.queryId = queryId;
-        _this.shouldSubscribe = shouldSubscribe;
-        _this.observers = [];
-        _this.subscriptionHandles = [];
+var WriteError = (function (_super) {
+    __extends(WriteError, _super);
+    function WriteError() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'WriteError';
         return _this;
     }
-    ObservableQuery.prototype.result = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            var subscription = _this.subscribe({
-                next: function (result) {
-                    resolve(result);
-                    setTimeout(function () {
-                        subscription.unsubscribe();
-                    }, 0);
-                },
-                error: function (error) {
-                    reject(error);
-                },
-            });
-        });
-    };
-    ObservableQuery.prototype.currentResult = function () {
-        var _a = this.queryManager.getCurrentQueryResult(this, true), data = _a.data, partial = _a.partial;
-        var queryStoreValue = this.queryManager.getApolloState().queries[this.queryId];
-        if (queryStoreValue && ((queryStoreValue.graphQLErrors && queryStoreValue.graphQLErrors.length > 0) ||
-            queryStoreValue.networkError)) {
-            var error = new __WEBPACK_IMPORTED_MODULE_1__errors_ApolloError__["a" /* ApolloError */]({
-                graphQLErrors: queryStoreValue.graphQLErrors,
-                networkError: queryStoreValue.networkError,
-            });
-            return { data: {}, loading: false, networkStatus: queryStoreValue.networkStatus, error: error };
-        }
-        var queryLoading = !queryStoreValue || queryStoreValue.networkStatus === __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["a" /* NetworkStatus */].loading;
-        var loading = (this.options.fetchPolicy === 'network-only' && queryLoading)
-            || (partial && this.options.fetchPolicy !== 'cache-only');
-        var networkStatus;
-        if (queryStoreValue) {
-            networkStatus = queryStoreValue.networkStatus;
-        }
-        else {
-            networkStatus = loading ? __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["a" /* NetworkStatus */].loading : __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["a" /* NetworkStatus */].ready;
-        }
-        return {
-            data: data,
-            loading: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(networkStatus),
-            networkStatus: networkStatus,
-            partial: partial,
-        };
-    };
-    ObservableQuery.prototype.getLastResult = function () {
-        return this.lastResult;
-    };
-    ObservableQuery.prototype.refetch = function (variables) {
-        this.variables = __assign({}, this.variables, variables);
-        if (this.options.fetchPolicy === 'cache-only') {
-            throw new Error('cache-only fetchPolicy option should not be used together with query refetch.');
-        }
-        this.options.variables = __assign({}, this.options.variables, this.variables);
-        var combinedOptions = __assign({}, this.options, { fetchPolicy: 'network-only' });
-        return this.queryManager.fetchQuery(this.queryId, combinedOptions, __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].refetch)
-            .then(function (result) { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__util_maybeDeepFreeze__["a" /* default */])(result); });
-    };
-    ObservableQuery.prototype.fetchMore = function (fetchMoreOptions) {
-        var _this = this;
-        if (!fetchMoreOptions.updateQuery) {
-            throw new Error('updateQuery option is required. This function defines how to update the query data with the new results.');
-        }
-        return Promise.resolve()
-            .then(function () {
-            var qid = _this.queryManager.generateQueryId();
-            var combinedOptions = null;
-            if (fetchMoreOptions.query) {
-                combinedOptions = fetchMoreOptions;
-            }
-            else {
-                var variables = __assign({}, _this.variables, fetchMoreOptions.variables);
-                combinedOptions = __assign({}, _this.options, fetchMoreOptions, { variables: variables });
-            }
-            combinedOptions = __assign({}, combinedOptions, { query: combinedOptions.query, fetchPolicy: 'network-only' });
-            return _this.queryManager.fetchQuery(qid, combinedOptions, __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].normal, _this.queryId);
-        })
-            .then(function (fetchMoreResult) {
-            var data = fetchMoreResult.data;
-            var reducer = fetchMoreOptions.updateQuery;
-            var mapFn = function (previousResult, _a) {
-                var variables = _a.variables;
-                var queryVariables = variables;
-                return reducer(previousResult, {
-                    fetchMoreResult: data,
-                    queryVariables: queryVariables,
-                });
-            };
-            _this.updateQuery(mapFn);
-            return fetchMoreResult;
-        });
-    };
-    ObservableQuery.prototype.subscribeToMore = function (options) {
-        var _this = this;
-        var observable = this.queryManager.startGraphQLSubscription({
-            query: options.document,
-            variables: options.variables,
-        });
-        var subscription = observable.subscribe({
-            next: function (data) {
-                if (options.updateQuery) {
-                    var reducer_1 = options.updateQuery;
-                    var mapFn = function (previousResult, _a) {
-                        var variables = _a.variables;
-                        return reducer_1(previousResult, {
-                            subscriptionData: { data: data },
-                            variables: variables,
-                        });
-                    };
-                    _this.updateQuery(mapFn);
-                }
+    return WriteError;
+}(Error));
+function enhanceErrorWithDocument(error, document) {
+    var enhancedError = new WriteError("Error writing result to store for query " + (document.loc && document.loc.source && document.loc.source.body));
+    enhancedError.message += '/n' + error.message;
+    enhancedError.stack = error.stack;
+    return enhancedError;
+}
+function writeQueryToStore(_a) {
+    var result = _a.result, query = _a.query, _b = _a.store, store = _b === void 0 ? {} : _b, variables = _a.variables, dataIdFromObject = _a.dataIdFromObject, _c = _a.fragmentMap, fragmentMap = _c === void 0 ? {} : _c, fragmentMatcherFunction = _a.fragmentMatcherFunction;
+    var queryDefinition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["b" /* getQueryDefinition */])(query);
+    variables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_assign__["a" /* assign */])({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["g" /* getDefaultValues */])(queryDefinition), variables);
+    try {
+        return writeSelectionSetToStore({
+            dataId: 'ROOT_QUERY',
+            result: result,
+            selectionSet: queryDefinition.selectionSet,
+            context: {
+                store: store,
+                variables: variables,
+                dataIdFromObject: dataIdFromObject,
+                fragmentMap: fragmentMap,
+                fragmentMatcherFunction: fragmentMatcherFunction,
             },
-            error: function (err) {
-                if (options.onError) {
-                    options.onError(err);
+        });
+    }
+    catch (e) {
+        throw enhanceErrorWithDocument(e, query);
+    }
+}
+function writeResultToStore(_a) {
+    var dataId = _a.dataId, result = _a.result, document = _a.document, _b = _a.store, store = _b === void 0 ? {} : _b, variables = _a.variables, dataIdFromObject = _a.dataIdFromObject, fragmentMatcherFunction = _a.fragmentMatcherFunction;
+    var operationDefinition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["h" /* getOperationDefinition */])(document);
+    var selectionSet = operationDefinition.selectionSet;
+    var fragmentMap = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["a" /* createFragmentMap */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["d" /* getFragmentDefinitions */])(document));
+    variables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_assign__["a" /* assign */])({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["g" /* getDefaultValues */])(operationDefinition), variables);
+    try {
+        return writeSelectionSetToStore({
+            result: result,
+            dataId: dataId,
+            selectionSet: selectionSet,
+            context: {
+                store: store,
+                variables: variables,
+                dataIdFromObject: dataIdFromObject,
+                fragmentMap: fragmentMap,
+                fragmentMatcherFunction: fragmentMatcherFunction,
+            },
+        });
+    }
+    catch (e) {
+        throw enhanceErrorWithDocument(e, document);
+    }
+}
+function writeSelectionSetToStore(_a) {
+    var result = _a.result, dataId = _a.dataId, selectionSet = _a.selectionSet, context = _a.context;
+    var variables = context.variables, store = context.store, dataIdFromObject = context.dataIdFromObject, fragmentMap = context.fragmentMap;
+    selectionSet.selections.forEach(function (selection) {
+        var included = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_directives__["a" /* shouldInclude */])(selection, variables);
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["c" /* isField */])(selection)) {
+            var resultFieldKey = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["d" /* resultKeyNameFromField */])(selection);
+            var value = result[resultFieldKey];
+            if (included) {
+                if (typeof value !== 'undefined') {
+                    writeFieldToStore({
+                        dataId: dataId,
+                        value: value,
+                        field: selection,
+                        context: context,
+                    });
                 }
                 else {
-                    console.error('Unhandled GraphQL subscription error', err);
+                    if (context.fragmentMatcherFunction) {
+                        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_environment__["a" /* isProduction */])()) {
+                            console.warn("Missing field " + resultFieldKey);
+                        }
+                    }
                 }
-            },
-        });
-        this.subscriptionHandles.push(subscription);
-        return function () {
-            var i = _this.subscriptionHandles.indexOf(subscription);
-            if (i >= 0) {
-                _this.subscriptionHandles.splice(i, 1);
-                subscription.unsubscribe();
             }
-        };
-    };
-    ObservableQuery.prototype.setOptions = function (opts) {
-        var oldOptions = this.options;
-        this.options = __assign({}, this.options, opts);
-        if (opts.pollInterval) {
-            this.startPolling(opts.pollInterval);
-        }
-        else if (opts.pollInterval === 0) {
-            this.stopPolling();
-        }
-        var tryFetch = (oldOptions.fetchPolicy !== 'network-only' && opts.fetchPolicy === 'network-only')
-            || (oldOptions.fetchPolicy === 'cache-only' && opts.fetchPolicy !== 'cache-only')
-            || false;
-        return this.setVariables(this.options.variables, tryFetch);
-    };
-    ObservableQuery.prototype.setVariables = function (variables, tryFetch) {
-        if (tryFetch === void 0) { tryFetch = false; }
-        var newVariables = __assign({}, this.variables, variables);
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_isEqual__["a" /* isEqual */])(newVariables, this.variables) && !tryFetch) {
-            if (this.observers.length === 0) {
-                return new Promise(function (resolve) { return resolve(); });
-            }
-            return this.result();
         }
         else {
-            this.variables = newVariables;
-            if (this.observers.length === 0) {
-                return new Promise(function (resolve) { return resolve(); });
+            var fragment = void 0;
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["e" /* isInlineFragment */])(selection)) {
+                fragment = selection;
             }
-            return this.queryManager.fetchQuery(this.queryId, __assign({}, this.options, { variables: this.variables }))
-                .then(function (result) { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__util_maybeDeepFreeze__["a" /* default */])(result); });
-        }
-    };
-    ObservableQuery.prototype.updateQuery = function (mapFn) {
-        var _a = this.queryManager.getQueryWithPreviousResult(this.queryId), previousResult = _a.previousResult, variables = _a.variables, document = _a.document;
-        var newResult = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_errorHandling__["a" /* tryFunctionOrLogError */])(function () { return mapFn(previousResult, { variables: variables }); });
-        if (newResult) {
-            this.queryManager.store.dispatch({
-                type: 'APOLLO_UPDATE_QUERY_RESULT',
-                newResult: newResult,
-                variables: variables,
-                document: document,
-            });
-        }
-    };
-    ObservableQuery.prototype.stopPolling = function () {
-        if (this.isCurrentlyPolling) {
-            this.scheduler.stopPollingQuery(this.queryId);
-            this.options.pollInterval = undefined;
-            this.isCurrentlyPolling = false;
-        }
-    };
-    ObservableQuery.prototype.startPolling = function (pollInterval) {
-        if (this.options.fetchPolicy === 'cache-first' || (this.options.fetchPolicy === 'cache-only')) {
-            throw new Error('Queries that specify the cache-first and cache-only fetchPolicies cannot also be polling queries.');
-        }
-        if (this.isCurrentlyPolling) {
-            this.scheduler.stopPollingQuery(this.queryId);
-            this.isCurrentlyPolling = false;
-        }
-        this.options.pollInterval = pollInterval;
-        this.isCurrentlyPolling = true;
-        this.scheduler.startPollingQuery(this.options, this.queryId);
-    };
-    ObservableQuery.prototype.onSubscribe = function (observer) {
-        var _this = this;
-        this.observers.push(observer);
-        if (observer.next && this.lastResult) {
-            observer.next(this.lastResult);
-        }
-        if (observer.error && this.lastError) {
-            observer.error(this.lastError);
-        }
-        if (this.observers.length === 1) {
-            this.setUpQuery();
-        }
-        var retQuerySubscription = {
-            unsubscribe: function () {
-                if (_this.observers.findIndex(function (el) { return el === observer; }) < 0) {
-                    return;
+            else {
+                fragment = (fragmentMap || {})[selection.name.value];
+                if (!fragment) {
+                    throw new Error("No fragment named " + selection.name.value + ".");
                 }
-                _this.observers = _this.observers.filter(function (obs) { return obs !== observer; });
-                if (_this.observers.length === 0) {
-                    _this.tearDownQuery();
-                }
-            },
-        };
-        return retQuerySubscription;
-    };
-    ObservableQuery.prototype.setUpQuery = function () {
-        var _this = this;
-        if (this.shouldSubscribe) {
-            this.queryManager.addObservableQuery(this.queryId, this);
-        }
-        if (!!this.options.pollInterval) {
-            if (this.options.fetchPolicy === 'cache-first' || (this.options.fetchPolicy === 'cache-only')) {
-                throw new Error('Queries that specify the cache-first and cache-only fetchPolicies cannot also be polling queries.');
             }
-            this.isCurrentlyPolling = true;
-            this.scheduler.startPollingQuery(this.options, this.queryId);
+            var matches = true;
+            if (context.fragmentMatcherFunction && fragment.typeCondition) {
+                var idValue = { type: 'id', id: 'self', generated: false };
+                var fakeContext = {
+                    store: { 'self': result },
+                    returnPartialData: false,
+                    hasMissingField: false,
+                    customResolvers: {},
+                };
+                matches = context.fragmentMatcherFunction(idValue, fragment.typeCondition.name.value, fakeContext);
+                if (fakeContext.returnPartialData) {
+                    console.error('WARNING: heuristic fragment matching going on!');
+                }
+            }
+            if (included && matches) {
+                writeSelectionSetToStore({
+                    result: result,
+                    selectionSet: fragment.selectionSet,
+                    dataId: dataId,
+                    context: context,
+                });
+            }
         }
-        var observer = {
-            next: function (result) {
-                _this.lastResult = result;
-                _this.observers.forEach(function (obs) {
-                    if (obs.next) {
-                        obs.next(result);
-                    }
-                });
-            },
-            error: function (error) {
-                _this.observers.forEach(function (obs) {
-                    if (obs.error) {
-                        obs.error(error);
-                    }
-                    else {
-                        console.error('Unhandled error', error.message, error.stack);
-                    }
-                });
-                _this.lastError = error;
-            },
+    });
+    return store;
+}
+function isGeneratedId(id) {
+    return (id[0] === '$');
+}
+function mergeWithGenerated(generatedKey, realKey, cache) {
+    var generated = cache[generatedKey];
+    var real = cache[realKey];
+    Object.keys(generated).forEach(function (key) {
+        var value = generated[key];
+        var realValue = real[key];
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(value)
+            && isGeneratedId(value.id)
+            && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(realValue)) {
+            mergeWithGenerated(value.id, realValue.id, cache);
+        }
+        delete cache[generatedKey];
+        cache[realKey] = __assign({}, generated, real);
+    });
+}
+function writeFieldToStore(_a) {
+    var field = _a.field, value = _a.value, dataId = _a.dataId, context = _a.context;
+    var variables = context.variables, dataIdFromObject = context.dataIdFromObject, store = context.store, fragmentMap = context.fragmentMap;
+    var storeValue;
+    var storeFieldName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["g" /* storeKeyNameFromField */])(field, variables);
+    var shouldMerge = false;
+    var generatedKey = '';
+    if (!field.selectionSet || value === null) {
+        storeValue =
+            value != null && typeof value === 'object'
+                ? { type: 'json', json: value }
+                : value;
+    }
+    else if (Array.isArray(value)) {
+        var generatedId = dataId + "." + storeFieldName;
+        storeValue = processArrayValue(value, generatedId, field.selectionSet, context);
+    }
+    else {
+        var valueDataId = dataId + "." + storeFieldName;
+        var generated = true;
+        if (!isGeneratedId(valueDataId)) {
+            valueDataId = '$' + valueDataId;
+        }
+        if (dataIdFromObject) {
+            var semanticId = dataIdFromObject(value);
+            if (semanticId && isGeneratedId(semanticId)) {
+                throw new Error('IDs returned by dataIdFromObject cannot begin with the "$" character.');
+            }
+            if (semanticId) {
+                valueDataId = semanticId;
+                generated = false;
+            }
+        }
+        writeSelectionSetToStore({
+            dataId: valueDataId,
+            result: value,
+            selectionSet: field.selectionSet,
+            context: context,
+        });
+        storeValue = {
+            type: 'id',
+            id: valueDataId,
+            generated: generated,
         };
-        this.queryManager.startQuery(this.queryId, this.options, this.queryManager.queryListenerForObserver(this.queryId, this.options, observer));
-    };
-    ObservableQuery.prototype.tearDownQuery = function () {
-        if (this.isCurrentlyPolling) {
-            this.scheduler.stopPollingQuery(this.queryId);
-            this.isCurrentlyPolling = false;
+        if (store[dataId] && store[dataId][storeFieldName] !== storeValue) {
+            var escapedId = store[dataId][storeFieldName];
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(storeValue) && storeValue.generated
+                && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(escapedId) && !escapedId.generated) {
+                throw new Error("Store error: the application attempted to write an object with no provided id" +
+                    (" but the store already contains an id of " + escapedId.id + " for this object."));
+            }
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__storeUtils__["f" /* isIdValue */])(escapedId) && escapedId.generated) {
+                generatedKey = escapedId.id;
+                shouldMerge = true;
+            }
         }
-        this.subscriptionHandles.forEach(function (sub) { return sub.unsubscribe(); });
-        this.subscriptionHandles = [];
-        this.queryManager.stopQuery(this.queryId);
-        if (this.shouldSubscribe) {
-            this.queryManager.removeObservableQuery(this.queryId);
+    }
+    var newStoreObj = __assign({}, store[dataId], (_b = {}, _b[storeFieldName] = storeValue, _b));
+    if (shouldMerge) {
+        mergeWithGenerated(generatedKey, storeValue.id, store);
+    }
+    if (!store[dataId] || storeValue !== store[dataId][storeFieldName]) {
+        store[dataId] = newStoreObj;
+    }
+    var _b;
+}
+function processArrayValue(value, generatedId, selectionSet, context) {
+    return value.map(function (item, index) {
+        if (item === null) {
+            return null;
         }
-        this.observers = [];
-    };
-    return ObservableQuery;
-}(__WEBPACK_IMPORTED_MODULE_0__util_Observable__["a" /* Observable */]));
+        var itemDataId = generatedId + "." + index;
+        if (Array.isArray(item)) {
+            return processArrayValue(item, itemDataId, selectionSet, context);
+        }
+        var generated = true;
+        if (context.dataIdFromObject) {
+            var semanticId = context.dataIdFromObject(item);
+            if (semanticId) {
+                itemDataId = semanticId;
+                generated = false;
+            }
+        }
+        writeSelectionSetToStore({
+            dataId: itemDataId,
+            result: item,
+            selectionSet: selectionSet,
+            context: context,
+        });
+        var idStoreValue = {
+            type: 'id',
+            id: itemDataId,
+            generated: generated,
+        };
+        return idStoreValue;
+    });
+}
+//# sourceMappingURL=writeToStore.js.map
 
-//# sourceMappingURL=ObservableQuery.js.map
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NetworkStatus; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = isNetworkRequestInFlight;
+var NetworkStatus;
+(function (NetworkStatus) {
+    NetworkStatus[NetworkStatus["loading"] = 1] = "loading";
+    NetworkStatus[NetworkStatus["setVariables"] = 2] = "setVariables";
+    NetworkStatus[NetworkStatus["fetchMore"] = 3] = "fetchMore";
+    NetworkStatus[NetworkStatus["refetch"] = 4] = "refetch";
+    NetworkStatus[NetworkStatus["poll"] = 6] = "poll";
+    NetworkStatus[NetworkStatus["ready"] = 7] = "ready";
+    NetworkStatus[NetworkStatus["error"] = 8] = "error";
+})(NetworkStatus || (NetworkStatus = {}));
+function isNetworkRequestInFlight(networkStatus) {
+    return networkStatus < 7;
+}
+//# sourceMappingURL=networkStatus.js.map
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FetchType; });
-var FetchType;
-(function (FetchType) {
-    FetchType[FetchType["normal"] = 1] = "normal";
-    FetchType[FetchType["refetch"] = 2] = "refetch";
-    FetchType[FetchType["poll"] = 3] = "poll";
-})(FetchType || (FetchType = {}));
-//# sourceMappingURL=types.js.map
+/* harmony export (immutable) */ __webpack_exports__["a"] = isEqual;
+function isEqual(a, b) {
+    if (a === b) {
+        return true;
+    }
+    if (a != null && typeof a === 'object' && b != null && typeof b === 'object') {
+        for (var key in a) {
+            if (a.hasOwnProperty(key)) {
+                if (!b.hasOwnProperty(key)) {
+                    return false;
+                }
+                if (!isEqual(a[key], b[key])) {
+                    return false;
+                }
+            }
+        }
+        for (var key in b) {
+            if (!a.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+//# sourceMappingURL=isEqual.js.map
 
 /***/ }),
 /* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_environment__ = __webpack_require__(6);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IntrospectionFragmentMatcher; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HeuristicFragmentMatcher; });
-
-var IntrospectionFragmentMatcher = (function () {
-    function IntrospectionFragmentMatcher(options) {
-        if (options && options.introspectionQueryResultData) {
-            this.possibleTypesMap = this.parseIntrospectionResult(options.introspectionQueryResultData);
-            this.isReady = true;
-        }
-        else {
-            this.isReady = false;
-        }
-        this.match = this.match.bind(this);
-    }
-    IntrospectionFragmentMatcher.prototype.match = function (idValue, typeCondition, context) {
-        if (!this.isReady) {
-            throw new Error('FragmentMatcher.match() was called before FragmentMatcher.init()');
-        }
-        var obj = context.store[idValue.id];
-        if (!obj) {
-            return false;
-        }
-        if (!obj.__typename) {
-            throw new Error("Cannot match fragment because __typename property is missing: " + JSON.stringify(obj));
-        }
-        if (obj.__typename === typeCondition) {
-            return true;
-        }
-        var implementingTypes = this.possibleTypesMap[typeCondition];
-        if (implementingTypes && implementingTypes.indexOf(obj.__typename) > -1) {
-            return true;
-        }
-        return false;
-    };
-    IntrospectionFragmentMatcher.prototype.parseIntrospectionResult = function (introspectionResultData) {
-        var typeMap = {};
-        introspectionResultData.__schema.types.forEach(function (type) {
-            if (type.kind === 'UNION' || type.kind === 'INTERFACE') {
-                typeMap[type.name] = type.possibleTypes.map(function (implementingType) { return implementingType.name; });
-            }
-        });
-        return typeMap;
-    };
-    return IntrospectionFragmentMatcher;
-}());
-
-var haveWarned = false;
-var HeuristicFragmentMatcher = (function () {
-    function HeuristicFragmentMatcher() {
-    }
-    HeuristicFragmentMatcher.prototype.ensureReady = function () {
-        return Promise.resolve();
-    };
-    HeuristicFragmentMatcher.prototype.canBypassInit = function () {
-        return true;
-    };
-    HeuristicFragmentMatcher.prototype.match = function (idValue, typeCondition, context) {
-        var obj = context.store[idValue.id];
-        if (!obj) {
-            return false;
-        }
-        if (!obj.__typename) {
-            if (!haveWarned) {
-                console.warn("You're using fragments in your queries, but don't have the addTypename:\n  true option set in Apollo Client. Please turn on that option so that we can accurately\n  match fragments.");
-                if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util_environment__["c" /* isTest */])()) {
-                    haveWarned = true;
-                }
-            }
-            context.returnPartialData = true;
-            return true;
-        }
-        if (obj.__typename === typeCondition) {
-            return true;
-        }
-        context.returnPartialData = true;
-        return true;
-    };
-    ;
-    return HeuristicFragmentMatcher;
-}());
-
-//# sourceMappingURL=fragmentMatcher.js.map
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = isApolloError;
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApolloError; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-function isApolloError(err) {
-    return err.hasOwnProperty('graphQLErrors');
-}
-var generateErrorMessage = function (err) {
-    var message = '';
-    if (Array.isArray(err.graphQLErrors) && err.graphQLErrors.length !== 0) {
-        err.graphQLErrors.forEach(function (graphQLError) {
-            var errorMessage = graphQLError ? graphQLError.message : 'Error message not found.';
-            message += "GraphQL error: " + errorMessage + "\n";
-        });
-    }
-    if (err.networkError) {
-        message += 'Network error: ' + err.networkError.message + '\n';
-    }
-    message = message.replace(/\n$/, '');
-    return message;
-};
-var ApolloError = (function (_super) {
-    __extends(ApolloError, _super);
-    function ApolloError(_a) {
-        var graphQLErrors = _a.graphQLErrors, networkError = _a.networkError, errorMessage = _a.errorMessage, extraInfo = _a.extraInfo;
-        var _this = _super.call(this, errorMessage) || this;
-        _this.graphQLErrors = graphQLErrors || [];
-        _this.networkError = networkError || null;
-        if (!errorMessage) {
-            _this.message = generateErrorMessage(_this);
-        }
-        else {
-            _this.message = errorMessage;
-        }
-        _this.extraInfo = extraInfo;
-        return _this;
-    }
-    return ApolloError;
-}(Error));
-
-//# sourceMappingURL=ApolloError.js.map
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getFromAST__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_cloneDeep__ = __webpack_require__(48);
-/* harmony export (immutable) */ __webpack_exports__["a"] = addTypenameToDocument;
-
-
-var TYPENAME_FIELD = {
-    kind: 'Field',
-    name: {
-        kind: 'Name',
-        value: '__typename',
-    },
-};
-function addTypenameToSelectionSet(selectionSet, isRoot) {
-    if (isRoot === void 0) { isRoot = false; }
-    if (selectionSet.selections) {
-        if (!isRoot) {
-            var alreadyHasThisField = selectionSet.selections.some(function (selection) {
-                return selection.kind === 'Field' && selection.name.value === '__typename';
-            });
-            if (!alreadyHasThisField) {
-                selectionSet.selections.push(TYPENAME_FIELD);
-            }
-        }
-        selectionSet.selections.forEach(function (selection) {
-            if (selection.kind === 'Field') {
-                if (!selection.name.value.startsWith('__') && selection.selectionSet) {
-                    addTypenameToSelectionSet(selection.selectionSet);
-                }
-            }
-            else if (selection.kind === 'InlineFragment') {
-                if (selection.selectionSet) {
-                    addTypenameToSelectionSet(selection.selectionSet);
-                }
-            }
-        });
-    }
-}
-function addTypenameToDocument(doc) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__getFromAST__["g" /* checkDocument */])(doc);
-    var docClone = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_cloneDeep__["a" /* cloneDeep */])(doc);
-    docClone.definitions.forEach(function (definition) {
-        var isRoot = definition.kind === 'OperationDefinition';
-        addTypenameToSelectionSet(definition.selectionSet, isRoot);
-    });
-    return docClone;
-}
-//# sourceMappingURL=queryTransform.js.map
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_store__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mutations_store__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__optimistic_data_store__ = __webpack_require__(20);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__optimistic_data_store__["a"]; });
-/* harmony export (immutable) */ __webpack_exports__["b"] = createApolloReducer;
-/* harmony export (immutable) */ __webpack_exports__["a"] = createApolloStore;
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-
-
-
-
-
-
-var crashReporter = function (store) { return function (next) { return function (action) {
-    try {
-        return next(action);
-    }
-    catch (err) {
-        console.error('Caught an exception!', err);
-        console.error(err.stack);
-        throw err;
-    }
-}; }; };
-function createApolloReducer(config) {
-    return function apolloReducer(state, action) {
-        if (state === void 0) { state = {}; }
-        try {
-            var newState = {
-                queries: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_store__["a" /* queries */])(state.queries, action),
-                mutations: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__mutations_store__["a" /* mutations */])(state.mutations, action),
-                data: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__data_store__["a" /* data */])(state.data, action, state.queries, state.mutations, config),
-                optimistic: [],
-                reducerError: null,
-            };
-            newState.optimistic = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__optimistic_data_store__["b" /* optimistic */])(state.optimistic, action, newState, config);
-            if (state.data === newState.data &&
-                state.mutations === newState.mutations &&
-                state.queries === newState.queries &&
-                state.optimistic === newState.optimistic &&
-                state.reducerError === newState.reducerError) {
-                return state;
-            }
-            return newState;
-        }
-        catch (reducerError) {
-            return __assign({}, state, { reducerError: reducerError });
-        }
-    };
-}
-function createApolloStore(_a) {
-    var _b = _a === void 0 ? {} : _a, _c = _b.reduxRootKey, reduxRootKey = _c === void 0 ? 'apollo' : _c, initialState = _b.initialState, _d = _b.config, config = _d === void 0 ? {} : _d, _e = _b.reportCrashes, reportCrashes = _e === void 0 ? true : _e, logger = _b.logger;
-    var enhancers = [];
-    var middlewares = [];
-    if (reportCrashes) {
-        middlewares.push(crashReporter);
-    }
-    if (logger) {
-        middlewares.push(logger);
-    }
-    if (middlewares.length > 0) {
-        enhancers.push(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* applyMiddleware */].apply(void 0, middlewares));
-    }
-    if (typeof window !== 'undefined') {
-        var anyWindow = window;
-        if (anyWindow.devToolsExtension) {
-            enhancers.push(anyWindow.devToolsExtension());
-        }
-    }
-    var compose = __WEBPACK_IMPORTED_MODULE_0_redux__["b" /* compose */];
-    if (initialState && initialState[reduxRootKey] && initialState[reduxRootKey]['queries']) {
-        throw new Error('Apollo initial state may not contain queries, only data');
-    }
-    if (initialState && initialState[reduxRootKey] && initialState[reduxRootKey]['mutations']) {
-        throw new Error('Apollo initial state may not contain mutations, only data');
-    }
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* createStore */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["d" /* combineReducers */])((_f = {}, _f[reduxRootKey] = createApolloReducer(config), _f)), initialState, compose.apply(void 0, enhancers));
-    var _f;
-}
-//# sourceMappingURL=store.js.map
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_language_printer__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_graphql_language_printer__);
-/* harmony export (immutable) */ __webpack_exports__["c"] = printRequest;
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return BaseNetworkInterface; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HTTPFetchNetworkInterface; });
-/* harmony export (immutable) */ __webpack_exports__["a"] = createNetworkInterface;
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-
-
-function printRequest(request) {
-    return __assign({}, request, { query: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_graphql_language_printer__["print"])(request.query) });
-}
-var BaseNetworkInterface = (function () {
-    function BaseNetworkInterface(uri, opts) {
-        if (opts === void 0) { opts = {}; }
-        if (!uri) {
-            throw new Error('A remote endpoint is required for a network layer');
-        }
-        if (typeof uri !== 'string') {
-            throw new Error('Remote endpoint must be a string');
-        }
-        this._uri = uri;
-        this._opts = __assign({}, opts);
-        this._middlewares = [];
-        this._afterwares = [];
-    }
-    BaseNetworkInterface.prototype.query = function (request) {
-        return new Promise(function (resolve, reject) {
-            reject(new Error('BaseNetworkInterface should not be used directly'));
-        });
-    };
-    return BaseNetworkInterface;
-}());
-
-var HTTPFetchNetworkInterface = (function (_super) {
-    __extends(HTTPFetchNetworkInterface, _super);
-    function HTTPFetchNetworkInterface() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    HTTPFetchNetworkInterface.prototype.applyMiddlewares = function (requestAndOptions) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            var request = requestAndOptions.request, options = requestAndOptions.options;
-            var queue = function (funcs, scope) {
-                var next = function () {
-                    if (funcs.length > 0) {
-                        var f = funcs.shift();
-                        if (f) {
-                            f.applyMiddleware.apply(scope, [{ request: request, options: options }, next]);
-                        }
-                    }
-                    else {
-                        resolve({
-                            request: request,
-                            options: options,
-                        });
-                    }
-                };
-                next();
-            };
-            queue(_this._middlewares.slice(), _this);
-        });
-    };
-    HTTPFetchNetworkInterface.prototype.applyAfterwares = function (_a) {
-        var _this = this;
-        var response = _a.response, options = _a.options;
-        return new Promise(function (resolve, reject) {
-            var responseObject = { response: response, options: options };
-            var queue = function (funcs, scope) {
-                var next = function () {
-                    if (funcs.length > 0) {
-                        var f = funcs.shift();
-                        if (f) {
-                            f.applyAfterware.apply(scope, [responseObject, next]);
-                        }
-                    }
-                    else {
-                        resolve(responseObject);
-                    }
-                };
-                next();
-            };
-            queue(_this._afterwares.slice(), _this);
-        });
-    };
-    HTTPFetchNetworkInterface.prototype.fetchFromRemoteEndpoint = function (_a) {
-        var request = _a.request, options = _a.options;
-        return fetch(this._uri, __assign({}, this._opts, { body: JSON.stringify(printRequest(request)), method: 'POST' }, options, { headers: __assign({ Accept: '*/*', 'Content-Type': 'application/json' }, options.headers) }));
-    };
-    ;
-    HTTPFetchNetworkInterface.prototype.query = function (request) {
-        var _this = this;
-        var options = __assign({}, this._opts);
-        return this.applyMiddlewares({
-            request: request,
-            options: options,
-        }).then(function (rao) { return _this.fetchFromRemoteEndpoint.call(_this, rao); })
-            .then(function (response) { return _this.applyAfterwares({
-            response: response,
-            options: options,
-        }); })
-            .then(function (_a) {
-            var response = _a.response;
-            var httpResponse = response;
-            return httpResponse.json().catch(function () {
-                var httpError = new Error("Network request failed with status " + response.status + " - \"" + response.statusText + "\"");
-                httpError.response = httpResponse;
-                throw httpError;
-            });
-        })
-            .then(function (payload) {
-            if (!payload.hasOwnProperty('data') && !payload.hasOwnProperty('errors')) {
-                throw new Error("Server response was missing for query '" + request.debugName + "'.");
-            }
-            else {
-                return payload;
-            }
-        });
-    };
-    ;
-    HTTPFetchNetworkInterface.prototype.use = function (middlewares) {
-        var _this = this;
-        middlewares.map(function (middleware) {
-            if (typeof middleware.applyMiddleware === 'function') {
-                _this._middlewares.push(middleware);
-            }
-            else {
-                throw new Error('Middleware must implement the applyMiddleware function');
-            }
-        });
-        return this;
-    };
-    HTTPFetchNetworkInterface.prototype.useAfter = function (afterwares) {
-        var _this = this;
-        afterwares.map(function (afterware) {
-            if (typeof afterware.applyAfterware === 'function') {
-                _this._afterwares.push(afterware);
-            }
-            else {
-                throw new Error('Afterware must implement the applyAfterware function');
-            }
-        });
-        return this;
-    };
-    return HTTPFetchNetworkInterface;
-}(BaseNetworkInterface));
-
-function createNetworkInterface(uriOrInterfaceOpts, secondArgOpts) {
-    if (secondArgOpts === void 0) { secondArgOpts = {}; }
-    if (!uriOrInterfaceOpts) {
-        throw new Error('You must pass an options argument to createNetworkInterface.');
-    }
-    var uri;
-    var opts;
-    if (typeof uriOrInterfaceOpts === 'string') {
-        console.warn("Passing the URI as the first argument to createNetworkInterface is deprecated as of Apollo Client 0.5. Please pass it as the \"uri\" property of the network interface options.");
-        opts = secondArgOpts;
-        uri = uriOrInterfaceOpts;
-    }
-    else {
-        opts = uriOrInterfaceOpts.opts;
-        uri = uriOrInterfaceOpts.uri;
-    }
-    return new HTTPFetchNetworkInterface(uri, opts);
-}
-//# sourceMappingURL=networkInterface.js.map
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2157,6 +1463,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -2170,44 +1480,29 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 18 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__optimistic_data_store__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__readFromStore__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__writeToStore__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__queries_queryTransform__ = __webpack_require__(13);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxDataProxy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TransactionDataProxy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObservableQuery; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_Observable__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__errors_ApolloError__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_errorHandling__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_isEqual__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_maybeDeepFreeze__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__ = __webpack_require__(1);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -2221,7 +1516,1486 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 
 
 
-;
+
+
+
+var ObservableQuery = (function (_super) {
+    __extends(ObservableQuery, _super);
+    function ObservableQuery(_a) {
+        var scheduler = _a.scheduler, options = _a.options, _b = _a.shouldSubscribe, shouldSubscribe = _b === void 0 ? true : _b;
+        var _this = this;
+        var queryManager = scheduler.queryManager;
+        var queryId = queryManager.generateQueryId();
+        var subscriberFunction = function (observer) {
+            return _this.onSubscribe(observer);
+        };
+        _this = _super.call(this, subscriberFunction) || this;
+        _this.isCurrentlyPolling = false;
+        _this.options = options;
+        _this.variables = _this.options.variables || {};
+        _this.scheduler = scheduler;
+        _this.queryManager = queryManager;
+        _this.queryId = queryId;
+        _this.shouldSubscribe = shouldSubscribe;
+        _this.observers = [];
+        _this.subscriptionHandles = [];
+        return _this;
+    }
+    ObservableQuery.prototype.result = function () {
+        var that = this;
+        return new Promise(function (resolve, reject) {
+            var subscription = null;
+            var observer = {
+                next: function (result) {
+                    resolve(result);
+                    var selectedObservers = that.observers.filter(function (obs) { return obs !== observer; });
+                    if (selectedObservers.length === 0) {
+                        that.queryManager.removeQuery(that.queryId);
+                    }
+                    setTimeout(function () {
+                        subscription.unsubscribe();
+                    }, 0);
+                },
+                error: function (error) {
+                    reject(error);
+                },
+            };
+            subscription = that.subscribe(observer);
+        });
+    };
+    ObservableQuery.prototype.currentResult = function () {
+        var _a = this.queryManager.getCurrentQueryResult(this, true), data = _a.data, partial = _a.partial;
+        var queryStoreValue = this.queryManager.getApolloState().queries[this.queryId];
+        if (queryStoreValue && ((queryStoreValue.graphQLErrors && queryStoreValue.graphQLErrors.length > 0) ||
+            queryStoreValue.networkError)) {
+            var error = new __WEBPACK_IMPORTED_MODULE_1__errors_ApolloError__["a" /* ApolloError */]({
+                graphQLErrors: queryStoreValue.graphQLErrors,
+                networkError: queryStoreValue.networkError,
+            });
+            return { data: {}, loading: false, networkStatus: queryStoreValue.networkStatus, error: error };
+        }
+        var queryLoading = !queryStoreValue || queryStoreValue.networkStatus === __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["a" /* NetworkStatus */].loading;
+        var loading = (this.options.fetchPolicy === 'network-only' && queryLoading)
+            || (partial && this.options.fetchPolicy !== 'cache-only');
+        var networkStatus;
+        if (queryStoreValue) {
+            networkStatus = queryStoreValue.networkStatus;
+        }
+        else {
+            networkStatus = loading ? __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["a" /* NetworkStatus */].loading : __WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["a" /* NetworkStatus */].ready;
+        }
+        return {
+            data: data,
+            loading: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(networkStatus),
+            networkStatus: networkStatus,
+            partial: partial,
+        };
+    };
+    ObservableQuery.prototype.getLastResult = function () {
+        return this.lastResult;
+    };
+    ObservableQuery.prototype.refetch = function (variables) {
+        this.variables = __assign({}, this.variables, variables);
+        if (this.options.fetchPolicy === 'cache-only') {
+            return Promise.reject(new Error('cache-only fetchPolicy option should not be used together with query refetch.'));
+        }
+        this.options.variables = __assign({}, this.options.variables, this.variables);
+        var combinedOptions = __assign({}, this.options, { fetchPolicy: 'network-only' });
+        return this.queryManager.fetchQuery(this.queryId, combinedOptions, __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].refetch)
+            .then(function (result) { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__util_maybeDeepFreeze__["a" /* default */])(result); });
+    };
+    ObservableQuery.prototype.fetchMore = function (fetchMoreOptions) {
+        var _this = this;
+        if (!fetchMoreOptions.updateQuery) {
+            throw new Error('updateQuery option is required. This function defines how to update the query data with the new results.');
+        }
+        return Promise.resolve()
+            .then(function () {
+            var qid = _this.queryManager.generateQueryId();
+            var combinedOptions = null;
+            if (fetchMoreOptions.query) {
+                combinedOptions = fetchMoreOptions;
+            }
+            else {
+                var variables = __assign({}, _this.variables, fetchMoreOptions.variables);
+                combinedOptions = __assign({}, _this.options, fetchMoreOptions, { variables: variables });
+            }
+            combinedOptions = __assign({}, combinedOptions, { query: combinedOptions.query, fetchPolicy: 'network-only' });
+            return _this.queryManager.fetchQuery(qid, combinedOptions, __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].normal, _this.queryId);
+        })
+            .then(function (fetchMoreResult) {
+            var data = fetchMoreResult.data;
+            var reducer = fetchMoreOptions.updateQuery;
+            var mapFn = function (previousResult, _a) {
+                var variables = _a.variables;
+                var queryVariables = variables;
+                return reducer(previousResult, {
+                    fetchMoreResult: data,
+                    queryVariables: queryVariables,
+                });
+            };
+            _this.updateQuery(mapFn);
+            return fetchMoreResult;
+        });
+    };
+    ObservableQuery.prototype.subscribeToMore = function (options) {
+        var _this = this;
+        var observable = this.queryManager.startGraphQLSubscription({
+            query: options.document,
+            variables: options.variables,
+        });
+        var subscription = observable.subscribe({
+            next: function (data) {
+                if (options.updateQuery) {
+                    var reducer_1 = options.updateQuery;
+                    var mapFn = function (previousResult, _a) {
+                        var variables = _a.variables;
+                        return reducer_1(previousResult, {
+                            subscriptionData: { data: data },
+                            variables: variables,
+                        });
+                    };
+                    _this.updateQuery(mapFn);
+                }
+            },
+            error: function (err) {
+                if (options.onError) {
+                    options.onError(err);
+                }
+                else {
+                    console.error('Unhandled GraphQL subscription error', err);
+                }
+            },
+        });
+        this.subscriptionHandles.push(subscription);
+        return function () {
+            var i = _this.subscriptionHandles.indexOf(subscription);
+            if (i >= 0) {
+                _this.subscriptionHandles.splice(i, 1);
+                subscription.unsubscribe();
+            }
+        };
+    };
+    ObservableQuery.prototype.setOptions = function (opts) {
+        var oldOptions = this.options;
+        this.options = __assign({}, this.options, opts);
+        if (opts.pollInterval) {
+            this.startPolling(opts.pollInterval);
+        }
+        else if (opts.pollInterval === 0) {
+            this.stopPolling();
+        }
+        var tryFetch = (oldOptions.fetchPolicy !== 'network-only' && opts.fetchPolicy === 'network-only')
+            || (oldOptions.fetchPolicy === 'cache-only' && opts.fetchPolicy !== 'cache-only')
+            || (oldOptions.fetchPolicy === 'standby' && opts.fetchPolicy !== 'standby')
+            || false;
+        return this.setVariables(this.options.variables, tryFetch, opts.fetchResults);
+    };
+    ObservableQuery.prototype.setVariables = function (variables, tryFetch, fetchResults) {
+        if (tryFetch === void 0) { tryFetch = false; }
+        if (fetchResults === void 0) { fetchResults = true; }
+        var newVariables = __assign({}, this.variables, variables);
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_isEqual__["a" /* isEqual */])(newVariables, this.variables) && !tryFetch) {
+            if (this.observers.length === 0 || !fetchResults) {
+                return new Promise(function (resolve) { return resolve(); });
+            }
+            return this.result();
+        }
+        else {
+            this.variables = newVariables;
+            this.options.variables = newVariables;
+            if (this.observers.length === 0) {
+                return new Promise(function (resolve) { return resolve(); });
+            }
+            return this.queryManager.fetchQuery(this.queryId, __assign({}, this.options, { variables: this.variables }))
+                .then(function (result) { return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__util_maybeDeepFreeze__["a" /* default */])(result); });
+        }
+    };
+    ObservableQuery.prototype.updateQuery = function (mapFn) {
+        var _a = this.queryManager.getQueryWithPreviousResult(this.queryId), previousResult = _a.previousResult, variables = _a.variables, document = _a.document;
+        var newResult = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_errorHandling__["a" /* tryFunctionOrLogError */])(function () { return mapFn(previousResult, { variables: variables }); });
+        if (newResult) {
+            this.queryManager.store.dispatch({
+                type: 'APOLLO_UPDATE_QUERY_RESULT',
+                newResult: newResult,
+                variables: variables,
+                document: document,
+                operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__["f" /* getOperationName */])(document),
+            });
+        }
+    };
+    ObservableQuery.prototype.stopPolling = function () {
+        if (this.isCurrentlyPolling) {
+            this.scheduler.stopPollingQuery(this.queryId);
+            this.options.pollInterval = undefined;
+            this.isCurrentlyPolling = false;
+        }
+    };
+    ObservableQuery.prototype.startPolling = function (pollInterval) {
+        if (this.options.fetchPolicy === 'cache-first' || (this.options.fetchPolicy === 'cache-only')) {
+            throw new Error('Queries that specify the cache-first and cache-only fetchPolicies cannot also be polling queries.');
+        }
+        if (this.isCurrentlyPolling) {
+            this.scheduler.stopPollingQuery(this.queryId);
+            this.isCurrentlyPolling = false;
+        }
+        this.options.pollInterval = pollInterval;
+        this.isCurrentlyPolling = true;
+        this.scheduler.startPollingQuery(this.options, this.queryId);
+    };
+    ObservableQuery.prototype.onSubscribe = function (observer) {
+        var _this = this;
+        this.observers.push(observer);
+        if (observer.next && this.lastResult) {
+            observer.next(this.lastResult);
+        }
+        if (observer.error && this.lastError) {
+            observer.error(this.lastError);
+        }
+        if (this.observers.length === 1) {
+            this.setUpQuery();
+        }
+        var retQuerySubscription = {
+            unsubscribe: function () {
+                if (!_this.observers.some(function (el) { return el === observer; })) {
+                    return;
+                }
+                _this.observers = _this.observers.filter(function (obs) { return obs !== observer; });
+                if (_this.observers.length === 0) {
+                    _this.tearDownQuery();
+                }
+            },
+        };
+        return retQuerySubscription;
+    };
+    ObservableQuery.prototype.setUpQuery = function () {
+        var _this = this;
+        if (this.shouldSubscribe) {
+            this.queryManager.addObservableQuery(this.queryId, this);
+        }
+        if (!!this.options.pollInterval) {
+            if (this.options.fetchPolicy === 'cache-first' || (this.options.fetchPolicy === 'cache-only')) {
+                throw new Error('Queries that specify the cache-first and cache-only fetchPolicies cannot also be polling queries.');
+            }
+            this.isCurrentlyPolling = true;
+            this.scheduler.startPollingQuery(this.options, this.queryId);
+        }
+        var observer = {
+            next: function (result) {
+                _this.lastResult = result;
+                _this.observers.forEach(function (obs) {
+                    if (obs.next) {
+                        obs.next(result);
+                    }
+                });
+            },
+            error: function (error) {
+                _this.observers.forEach(function (obs) {
+                    if (obs.error) {
+                        obs.error(error);
+                    }
+                    else {
+                        console.error('Unhandled error', error.message, error.stack);
+                    }
+                });
+                _this.lastError = error;
+            },
+        };
+        this.queryManager.startQuery(this.queryId, this.options, this.queryManager.queryListenerForObserver(this.queryId, this.options, observer));
+    };
+    ObservableQuery.prototype.tearDownQuery = function () {
+        if (this.isCurrentlyPolling) {
+            this.scheduler.stopPollingQuery(this.queryId);
+            this.isCurrentlyPolling = false;
+        }
+        this.subscriptionHandles.forEach(function (sub) { return sub.unsubscribe(); });
+        this.subscriptionHandles = [];
+        this.queryManager.stopQuery(this.queryId);
+        if (this.shouldSubscribe) {
+            this.queryManager.removeObservableQuery(this.queryId);
+        }
+        this.observers = [];
+    };
+    return ObservableQuery;
+}(__WEBPACK_IMPORTED_MODULE_0__util_Observable__["a" /* Observable */]));
+
+//# sourceMappingURL=ObservableQuery.js.map
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FetchType; });
+var FetchType;
+(function (FetchType) {
+    FetchType[FetchType["normal"] = 1] = "normal";
+    FetchType[FetchType["refetch"] = 2] = "refetch";
+    FetchType[FetchType["poll"] = 3] = "poll";
+})(FetchType || (FetchType = {}));
+//# sourceMappingURL=types.js.map
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IntrospectionFragmentMatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HeuristicFragmentMatcher; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_environment__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_warnOnce__ = __webpack_require__(55);
+
+
+var IntrospectionFragmentMatcher = (function () {
+    function IntrospectionFragmentMatcher(options) {
+        if (options && options.introspectionQueryResultData) {
+            this.possibleTypesMap = this.parseIntrospectionResult(options.introspectionQueryResultData);
+            this.isReady = true;
+        }
+        else {
+            this.isReady = false;
+        }
+        this.match = this.match.bind(this);
+    }
+    IntrospectionFragmentMatcher.prototype.match = function (idValue, typeCondition, context) {
+        if (!this.isReady) {
+            throw new Error('FragmentMatcher.match() was called before FragmentMatcher.init()');
+        }
+        var obj = context.store[idValue.id];
+        if (!obj) {
+            return false;
+        }
+        if (!obj.__typename) {
+            throw new Error("Cannot match fragment because __typename property is missing: " + JSON.stringify(obj));
+        }
+        if (obj.__typename === typeCondition) {
+            return true;
+        }
+        var implementingTypes = this.possibleTypesMap[typeCondition];
+        if (implementingTypes && implementingTypes.indexOf(obj.__typename) > -1) {
+            return true;
+        }
+        return false;
+    };
+    IntrospectionFragmentMatcher.prototype.parseIntrospectionResult = function (introspectionResultData) {
+        var typeMap = {};
+        introspectionResultData.__schema.types.forEach(function (type) {
+            if (type.kind === 'UNION' || type.kind === 'INTERFACE') {
+                typeMap[type.name] = type.possibleTypes.map(function (implementingType) { return implementingType.name; });
+            }
+        });
+        return typeMap;
+    };
+    return IntrospectionFragmentMatcher;
+}());
+
+var haveWarned = false;
+var HeuristicFragmentMatcher = (function () {
+    function HeuristicFragmentMatcher() {
+    }
+    HeuristicFragmentMatcher.prototype.ensureReady = function () {
+        return Promise.resolve();
+    };
+    HeuristicFragmentMatcher.prototype.canBypassInit = function () {
+        return true;
+    };
+    HeuristicFragmentMatcher.prototype.match = function (idValue, typeCondition, context) {
+        var obj = context.store[idValue.id];
+        if (!obj) {
+            return false;
+        }
+        if (!obj.__typename) {
+            if (!haveWarned) {
+                console.warn("You're using fragments in your queries, but either don't have the addTypename:\n  true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.\n   Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client\n   can accurately match fragments.");
+                console.warn('Could not find __typename on Fragment ', typeCondition, obj);
+                console.warn("DEPRECATION WARNING: using fragments without __typename is unsupported behavior " +
+                    "and will be removed in future versions of Apollo client. You should fix this and set addTypename to true now.");
+                if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util_environment__["c" /* isTest */])()) {
+                    haveWarned = true;
+                }
+            }
+            context.returnPartialData = true;
+            return true;
+        }
+        if (obj.__typename === typeCondition) {
+            return true;
+        }
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_warnOnce__["a" /* warnOnceInDevelopment */])("You are using the simple (heuristic) fragment matcher, but your queries contain union or interface types.\n     Apollo Client will not be able to able to accurately map fragments." +
+            "To make this error go away, use the IntrospectionFragmentMatcher as described in the docs: " +
+            "http://dev.apollodata.com/react/initialization.html#fragment-matcher", 'error');
+        context.returnPartialData = true;
+        return true;
+    };
+    return HeuristicFragmentMatcher;
+}());
+
+//# sourceMappingURL=fragmentMatcher.js.map
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = isApolloError;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApolloError; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+function isApolloError(err) {
+    return err.hasOwnProperty('graphQLErrors');
+}
+var generateErrorMessage = function (err) {
+    var message = '';
+    if (Array.isArray(err.graphQLErrors) && err.graphQLErrors.length !== 0) {
+        err.graphQLErrors.forEach(function (graphQLError) {
+            var errorMessage = graphQLError ? graphQLError.message : 'Error message not found.';
+            message += "GraphQL error: " + errorMessage + "\n";
+        });
+    }
+    if (err.networkError) {
+        message += 'Network error: ' + err.networkError.message + '\n';
+    }
+    message = message.replace(/\n$/, '');
+    return message;
+};
+var ApolloError = (function (_super) {
+    __extends(ApolloError, _super);
+    function ApolloError(_a) {
+        var graphQLErrors = _a.graphQLErrors, networkError = _a.networkError, errorMessage = _a.errorMessage, extraInfo = _a.extraInfo;
+        var _this = _super.call(this, errorMessage) || this;
+        _this.graphQLErrors = graphQLErrors || [];
+        _this.networkError = networkError || null;
+        if (!errorMessage) {
+            _this.message = generateErrorMessage(_this);
+        }
+        else {
+            _this.message = errorMessage;
+        }
+        _this.extraInfo = extraInfo;
+        return _this;
+    }
+    return ApolloError;
+}(Error));
+
+//# sourceMappingURL=ApolloError.js.map
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = addTypenameToDocument;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getFromAST__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_cloneDeep__ = __webpack_require__(54);
+
+
+var TYPENAME_FIELD = {
+    kind: 'Field',
+    name: {
+        kind: 'Name',
+        value: '__typename',
+    },
+};
+function addTypenameToSelectionSet(selectionSet, isRoot) {
+    if (isRoot === void 0) { isRoot = false; }
+    if (selectionSet.selections) {
+        if (!isRoot) {
+            var alreadyHasThisField = selectionSet.selections.some(function (selection) {
+                return selection.kind === 'Field' && selection.name.value === '__typename';
+            });
+            if (!alreadyHasThisField) {
+                selectionSet.selections.push(TYPENAME_FIELD);
+            }
+        }
+        selectionSet.selections.forEach(function (selection) {
+            if (selection.kind === 'Field') {
+                if (selection.name.value.lastIndexOf('__', 0) !== 0 && selection.selectionSet) {
+                    addTypenameToSelectionSet(selection.selectionSet);
+                }
+            }
+            else if (selection.kind === 'InlineFragment') {
+                if (selection.selectionSet) {
+                    addTypenameToSelectionSet(selection.selectionSet);
+                }
+            }
+        });
+    }
+}
+function addTypenameToDocument(doc) {
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__getFromAST__["i" /* checkDocument */])(doc);
+    var docClone = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_cloneDeep__["a" /* cloneDeep */])(doc);
+    docClone.definitions.forEach(function (definition) {
+        var isRoot = definition.kind === 'OperationDefinition';
+        addTypenameToSelectionSet(definition.selectionSet, isRoot);
+    });
+    return docClone;
+}
+//# sourceMappingURL=queryTransform.js.map
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = createApolloReducer;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createApolloStore;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_store__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_store__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mutations_store__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__optimistic_data_store__ = __webpack_require__(25);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__optimistic_data_store__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions__ = __webpack_require__(6);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+
+
+
+
+
+var crashReporter = function (store) { return function (next) { return function (action) {
+    try {
+        return next(action);
+    }
+    catch (err) {
+        console.error('Caught an exception!', err);
+        console.error(err.stack);
+        throw err;
+    }
+}; }; };
+var createReducerError = function (error, action) {
+    var reducerError = { error: error };
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["d" /* isQueryResultAction */])(action)) {
+        reducerError.queryId = action.queryId;
+    }
+    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["e" /* isSubscriptionResultAction */])(action)) {
+        reducerError.subscriptionId = action.subscriptionId;
+    }
+    else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["c" /* isMutationResultAction */])(action)) {
+        reducerError.mutationId = action.mutationId;
+    }
+    return reducerError;
+};
+function createApolloReducer(config) {
+    return function apolloReducer(state, action) {
+        if (state === void 0) { state = {}; }
+        try {
+            var newState = {
+                queries: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__queries_store__["a" /* queries */])(state.queries, action),
+                mutations: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__mutations_store__["a" /* mutations */])(state.mutations, action),
+                data: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__data_store__["a" /* data */])(state.data, action, state.queries, state.mutations, config),
+                optimistic: [],
+                reducerError: null,
+            };
+            newState.optimistic = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__optimistic_data_store__["b" /* optimistic */])(state.optimistic, action, newState, config);
+            if (state.data === newState.data &&
+                state.mutations === newState.mutations &&
+                state.queries === newState.queries &&
+                state.optimistic === newState.optimistic &&
+                state.reducerError === newState.reducerError) {
+                return state;
+            }
+            return newState;
+        }
+        catch (reducerError) {
+            return __assign({}, state, { reducerError: createReducerError(reducerError, action) });
+        }
+    };
+}
+function createApolloStore(_a) {
+    var _b = _a === void 0 ? {} : _a, _c = _b.reduxRootKey, reduxRootKey = _c === void 0 ? 'apollo' : _c, initialState = _b.initialState, _d = _b.config, config = _d === void 0 ? {} : _d, _e = _b.reportCrashes, reportCrashes = _e === void 0 ? true : _e, logger = _b.logger;
+    var enhancers = [];
+    var middlewares = [];
+    if (reportCrashes) {
+        middlewares.push(crashReporter);
+    }
+    if (logger) {
+        middlewares.push(logger);
+    }
+    if (middlewares.length > 0) {
+        enhancers.push(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* applyMiddleware */].apply(void 0, middlewares));
+    }
+    if (typeof window !== 'undefined') {
+        var anyWindow = window;
+        if (anyWindow.devToolsExtension) {
+            enhancers.push(anyWindow.devToolsExtension());
+        }
+    }
+    var compose = __WEBPACK_IMPORTED_MODULE_0_redux__["b" /* compose */];
+    if (initialState && initialState[reduxRootKey] && initialState[reduxRootKey]['queries']) {
+        throw new Error('Apollo initial state may not contain queries, only data');
+    }
+    if (initialState && initialState[reduxRootKey] && initialState[reduxRootKey]['mutations']) {
+        throw new Error('Apollo initial state may not contain mutations, only data');
+    }
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* createStore */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["d" /* combineReducers */])((_f = {}, _f[reduxRootKey] = createApolloReducer(config), _f)), initialState, compose.apply(void 0, enhancers));
+    var _f;
+}
+//# sourceMappingURL=store.js.map
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = printRequest;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return BaseNetworkInterface; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HTTPFetchNetworkInterface; });
+/* harmony export (immutable) */ __webpack_exports__["a"] = createNetworkInterface;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_language_printer__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_graphql_language_printer__);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+function printRequest(request) {
+    return __assign({}, request, { query: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_graphql_language_printer__["print"])(request.query) });
+}
+var BaseNetworkInterface = (function () {
+    function BaseNetworkInterface(uri, opts) {
+        if (opts === void 0) { opts = {}; }
+        if (!uri) {
+            throw new Error('A remote endpoint is required for a network layer');
+        }
+        if (typeof uri !== 'string') {
+            throw new Error('Remote endpoint must be a string');
+        }
+        this._uri = uri;
+        this._opts = __assign({}, opts);
+        this._middlewares = [];
+        this._afterwares = [];
+    }
+    BaseNetworkInterface.prototype.query = function (request) {
+        return new Promise(function (resolve, reject) {
+            reject(new Error('BaseNetworkInterface should not be used directly'));
+        });
+    };
+    return BaseNetworkInterface;
+}());
+
+var HTTPFetchNetworkInterface = (function (_super) {
+    __extends(HTTPFetchNetworkInterface, _super);
+    function HTTPFetchNetworkInterface() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    HTTPFetchNetworkInterface.prototype.applyMiddlewares = function (requestAndOptions) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var request = requestAndOptions.request, options = requestAndOptions.options;
+            var queue = function (funcs, scope) {
+                var next = function () {
+                    if (funcs.length > 0) {
+                        var f = funcs.shift();
+                        if (f) {
+                            f.applyMiddleware.apply(scope, [{ request: request, options: options }, next]);
+                        }
+                    }
+                    else {
+                        resolve({
+                            request: request,
+                            options: options,
+                        });
+                    }
+                };
+                next();
+            };
+            queue(_this._middlewares.slice(), _this);
+        });
+    };
+    HTTPFetchNetworkInterface.prototype.applyAfterwares = function (_a) {
+        var _this = this;
+        var response = _a.response, options = _a.options;
+        return new Promise(function (resolve, reject) {
+            var responseObject = { response: response, options: options };
+            var queue = function (funcs, scope) {
+                var next = function () {
+                    if (funcs.length > 0) {
+                        var f = funcs.shift();
+                        if (f) {
+                            f.applyAfterware.apply(scope, [responseObject, next]);
+                        }
+                    }
+                    else {
+                        resolve(responseObject);
+                    }
+                };
+                next();
+            };
+            queue(_this._afterwares.slice(), _this);
+        });
+    };
+    HTTPFetchNetworkInterface.prototype.fetchFromRemoteEndpoint = function (_a) {
+        var request = _a.request, options = _a.options;
+        return fetch(this._uri, __assign({}, this._opts, { body: JSON.stringify(printRequest(request)), method: 'POST' }, options, { headers: __assign({ Accept: '*/*', 'Content-Type': 'application/json' }, options.headers) }));
+    };
+    HTTPFetchNetworkInterface.prototype.query = function (request) {
+        var _this = this;
+        var options = __assign({}, this._opts);
+        return this.applyMiddlewares({
+            request: request,
+            options: options,
+        }).then(function (rao) { return _this.fetchFromRemoteEndpoint.call(_this, rao); })
+            .then(function (response) { return _this.applyAfterwares({
+            response: response,
+            options: options,
+        }); })
+            .then(function (_a) {
+            var response = _a.response;
+            var httpResponse = response;
+            return httpResponse.json().catch(function (error) {
+                var httpError = new Error("Network request failed with status " + response.status + " - \"" + response.statusText + "\"");
+                httpError.response = httpResponse;
+                httpError.parseError = error;
+                throw httpError;
+            });
+        })
+            .then(function (payload) {
+            if (!payload.hasOwnProperty('data') && !payload.hasOwnProperty('errors')) {
+                throw new Error("Server response was missing for query '" + request.debugName + "'.");
+            }
+            else {
+                return payload;
+            }
+        });
+    };
+    HTTPFetchNetworkInterface.prototype.use = function (middlewares) {
+        var _this = this;
+        middlewares.map(function (middleware) {
+            if (typeof middleware.applyMiddleware === 'function') {
+                _this._middlewares.push(middleware);
+            }
+            else {
+                throw new Error('Middleware must implement the applyMiddleware function');
+            }
+        });
+        return this;
+    };
+    HTTPFetchNetworkInterface.prototype.useAfter = function (afterwares) {
+        var _this = this;
+        afterwares.map(function (afterware) {
+            if (typeof afterware.applyAfterware === 'function') {
+                _this._afterwares.push(afterware);
+            }
+            else {
+                throw new Error('Afterware must implement the applyAfterware function');
+            }
+        });
+        return this;
+    };
+    return HTTPFetchNetworkInterface;
+}(BaseNetworkInterface));
+
+function createNetworkInterface(uriOrInterfaceOpts, secondArgOpts) {
+    if (secondArgOpts === void 0) { secondArgOpts = {}; }
+    if (!uriOrInterfaceOpts) {
+        throw new Error('You must pass an options argument to createNetworkInterface.');
+    }
+    var uri;
+    var opts;
+    if (typeof uriOrInterfaceOpts === 'string') {
+        console.warn("Passing the URI as the first argument to createNetworkInterface is deprecated as of Apollo Client 0.5. Please pass it as the \"uri\" property of the network interface options.");
+        opts = secondArgOpts;
+        uri = uriOrInterfaceOpts;
+    }
+    else {
+        opts = uriOrInterfaceOpts.opts;
+        uri = uriOrInterfaceOpts.uri;
+    }
+    return new HTTPFetchNetworkInterface(uri, opts);
+}
+//# sourceMappingURL=networkInterface.js.map
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.GraphQLError = GraphQLError;
+
+var _location = __webpack_require__(32);
+
+/**
+ * A GraphQLError describes an Error found during the parse, validate, or
+ * execute phases of performing a GraphQL operation. In addition to a message
+ * and stack trace, it also includes information about the locations in a
+ * GraphQL document and/or execution result that correspond to the Error.
+ */
+function GraphQLError( // eslint-disable-line no-redeclare
+message, nodes, source, positions, path, originalError) {
+  // Compute locations in the source for the given nodes/positions.
+  var _source = source;
+  if (!_source && nodes && nodes.length > 0) {
+    var node = nodes[0];
+    _source = node && node.loc && node.loc.source;
+  }
+
+  var _positions = positions;
+  if (!_positions && nodes) {
+    _positions = nodes.filter(function (node) {
+      return Boolean(node.loc);
+    }).map(function (node) {
+      return node.loc.start;
+    });
+  }
+  if (_positions && _positions.length === 0) {
+    _positions = undefined;
+  }
+
+  var _locations = void 0;
+  var _source2 = _source; // seems here Flow need a const to resolve type.
+  if (_source2 && _positions) {
+    _locations = _positions.map(function (pos) {
+      return (0, _location.getLocation)(_source2, pos);
+    });
+  }
+
+  Object.defineProperties(this, {
+    message: {
+      value: message,
+      // By being enumerable, JSON.stringify will include `message` in the
+      // resulting output. This ensures that the simplest possible GraphQL
+      // service adheres to the spec.
+      enumerable: true,
+      writable: true
+    },
+    locations: {
+      // Coercing falsey values to undefined ensures they will not be included
+      // in JSON.stringify() when not provided.
+      value: _locations || undefined,
+      // By being enumerable, JSON.stringify will include `locations` in the
+      // resulting output. This ensures that the simplest possible GraphQL
+      // service adheres to the spec.
+      enumerable: true
+    },
+    path: {
+      // Coercing falsey values to undefined ensures they will not be included
+      // in JSON.stringify() when not provided.
+      value: path || undefined,
+      // By being enumerable, JSON.stringify will include `path` in the
+      // resulting output. This ensures that the simplest possible GraphQL
+      // service adheres to the spec.
+      enumerable: true
+    },
+    nodes: {
+      value: nodes || undefined
+    },
+    source: {
+      value: _source || undefined
+    },
+    positions: {
+      value: _positions || undefined
+    },
+    originalError: {
+      value: originalError
+    }
+  });
+
+  // Include (non-enumerable) stack trace.
+  if (originalError && originalError.stack) {
+    Object.defineProperty(this, 'stack', {
+      value: originalError.stack,
+      writable: true,
+      configurable: true
+    });
+  } else if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, GraphQLError);
+  } else {
+    Object.defineProperty(this, 'stack', {
+      value: Error().stack,
+      writable: true,
+      configurable: true
+    });
+  }
+}
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+GraphQLError.prototype = Object.create(Error.prototype, {
+  constructor: { value: GraphQLError },
+  name: { value: 'GraphQLError' }
+});
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+// Name
+
+var NAME = exports.NAME = 'Name';
+
+// Document
+
+var DOCUMENT = exports.DOCUMENT = 'Document';
+var OPERATION_DEFINITION = exports.OPERATION_DEFINITION = 'OperationDefinition';
+var VARIABLE_DEFINITION = exports.VARIABLE_DEFINITION = 'VariableDefinition';
+var VARIABLE = exports.VARIABLE = 'Variable';
+var SELECTION_SET = exports.SELECTION_SET = 'SelectionSet';
+var FIELD = exports.FIELD = 'Field';
+var ARGUMENT = exports.ARGUMENT = 'Argument';
+
+// Fragments
+
+var FRAGMENT_SPREAD = exports.FRAGMENT_SPREAD = 'FragmentSpread';
+var INLINE_FRAGMENT = exports.INLINE_FRAGMENT = 'InlineFragment';
+var FRAGMENT_DEFINITION = exports.FRAGMENT_DEFINITION = 'FragmentDefinition';
+
+// Values
+
+var INT = exports.INT = 'IntValue';
+var FLOAT = exports.FLOAT = 'FloatValue';
+var STRING = exports.STRING = 'StringValue';
+var BOOLEAN = exports.BOOLEAN = 'BooleanValue';
+var NULL = exports.NULL = 'NullValue';
+var ENUM = exports.ENUM = 'EnumValue';
+var LIST = exports.LIST = 'ListValue';
+var OBJECT = exports.OBJECT = 'ObjectValue';
+var OBJECT_FIELD = exports.OBJECT_FIELD = 'ObjectField';
+
+// Directives
+
+var DIRECTIVE = exports.DIRECTIVE = 'Directive';
+
+// Types
+
+var NAMED_TYPE = exports.NAMED_TYPE = 'NamedType';
+var LIST_TYPE = exports.LIST_TYPE = 'ListType';
+var NON_NULL_TYPE = exports.NON_NULL_TYPE = 'NonNullType';
+
+// Type System Definitions
+
+var SCHEMA_DEFINITION = exports.SCHEMA_DEFINITION = 'SchemaDefinition';
+var OPERATION_TYPE_DEFINITION = exports.OPERATION_TYPE_DEFINITION = 'OperationTypeDefinition';
+
+// Type Definitions
+
+var SCALAR_TYPE_DEFINITION = exports.SCALAR_TYPE_DEFINITION = 'ScalarTypeDefinition';
+var OBJECT_TYPE_DEFINITION = exports.OBJECT_TYPE_DEFINITION = 'ObjectTypeDefinition';
+var FIELD_DEFINITION = exports.FIELD_DEFINITION = 'FieldDefinition';
+var INPUT_VALUE_DEFINITION = exports.INPUT_VALUE_DEFINITION = 'InputValueDefinition';
+var INTERFACE_TYPE_DEFINITION = exports.INTERFACE_TYPE_DEFINITION = 'InterfaceTypeDefinition';
+var UNION_TYPE_DEFINITION = exports.UNION_TYPE_DEFINITION = 'UnionTypeDefinition';
+var ENUM_TYPE_DEFINITION = exports.ENUM_TYPE_DEFINITION = 'EnumTypeDefinition';
+var ENUM_VALUE_DEFINITION = exports.ENUM_VALUE_DEFINITION = 'EnumValueDefinition';
+var INPUT_OBJECT_TYPE_DEFINITION = exports.INPUT_OBJECT_TYPE_DEFINITION = 'InputObjectTypeDefinition';
+
+// Type Extensions
+
+var TYPE_EXTENSION_DEFINITION = exports.TYPE_EXTENSION_DEFINITION = 'TypeExtensionDefinition';
+
+// Directive Definitions
+
+var DIRECTIVE_DEFINITION = exports.DIRECTIVE_DEFINITION = 'DirectiveDefinition';
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.visit = visit;
+exports.visitInParallel = visitInParallel;
+exports.visitWithTypeInfo = visitWithTypeInfo;
+exports.getVisitFn = getVisitFn;
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+var QueryDocumentKeys = exports.QueryDocumentKeys = {
+  Name: [],
+
+  Document: ['definitions'],
+  OperationDefinition: ['name', 'variableDefinitions', 'directives', 'selectionSet'],
+  VariableDefinition: ['variable', 'type', 'defaultValue'],
+  Variable: ['name'],
+  SelectionSet: ['selections'],
+  Field: ['alias', 'name', 'arguments', 'directives', 'selectionSet'],
+  Argument: ['name', 'value'],
+
+  FragmentSpread: ['name', 'directives'],
+  InlineFragment: ['typeCondition', 'directives', 'selectionSet'],
+  FragmentDefinition: ['name', 'typeCondition', 'directives', 'selectionSet'],
+
+  IntValue: [],
+  FloatValue: [],
+  StringValue: [],
+  BooleanValue: [],
+  NullValue: [],
+  EnumValue: [],
+  ListValue: ['values'],
+  ObjectValue: ['fields'],
+  ObjectField: ['name', 'value'],
+
+  Directive: ['name', 'arguments'],
+
+  NamedType: ['name'],
+  ListType: ['type'],
+  NonNullType: ['type'],
+
+  SchemaDefinition: ['directives', 'operationTypes'],
+  OperationTypeDefinition: ['type'],
+
+  ScalarTypeDefinition: ['name', 'directives'],
+  ObjectTypeDefinition: ['name', 'interfaces', 'directives', 'fields'],
+  FieldDefinition: ['name', 'arguments', 'type', 'directives'],
+  InputValueDefinition: ['name', 'type', 'defaultValue', 'directives'],
+  InterfaceTypeDefinition: ['name', 'directives', 'fields'],
+  UnionTypeDefinition: ['name', 'directives', 'types'],
+  EnumTypeDefinition: ['name', 'directives', 'values'],
+  EnumValueDefinition: ['name', 'directives'],
+  InputObjectTypeDefinition: ['name', 'directives', 'fields'],
+
+  TypeExtensionDefinition: ['definition'],
+
+  DirectiveDefinition: ['name', 'arguments', 'locations']
+};
+
+var BREAK = exports.BREAK = {};
+
+/**
+ * visit() will walk through an AST using a depth first traversal, calling
+ * the visitor's enter function at each node in the traversal, and calling the
+ * leave function after visiting that node and all of its child nodes.
+ *
+ * By returning different values from the enter and leave functions, the
+ * behavior of the visitor can be altered, including skipping over a sub-tree of
+ * the AST (by returning false), editing the AST by returning a value or null
+ * to remove the value, or to stop the whole traversal by returning BREAK.
+ *
+ * When using visit() to edit an AST, the original AST will not be modified, and
+ * a new version of the AST with the changes applied will be returned from the
+ * visit function.
+ *
+ *     const editedAST = visit(ast, {
+ *       enter(node, key, parent, path, ancestors) {
+ *         // @return
+ *         //   undefined: no action
+ *         //   false: skip visiting this node
+ *         //   visitor.BREAK: stop visiting altogether
+ *         //   null: delete this node
+ *         //   any value: replace this node with the returned value
+ *       },
+ *       leave(node, key, parent, path, ancestors) {
+ *         // @return
+ *         //   undefined: no action
+ *         //   false: no action
+ *         //   visitor.BREAK: stop visiting altogether
+ *         //   null: delete this node
+ *         //   any value: replace this node with the returned value
+ *       }
+ *     });
+ *
+ * Alternatively to providing enter() and leave() functions, a visitor can
+ * instead provide functions named the same as the kinds of AST nodes, or
+ * enter/leave visitors at a named key, leading to four permutations of
+ * visitor API:
+ *
+ * 1) Named visitors triggered when entering a node a specific kind.
+ *
+ *     visit(ast, {
+ *       Kind(node) {
+ *         // enter the "Kind" node
+ *       }
+ *     })
+ *
+ * 2) Named visitors that trigger upon entering and leaving a node of
+ *    a specific kind.
+ *
+ *     visit(ast, {
+ *       Kind: {
+ *         enter(node) {
+ *           // enter the "Kind" node
+ *         }
+ *         leave(node) {
+ *           // leave the "Kind" node
+ *         }
+ *       }
+ *     })
+ *
+ * 3) Generic visitors that trigger upon entering and leaving any node.
+ *
+ *     visit(ast, {
+ *       enter(node) {
+ *         // enter any node
+ *       },
+ *       leave(node) {
+ *         // leave any node
+ *       }
+ *     })
+ *
+ * 4) Parallel visitors for entering and leaving nodes of a specific kind.
+ *
+ *     visit(ast, {
+ *       enter: {
+ *         Kind(node) {
+ *           // enter the "Kind" node
+ *         }
+ *       },
+ *       leave: {
+ *         Kind(node) {
+ *           // leave the "Kind" node
+ *         }
+ *       }
+ *     })
+ */
+function visit(root, visitor, keyMap) {
+  var visitorKeys = keyMap || QueryDocumentKeys;
+
+  var stack = void 0;
+  var inArray = Array.isArray(root);
+  var keys = [root];
+  var index = -1;
+  var edits = [];
+  var parent = void 0;
+  var path = [];
+  var ancestors = [];
+  var newRoot = root;
+
+  do {
+    index++;
+    var isLeaving = index === keys.length;
+    var key = void 0;
+    var node = void 0;
+    var isEdited = isLeaving && edits.length !== 0;
+    if (isLeaving) {
+      key = ancestors.length === 0 ? undefined : path.pop();
+      node = parent;
+      parent = ancestors.pop();
+      if (isEdited) {
+        if (inArray) {
+          node = node.slice();
+        } else {
+          var clone = {};
+          for (var k in node) {
+            if (node.hasOwnProperty(k)) {
+              clone[k] = node[k];
+            }
+          }
+          node = clone;
+        }
+        var editOffset = 0;
+        for (var ii = 0; ii < edits.length; ii++) {
+          var editKey = edits[ii][0];
+          var editValue = edits[ii][1];
+          if (inArray) {
+            editKey -= editOffset;
+          }
+          if (inArray && editValue === null) {
+            node.splice(editKey, 1);
+            editOffset++;
+          } else {
+            node[editKey] = editValue;
+          }
+        }
+      }
+      index = stack.index;
+      keys = stack.keys;
+      edits = stack.edits;
+      inArray = stack.inArray;
+      stack = stack.prev;
+    } else {
+      key = parent ? inArray ? index : keys[index] : undefined;
+      node = parent ? parent[key] : newRoot;
+      if (node === null || node === undefined) {
+        continue;
+      }
+      if (parent) {
+        path.push(key);
+      }
+    }
+
+    var result = void 0;
+    if (!Array.isArray(node)) {
+      if (!isNode(node)) {
+        throw new Error('Invalid AST Node: ' + JSON.stringify(node));
+      }
+      var visitFn = getVisitFn(visitor, node.kind, isLeaving);
+      if (visitFn) {
+        result = visitFn.call(visitor, node, key, parent, path, ancestors);
+
+        if (result === BREAK) {
+          break;
+        }
+
+        if (result === false) {
+          if (!isLeaving) {
+            path.pop();
+            continue;
+          }
+        } else if (result !== undefined) {
+          edits.push([key, result]);
+          if (!isLeaving) {
+            if (isNode(result)) {
+              node = result;
+            } else {
+              path.pop();
+              continue;
+            }
+          }
+        }
+      }
+    }
+
+    if (result === undefined && isEdited) {
+      edits.push([key, node]);
+    }
+
+    if (!isLeaving) {
+      stack = { inArray: inArray, index: index, keys: keys, edits: edits, prev: stack };
+      inArray = Array.isArray(node);
+      keys = inArray ? node : visitorKeys[node.kind] || [];
+      index = -1;
+      edits = [];
+      if (parent) {
+        ancestors.push(parent);
+      }
+      parent = node;
+    }
+  } while (stack !== undefined);
+
+  if (edits.length !== 0) {
+    newRoot = edits[edits.length - 1][1];
+  }
+
+  return newRoot;
+}
+
+function isNode(maybeNode) {
+  return maybeNode && typeof maybeNode.kind === 'string';
+}
+
+/**
+ * Creates a new visitor instance which delegates to many visitors to run in
+ * parallel. Each visitor will be visited for each node before moving on.
+ *
+ * If a prior visitor edits a node, no following visitors will see that node.
+ */
+function visitInParallel(visitors) {
+  var skipping = new Array(visitors.length);
+
+  return {
+    enter: function enter(node) {
+      for (var i = 0; i < visitors.length; i++) {
+        if (!skipping[i]) {
+          var fn = getVisitFn(visitors[i], node.kind, /* isLeaving */false);
+          if (fn) {
+            var result = fn.apply(visitors[i], arguments);
+            if (result === false) {
+              skipping[i] = node;
+            } else if (result === BREAK) {
+              skipping[i] = BREAK;
+            } else if (result !== undefined) {
+              return result;
+            }
+          }
+        }
+      }
+    },
+    leave: function leave(node) {
+      for (var i = 0; i < visitors.length; i++) {
+        if (!skipping[i]) {
+          var fn = getVisitFn(visitors[i], node.kind, /* isLeaving */true);
+          if (fn) {
+            var result = fn.apply(visitors[i], arguments);
+            if (result === BREAK) {
+              skipping[i] = BREAK;
+            } else if (result !== undefined && result !== false) {
+              return result;
+            }
+          }
+        } else if (skipping[i] === node) {
+          skipping[i] = null;
+        }
+      }
+    }
+  };
+}
+
+/**
+ * Creates a new visitor instance which maintains a provided TypeInfo instance
+ * along with visiting visitor.
+ */
+function visitWithTypeInfo(typeInfo, visitor) {
+  return {
+    enter: function enter(node) {
+      typeInfo.enter(node);
+      var fn = getVisitFn(visitor, node.kind, /* isLeaving */false);
+      if (fn) {
+        var result = fn.apply(visitor, arguments);
+        if (result !== undefined) {
+          typeInfo.leave(node);
+          if (isNode(result)) {
+            typeInfo.enter(result);
+          }
+        }
+        return result;
+      }
+    },
+    leave: function leave(node) {
+      var fn = getVisitFn(visitor, node.kind, /* isLeaving */true);
+      var result = void 0;
+      if (fn) {
+        result = fn.apply(visitor, arguments);
+      }
+      typeInfo.leave(node);
+      return result;
+    }
+  };
+}
+
+/**
+ * Given a visitor instance, if it is leaving or not, and a node kind, return
+ * the function the visitor runtime should call.
+ */
+function getVisitFn(visitor, kind, isLeaving) {
+  var kindVisitor = visitor[kind];
+  if (kindVisitor) {
+    if (!isLeaving && typeof kindVisitor === 'function') {
+      // { Kind() {} }
+      return kindVisitor;
+    }
+    var kindSpecificVisitor = isLeaving ? kindVisitor.leave : kindVisitor.enter;
+    if (typeof kindSpecificVisitor === 'function') {
+      // { Kind: { enter() {}, leave() {} } }
+      return kindSpecificVisitor;
+    }
+  } else {
+    var specificVisitor = isLeaving ? visitor.leave : visitor.enter;
+    if (specificVisitor) {
+      if (typeof specificVisitor === 'function') {
+        // { enter() {}, leave() {} }
+        return specificVisitor;
+      }
+      var specificKindVisitor = specificVisitor[kind];
+      if (typeof specificKindVisitor === 'function') {
+        // { enter: { Kind() {} }, leave: { Kind() {} } }
+        return specificKindVisitor;
+      }
+    }
+  }
+}
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxDataProxy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TransactionDataProxy; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__optimistic_data_store__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__readFromStore__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__writeToStore__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__queries_queryTransform__ = __webpack_require__(16);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+
+
+
 var ReduxDataProxy = (function () {
     function ReduxDataProxy(store, reduxRootSelector, fragmentMatcher, reducerConfig) {
         this.store = store;
@@ -2245,7 +3019,7 @@ var ReduxDataProxy = (function () {
     };
     ReduxDataProxy.prototype.readFragment = function (_a) {
         var id = _a.id, fragment = _a.fragment, fragmentName = _a.fragmentName, variables = _a.variables;
-        var query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["d" /* getFragmentQueryDocument */])(fragment, fragmentName);
+        var query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["e" /* getFragmentQueryDocument */])(fragment, fragmentName);
         var data = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__optimistic_data_store__["a" /* getDataWithOptimisticResults */])(this.reduxRootSelector(this.store.getState()));
         if (typeof data[id] === 'undefined') {
             return null;
@@ -2273,13 +3047,14 @@ var ReduxDataProxy = (function () {
                     rootId: 'ROOT_QUERY',
                     result: data,
                     document: query,
+                    operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["f" /* getOperationName */])(query),
                     variables: variables || {},
                 }],
         });
     };
     ReduxDataProxy.prototype.writeFragment = function (_a) {
         var data = _a.data, id = _a.id, fragment = _a.fragment, fragmentName = _a.fragmentName, variables = _a.variables;
-        var document = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["d" /* getFragmentQueryDocument */])(fragment, fragmentName);
+        var document = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["e" /* getFragmentQueryDocument */])(fragment, fragmentName);
         if (this.reducerConfig.addTypename) {
             document = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__queries_queryTransform__["a" /* addTypenameToDocument */])(document);
         }
@@ -2289,6 +3064,7 @@ var ReduxDataProxy = (function () {
                     rootId: id,
                     result: data,
                     document: document,
+                    operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["f" /* getOperationName */])(document),
                     variables: variables || {},
                 }],
         });
@@ -2328,8 +3104,11 @@ var TransactionDataProxy = (function () {
     TransactionDataProxy.prototype.readFragment = function (_a) {
         var id = _a.id, fragment = _a.fragment, fragmentName = _a.fragmentName, variables = _a.variables;
         this.assertNotFinished();
+        if (!fragment) {
+            throw new Error('fragment option is required. Please pass a GraphQL fragment to readFragment.');
+        }
         var data = this.data;
-        var query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["d" /* getFragmentQueryDocument */])(fragment, fragmentName);
+        var query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["e" /* getFragmentQueryDocument */])(fragment, fragmentName);
         if (this.reducerConfig.addTypename) {
             query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__queries_queryTransform__["a" /* addTypenameToDocument */])(query);
         }
@@ -2355,13 +3134,17 @@ var TransactionDataProxy = (function () {
             rootId: 'ROOT_QUERY',
             result: data,
             document: query,
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["f" /* getOperationName */])(query),
             variables: variables || {},
         });
     };
     TransactionDataProxy.prototype.writeFragment = function (_a) {
         var data = _a.data, id = _a.id, fragment = _a.fragment, fragmentName = _a.fragmentName, variables = _a.variables;
         this.assertNotFinished();
-        var query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["d" /* getFragmentQueryDocument */])(fragment, fragmentName);
+        if (!fragment) {
+            throw new Error('fragment option is required. Please pass a GraphQL fragment to writeFragment.');
+        }
+        var query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["e" /* getFragmentQueryDocument */])(fragment, fragmentName);
         if (this.reducerConfig.addTypename) {
             query = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__queries_queryTransform__["a" /* addTypenameToDocument */])(query);
         }
@@ -2369,6 +3152,7 @@ var TransactionDataProxy = (function () {
             rootId: id,
             result: data,
             document: query,
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries_getFromAST__["f" /* getOperationName */])(query),
             variables: variables || {},
         });
     };
@@ -2385,6 +3169,7 @@ var TransactionDataProxy = (function () {
             variables: write.variables,
             store: this.data,
             dataIdFromObject: this.reducerConfig.dataIdFromObject || (function () { return null; }),
+            fragmentMatcherFunction: this.reducerConfig.fragmentMatcher,
         });
         this.writes.push(write);
     };
@@ -2394,19 +3179,19 @@ var TransactionDataProxy = (function () {
 //# sourceMappingURL=proxy.js.map
 
 /***/ }),
-/* 19 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writeToStore__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_proxy__ = __webpack_require__(18);
+/* harmony export (immutable) */ __webpack_exports__["a"] = data;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writeToStore__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_proxy__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queries_getFromAST__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__storeUtils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__replaceQueryResults__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__replaceQueryResults__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__readFromStore__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_errorHandling__ = __webpack_require__(23);
-/* harmony export (immutable) */ __webpack_exports__["a"] = data;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_errorHandling__ = __webpack_require__(27);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -2433,7 +3218,7 @@ function data(previousState, action, queries, mutations, config) {
         if (action.requestId < queries[action.queryId].lastRequestId) {
             return previousState;
         }
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__storeUtils__["h" /* graphQLResultHasError */])(action.result)) {
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__storeUtils__["i" /* graphQLResultHasError */])(action.result)) {
             var queryStoreValue = queries[action.queryId];
             var clonedState = __assign({}, previousState);
             var newState_1 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__writeToStore__["b" /* writeResultToStore */])({
@@ -2443,6 +3228,7 @@ function data(previousState, action, queries, mutations, config) {
                 variables: queryStoreValue.variables,
                 store: clonedState,
                 dataIdFromObject: config.dataIdFromObject,
+                fragmentMatcherFunction: config.fragmentMatcher,
             });
             if (action.extraReducers) {
                 action.extraReducers.forEach(function (reducer) {
@@ -2453,7 +3239,7 @@ function data(previousState, action, queries, mutations, config) {
         }
     }
     else if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__actions__["e" /* isSubscriptionResultAction */])(action)) {
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__storeUtils__["h" /* graphQLResultHasError */])(action.result)) {
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__storeUtils__["i" /* graphQLResultHasError */])(action.result)) {
             var clonedState = __assign({}, previousState);
             var newState_2 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__writeToStore__["b" /* writeResultToStore */])({
                 result: action.result.data,
@@ -2462,6 +3248,7 @@ function data(previousState, action, queries, mutations, config) {
                 variables: action.variables,
                 store: clonedState,
                 dataIdFromObject: config.dataIdFromObject,
+                fragmentMatcherFunction: config.fragmentMatcher,
             });
             if (action.extraReducers) {
                 action.extraReducers.forEach(function (reducer) {
@@ -2482,6 +3269,7 @@ function data(previousState, action, queries, mutations, config) {
                 variables: queryStoreValue.variables,
                 store: clonedState,
                 dataIdFromObject: config.dataIdFromObject,
+                fragmentMatcherFunction: config.fragmentMatcher,
             });
             var updateQueries_1 = constAction.updateQueries;
             if (updateQueries_1) {
@@ -2515,6 +3303,7 @@ function data(previousState, action, queries, mutations, config) {
                             variables: query.variables,
                             store: newState_3,
                             dataIdFromObject: config.dataIdFromObject,
+                            fragmentMatcherFunction: config.fragmentMatcher,
                         });
                     }
                 });
@@ -2548,6 +3337,7 @@ function data(previousState, action, queries, mutations, config) {
             variables: write.variables,
             store: currentState,
             dataIdFromObject: config.dataIdFromObject,
+            fragmentMatcherFunction: config.fragmentMatcher,
         }); }, __assign({}, previousState));
     }
     return previousState;
@@ -2555,15 +3345,15 @@ function data(previousState, action, queries, mutations, config) {
 //# sourceMappingURL=store.js.map
 
 /***/ }),
-/* 20 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_store__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_assign__ = __webpack_require__(22);
 /* harmony export (immutable) */ __webpack_exports__["a"] = getDataWithOptimisticResults;
 /* harmony export (immutable) */ __webpack_exports__["b"] = optimistic;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_store__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_assign__ = __webpack_require__(3);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -2586,9 +3376,16 @@ function getDataWithOptimisticResults(store) {
 function optimistic(previousState, action, store, config) {
     if (previousState === void 0) { previousState = optimisticDefaultState; }
     if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__actions__["a" /* isMutationInitAction */])(action) && action.optimisticResponse) {
+        var optimisticResponse = void 0;
+        if (typeof action.optimisticResponse === 'function') {
+            optimisticResponse = action.optimisticResponse(action.variables);
+        }
+        else {
+            optimisticResponse = action.optimisticResponse;
+        }
         var fakeMutationResultAction = {
             type: 'APOLLO_MUTATION_RESULT',
-            result: { data: action.optimisticResponse },
+            result: { data: optimisticResponse },
             document: action.mutation,
             operationName: action.operationName,
             variables: action.variables,
@@ -2638,13 +3435,13 @@ function rollbackOptimisticData(filterFn, previousState, store, config) {
 //# sourceMappingURL=store.js.map
 
 /***/ }),
-/* 21 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_symbol_observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Observable; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_symbol_observable__);
 
 function isSubscription(subscription) {
     return subscription.unsubscribe !== undefined;
@@ -2673,25 +3470,7 @@ var Observable = (function () {
 //# sourceMappingURL=Observable.js.map
 
 /***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = assign;
-function assign(target) {
-    var sources = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        sources[_i - 1] = arguments[_i];
-    }
-    sources.forEach(function (source) { return Object.keys(source).forEach(function (key) {
-        target[key] = source[key];
-    }); });
-    return target;
-}
-//# sourceMappingURL=assign.js.map
-
-/***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2709,12 +3488,12 @@ function tryFunctionOrLogError(f) {
 //# sourceMappingURL=errorHandling.js.map
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environment__ = __webpack_require__(6);
 /* harmony export (immutable) */ __webpack_exports__["a"] = maybeDeepFreeze;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environment__ = __webpack_require__(4);
 
 function deepFreeze(o) {
     Object.freeze(o);
@@ -2728,7 +3507,6 @@ function deepFreeze(o) {
     });
     return o;
 }
-;
 function maybeDeepFreeze(obj) {
     if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__environment__["b" /* isDevelopment */])() || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__environment__["c" /* isTest */])()) {
         return deepFreeze(obj);
@@ -2738,20 +3516,19 @@ function maybeDeepFreeze(obj) {
 //# sourceMappingURL=maybeDeepFreeze.js.map
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var getFromAST_1 = __webpack_require__(51);
-var directives_1 = __webpack_require__(50);
-var storeUtils_1 = __webpack_require__(53);
+var getFromAST_1 = __webpack_require__(61);
+var directives_1 = __webpack_require__(60);
+var storeUtils_1 = __webpack_require__(30);
 function graphql(resolver, document, rootValue, contextValue, variableValues, execOptions) {
     if (execOptions === void 0) { execOptions = {}; }
     var mainDefinition = getFromAST_1.getMainDefinition(document);
     var fragments = getFromAST_1.getFragmentDefinitions(document);
-    var fragmentMap = getFromAST_1.createFragmentMap(fragments) || {};
+    var fragmentMap = getFromAST_1.createFragmentMap(fragments);
     var resultMapper = execOptions.resultMapper;
     var fragmentMatcher = execOptions.fragmentMatcher || (function () { return true; });
     var execContext = {
@@ -2776,7 +3553,12 @@ function executeSelectionSet(selectionSet, rootValue, execContext) {
             var fieldResult = executeField(selection, rootValue, execContext);
             var resultFieldKey = storeUtils_1.resultKeyNameFromField(selection);
             if (fieldResult !== undefined) {
-                result[resultFieldKey] = fieldResult;
+                if (result[resultFieldKey] === undefined) {
+                    result[resultFieldKey] = fieldResult;
+                }
+                else {
+                    merge(result[resultFieldKey], fieldResult);
+                }
             }
         }
         else {
@@ -2809,12 +3591,13 @@ function executeField(field, rootValue, execContext) {
     var info = {
         isLeaf: !field.selectionSet,
         resultKey: storeUtils_1.resultKeyNameFromField(field),
+        directives: directives_1.getDirectiveInfoFromField(field, variables),
     };
     var result = resolver(fieldName, rootValue, args, contextValue, info);
     if (!field.selectionSet) {
         return result;
     }
-    if (result === null || typeof result === 'undefined') {
+    if (result == null) {
         return result;
     }
     if (Array.isArray(result)) {
@@ -2835,10 +3618,7 @@ function executeSubSelectedArray(field, result, execContext) {
 }
 function merge(dest, src) {
     if (src === null ||
-        typeof src === 'undefined' ||
-        typeof src === 'string' ||
-        typeof src === 'number' ||
-        typeof src === 'boolean') {
+        typeof src !== 'object') {
         return src;
     }
     Object.keys(dest).forEach(function (destKey) {
@@ -2855,11 +3635,191 @@ function merge(dest, src) {
 //# sourceMappingURL=graphql.js.map
 
 /***/ }),
-/* 26 */
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var SCALAR_TYPES = {
+    StringValue: true,
+    BooleanValue: true,
+    EnumValue: true,
+};
+function isScalarValue(value) {
+    return !!SCALAR_TYPES[value.kind];
+}
+var NUMBER_TYPES = {
+    IntValue: true,
+    FloatValue: true,
+};
+function isNumberValue(value) {
+    return NUMBER_TYPES[value.kind];
+}
+function isVariable(value) {
+    return value.kind === 'Variable';
+}
+function isObject(value) {
+    return value.kind === 'ObjectValue';
+}
+function isList(value) {
+    return value.kind === 'ListValue';
+}
+function valueToObjectRepresentation(argObj, name, value, variables) {
+    if (variables === void 0) { variables = {}; }
+    if (isNumberValue(value)) {
+        argObj[name.value] = Number(value.value);
+    }
+    else if (isScalarValue(value)) {
+        argObj[name.value] = value.value;
+    }
+    else if (isObject(value)) {
+        var nestedArgObj_1 = {};
+        value.fields.map(function (obj) { return valueToObjectRepresentation(nestedArgObj_1, obj.name, obj.value, variables); });
+        argObj[name.value] = nestedArgObj_1;
+    }
+    else if (isVariable(value)) {
+        var variableValue = variables[value.name.value];
+        argObj[name.value] = variableValue;
+    }
+    else if (isList(value)) {
+        argObj[name.value] = value.values.map(function (listValue) {
+            var nestedArgArrayObj = {};
+            valueToObjectRepresentation(nestedArgArrayObj, name, listValue, variables);
+            return nestedArgArrayObj[name.value];
+        });
+    }
+    else {
+        throw new Error("The inline argument \"" + name.value + "\" of kind \"" + value.kind + "\" is not supported. Use variables instead of inline arguments to overcome this limitation.");
+    }
+}
+function argumentsObjectFromField(field, variables) {
+    if (field.arguments && field.arguments.length) {
+        var argObj_1 = {};
+        field.arguments.forEach(function (_a) {
+            var name = _a.name, value = _a.value;
+            return valueToObjectRepresentation(argObj_1, name, value, variables);
+        });
+        return argObj_1;
+    }
+    return null;
+}
+exports.argumentsObjectFromField = argumentsObjectFromField;
+function resultKeyNameFromField(field) {
+    return field.alias ?
+        field.alias.value :
+        field.name.value;
+}
+exports.resultKeyNameFromField = resultKeyNameFromField;
+function isField(selection) {
+    return selection.kind === 'Field';
+}
+exports.isField = isField;
+function isInlineFragment(selection) {
+    return selection.kind === 'InlineFragment';
+}
+exports.isInlineFragment = isInlineFragment;
+function graphQLResultHasError(result) {
+    return result.errors && result.errors.length;
+}
+exports.graphQLResultHasError = graphQLResultHasError;
+//# sourceMappingURL=storeUtils.js.map
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _GraphQLError = __webpack_require__(19);
+
+Object.defineProperty(exports, 'GraphQLError', {
+  enumerable: true,
+  get: function get() {
+    return _GraphQLError.GraphQLError;
+  }
+});
+
+var _syntaxError = __webpack_require__(66);
+
+Object.defineProperty(exports, 'syntaxError', {
+  enumerable: true,
+  get: function get() {
+    return _syntaxError.syntaxError;
+  }
+});
+
+var _locatedError = __webpack_require__(65);
+
+Object.defineProperty(exports, 'locatedError', {
+  enumerable: true,
+  get: function get() {
+    return _locatedError.locatedError;
+  }
+});
+
+var _formatError = __webpack_require__(64);
+
+Object.defineProperty(exports, 'formatError', {
+  enumerable: true,
+  get: function get() {
+    return _formatError.formatError;
+  }
+});
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getLocation = getLocation;
+
+
+/**
+ * Takes a Source and a UTF-8 character offset, and returns the corresponding
+ * line and column as a SourceLocation.
+ */
+
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+function getLocation(source, position) {
+  var lineRegexp = /\r\n|[\n\r]/g;
+  var line = 1;
+  var column = position + 1;
+  var match = void 0;
+  while ((match = lineRegexp.exec(source.body)) && match.index < position) {
+    line += 1;
+    column = position + 1 - (match.index + match[0].length);
+  }
+  return { line: line, column: column };
+}
+
+/**
+ * Represents a location in a Source.
+ */
+
+/***/ }),
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(78);
 
 
 /** Built-in value references. */
@@ -2869,13 +3829,13 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 
 /***/ }),
-/* 27 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(79);
 
 
 
@@ -2941,7 +3901,7 @@ function isPlainObject(value) {
 
 
 /***/ }),
-/* 28 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2982,15 +3942,15 @@ function compose() {
 }
 
 /***/ }),
-/* 29 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = createStore;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 
 
 
@@ -3241,7 +4201,7 @@ function createStore(reducer, preloadedState, enhancer) {
 }
 
 /***/ }),
-/* 30 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3269,14 +4229,14 @@ function warning(message) {
 }
 
 /***/ }),
-/* 31 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(69);
+module.exports = __webpack_require__(92);
 
 
 /***/ }),
-/* 32 */
+/* 39 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -3743,27 +4703,26 @@ module.exports = __webpack_require__(69);
 
 
 /***/ }),
-/* 33 */,
-/* 34 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transport_networkInterface__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transport_batchedNetworkInterface__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_graphql_language_printer__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transport_networkInterface__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transport_batchedNetworkInterface__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_graphql_language_printer__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_graphql_language_printer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_ObservableQuery__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_ObservableQuery__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_readFromStore__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_writeToStore__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_writeToStore__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__queries_networkStatus__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__queries_queryTransform__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__errors_ApolloError__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ApolloClient__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__queries_networkStatus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__queries_queryTransform__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__errors_ApolloError__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ApolloClient__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__data_storeUtils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__data_fragmentMatcher__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__data_fragmentMatcher__ = __webpack_require__(14);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createNetworkInterface", function() { return __WEBPACK_IMPORTED_MODULE_0__transport_networkInterface__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createBatchingNetworkInterface", function() { return __WEBPACK_IMPORTED_MODULE_1__transport_batchedNetworkInterface__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createApolloStore", function() { return __WEBPACK_IMPORTED_MODULE_3__store__["a"]; });
@@ -3775,7 +4734,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkStatus", function() { return __WEBPACK_IMPORTED_MODULE_8__queries_networkStatus__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ApolloError", function() { return __WEBPACK_IMPORTED_MODULE_10__errors_ApolloError__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getQueryDefinition", function() { return __WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getFragmentDefinitions", function() { return __WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getMutationDefinition", function() { return __WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getFragmentDefinitions", function() { return __WEBPACK_IMPORTED_MODULE_7__queries_getFromAST__["d"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "toIdValue", function() { return __WEBPACK_IMPORTED_MODULE_12__data_storeUtils__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IntrospectionFragmentMatcher", function() { return __WEBPACK_IMPORTED_MODULE_13__data_fragmentMatcher__["a"]; });
 /* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_2_graphql_language_printer__, "print")) __webpack_require__.d(__webpack_exports__, "printAST", function() { return __WEBPACK_IMPORTED_MODULE_2_graphql_language_printer__["print"]; });
@@ -3802,10 +4762,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 35 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var parse = __webpack_require__(55).parse;
+var parser = __webpack_require__(69);
+
+var parse = parser.parse;
 
 // Strip insignificant whitespace
 // Note that this could do a lot more, such as reorder fields etc.
@@ -3898,6 +4860,7 @@ function stripLoc(doc, removeLocAtThisLevel) {
     delete doc.loc;
   }
 
+  // https://github.com/apollographql/graphql-tag/issues/40
   if (doc.loc) {
     delete doc.loc.startToken;
     delete doc.loc.endToken;
@@ -3950,7 +4913,7 @@ function gql(/* arguments */) {
   var literals = args[0];
 
   // We always get literals[0] and then matching post literals for each arg given
-  var result = literals[0];
+  var result = (typeof(literals) === "string") ? literals : literals[0];
 
   for (var i = 1; i < args.length; i++) {
     if (args[i] && args[i].kind && args[i].kind === 'Document') {
@@ -3974,46 +4937,19 @@ module.exports = gql;
 
 
 /***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-/* 37 */
+/* 42 */,
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transport_networkInterface__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_fragmentMatcher__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_QueryManager__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_environment__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transport_networkInterface__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_fragmentMatcher__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_QueryManager__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_environment__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_storeUtils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_proxy__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_proxy__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__version__);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -4092,8 +5028,10 @@ var ApolloClient = (function () {
         this.addTypename = addTypename;
         this.disableNetworkFetches = ssrMode || ssrForceFetchDelay > 0;
         this.dataId = dataIdFromObject = dataIdFromObject || defaultDataIdFromObject;
+        this.dataIdFromObject = this.dataId;
         this.fieldWithArgs = __WEBPACK_IMPORTED_MODULE_5__data_storeUtils__["b" /* storeKeyNameFromFieldNameAndArgs */];
         this.queryDeduplication = queryDeduplication;
+        this.ssrMode = ssrMode;
         if (ssrForceFetchDelay) {
             setTimeout(function () { return _this.disableNetworkFetches = false; }, ssrForceFetchDelay);
         }
@@ -4134,7 +5072,6 @@ var ApolloClient = (function () {
         }
         return this.queryManager.watchQuery(options);
     };
-    ;
     ApolloClient.prototype.query = function (options) {
         this.initStore();
         if (options.fetchPolicy === 'cache-and-network') {
@@ -4145,12 +5082,10 @@ var ApolloClient = (function () {
         }
         return this.queryManager.query(options);
     };
-    ;
     ApolloClient.prototype.mutate = function (options) {
         this.initStore();
         return this.queryManager.mutate(options);
     };
-    ;
     ApolloClient.prototype.subscribe = function (options) {
         this.initStore();
         return this.queryManager.startGraphQLSubscription(options);
@@ -4201,13 +5136,9 @@ var ApolloClient = (function () {
             }; }; },
         }));
     };
-    ;
     ApolloClient.prototype.resetStore = function () {
-        if (this.queryManager) {
-            this.queryManager.resetStore();
-        }
+        return this.queryManager ? this.queryManager.resetStore() : null;
     };
-    ;
     ApolloClient.prototype.getInitialState = function () {
         this.initStore();
         return this.queryManager.getInitialState();
@@ -4233,9 +5164,9 @@ var ApolloClient = (function () {
             reducerConfig: this.reducerConfig,
             queryDeduplication: this.queryDeduplication,
             fragmentMatcher: this.fragmentMatcher,
+            ssrMode: this.ssrMode,
         });
     };
-    ;
     ApolloClient.prototype.initProxy = function () {
         if (!this.proxy) {
             this.initStore();
@@ -4249,29 +5180,30 @@ var ApolloClient = (function () {
 //# sourceMappingURL=ApolloClient.js.map
 
 /***/ }),
-/* 38 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transport_Deduplicator__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_isEqual__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queries_networkStatus__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__queries_queryTransform__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__data_resultReducers__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__data_fragmentMatcher__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util_environment__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util_maybeDeepFreeze__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_graphql_language_printer__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_graphql_language_printer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__data_readFromStore__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__scheduler_scheduler__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__util_Observable__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ObservableQuery__ = __webpack_require__(9);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QueryManager; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transport_Deduplicator__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_isEqual__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_assign__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__types__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__queries_networkStatus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__queries_queryTransform__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__data_resultReducers__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__data_fragmentMatcher__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util_environment__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__util_maybeDeepFreeze__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_graphql_language_printer__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_graphql_language_printer__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__data_readFromStore__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__scheduler_scheduler__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__util_Observable__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ObservableQuery__ = __webpack_require__(12);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -4298,9 +5230,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 
 
 
+
 var QueryManager = (function () {
     function QueryManager(_a) {
-        var networkInterface = _a.networkInterface, store = _a.store, reduxRootSelector = _a.reduxRootSelector, _b = _a.reducerConfig, reducerConfig = _b === void 0 ? { mutationBehaviorReducers: {} } : _b, fragmentMatcher = _a.fragmentMatcher, _c = _a.addTypename, addTypename = _c === void 0 ? true : _c, _d = _a.queryDeduplication, queryDeduplication = _d === void 0 ? false : _d;
+        var networkInterface = _a.networkInterface, store = _a.store, reduxRootSelector = _a.reduxRootSelector, _b = _a.reducerConfig, reducerConfig = _b === void 0 ? { mutationBehaviorReducers: {} } : _b, fragmentMatcher = _a.fragmentMatcher, _c = _a.addTypename, addTypename = _c === void 0 ? true : _c, _d = _a.queryDeduplication, queryDeduplication = _d === void 0 ? false : _d, _e = _a.ssrMode, ssrMode = _e === void 0 ? false : _e;
         var _this = this;
         this.idCounter = 1;
         this.networkInterface = networkInterface;
@@ -4313,13 +5246,14 @@ var QueryManager = (function () {
         this.queryDocuments = {};
         this.addTypename = addTypename;
         this.queryDeduplication = queryDeduplication;
+        this.ssrMode = ssrMode;
         if (typeof fragmentMatcher === 'undefined') {
-            this.fragmentMatcher = new __WEBPACK_IMPORTED_MODULE_8__data_fragmentMatcher__["b" /* HeuristicFragmentMatcher */]();
+            this.fragmentMatcher = new __WEBPACK_IMPORTED_MODULE_9__data_fragmentMatcher__["b" /* HeuristicFragmentMatcher */]();
         }
         else {
             this.fragmentMatcher = fragmentMatcher;
         }
-        this.scheduler = new __WEBPACK_IMPORTED_MODULE_13__scheduler_scheduler__["a" /* QueryScheduler */]({
+        this.scheduler = new __WEBPACK_IMPORTED_MODULE_14__scheduler_scheduler__["a" /* QueryScheduler */]({
             queryManager: this,
         });
         this.fetchQueryPromises = {};
@@ -4346,14 +5280,14 @@ var QueryManager = (function () {
         var mutation = _a.mutation, variables = _a.variables, optimisticResponse = _a.optimisticResponse, updateQueriesByName = _a.updateQueries, _b = _a.refetchQueries, refetchQueries = _b === void 0 ? [] : _b, updateWithProxyFn = _a.update;
         var mutationId = this.generateQueryId();
         if (this.addTypename) {
-            mutation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_queryTransform__["a" /* addTypenameToDocument */])(mutation);
+            mutation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__queries_queryTransform__["a" /* addTypenameToDocument */])(mutation);
         }
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["g" /* checkDocument */])(mutation);
-        var mutationString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11_graphql_language_printer__["print"])(mutation);
+        variables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_assign__["a" /* assign */])({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["g" /* getDefaultValues */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["c" /* getMutationDefinition */])(mutation)), variables);
+        var mutationString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12_graphql_language_printer__["print"])(mutation);
         var request = {
             query: mutation,
             variables: variables,
-            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(mutation),
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(mutation),
         };
         this.queryDocuments[mutationId] = mutation;
         var updateQueries = {};
@@ -4367,7 +5301,7 @@ var QueryManager = (function () {
             mutationString: mutationString,
             mutation: mutation,
             variables: variables || {},
-            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(mutation),
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(mutation),
             mutationId: mutationId,
             optimisticResponse: optimisticResponse,
             extraReducers: this.getExtraReducers(),
@@ -4378,7 +5312,7 @@ var QueryManager = (function () {
             _this.networkInterface.query(request)
                 .then(function (result) {
                 if (result.errors) {
-                    var error = new __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["a" /* ApolloError */]({
+                    var error = new __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["a" /* ApolloError */]({
                         graphQLErrors: result.errors,
                     });
                     _this.store.dispatch({
@@ -4395,15 +5329,15 @@ var QueryManager = (function () {
                     result: result,
                     mutationId: mutationId,
                     document: mutation,
-                    operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(mutation),
+                    operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(mutation),
                     variables: variables || {},
                     extraReducers: _this.getExtraReducers(),
                     updateQueries: updateQueries,
                     update: updateWithProxyFn,
                 });
                 var reducerError = _this.getApolloState().reducerError;
-                if (reducerError) {
-                    reject(reducerError);
+                if (reducerError && reducerError.mutationId === mutationId) {
+                    reject(reducerError.error);
                     return;
                 }
                 if (typeof refetchQueries[0] === 'string') {
@@ -4428,7 +5362,7 @@ var QueryManager = (function () {
                     mutationId: mutationId,
                 });
                 delete _this.queryDocuments[mutationId];
-                reject(new __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["a" /* ApolloError */]({
+                reject(new __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["a" /* ApolloError */]({
                     networkError: err,
                 }));
             });
@@ -4438,11 +5372,11 @@ var QueryManager = (function () {
         var _this = this;
         var _a = options.variables, variables = _a === void 0 ? {} : _a, _b = options.metadata, metadata = _b === void 0 ? null : _b, _c = options.fetchPolicy, fetchPolicy = _c === void 0 ? 'cache-first' : _c;
         var queryDoc = this.transformQueryDocument(options).queryDoc;
-        var queryString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11_graphql_language_printer__["print"])(queryDoc);
+        var queryString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12_graphql_language_printer__["print"])(queryDoc);
         var storeResult;
         var needToFetch = fetchPolicy === 'network-only';
-        if ((fetchType !== __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].refetch && fetchPolicy !== 'network-only')) {
-            var _d = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__data_readFromStore__["b" /* diffQueryAgainstStore */])({
+        if ((fetchType !== __WEBPACK_IMPORTED_MODULE_3__types__["a" /* FetchType */].refetch && fetchPolicy !== 'network-only')) {
+            var _d = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_13__data_readFromStore__["b" /* diffQueryAgainstStore */])({
                 query: queryDoc,
                 store: this.reduxRootSelector(this.store.getState()).data,
                 variables: variables,
@@ -4453,20 +5387,21 @@ var QueryManager = (function () {
             needToFetch = isMissing || fetchPolicy === 'cache-and-network';
             storeResult = result;
         }
-        var shouldFetch = needToFetch && fetchPolicy !== 'cache-only';
+        var shouldFetch = needToFetch && fetchPolicy !== 'cache-only' && fetchPolicy !== 'standby';
         var requestId = this.generateRequestId();
         this.queryDocuments[queryId] = queryDoc;
         this.store.dispatch({
             type: 'APOLLO_QUERY_INIT',
             queryString: queryString,
             document: queryDoc,
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(queryDoc),
             variables: variables,
             fetchPolicy: fetchPolicy,
             queryId: queryId,
             requestId: requestId,
             storePreviousVariables: shouldFetch,
-            isPoll: fetchType === __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].poll,
-            isRefetch: fetchType === __WEBPACK_IMPORTED_MODULE_2__types__["a" /* FetchType */].refetch,
+            isPoll: fetchType === __WEBPACK_IMPORTED_MODULE_3__types__["a" /* FetchType */].poll,
+            isRefetch: fetchType === __WEBPACK_IMPORTED_MODULE_3__types__["a" /* FetchType */].refetch,
             fetchMoreForQueryId: fetchMoreForQueryId,
             metadata: metadata,
         });
@@ -4477,6 +5412,7 @@ var QueryManager = (function () {
                 result: { data: storeResult },
                 variables: variables,
                 document: queryDoc,
+                operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(queryDoc),
                 complete: !shouldFetch,
                 queryId: queryId,
                 requestId: requestId,
@@ -4490,7 +5426,7 @@ var QueryManager = (function () {
                 options: options,
                 fetchMoreForQueryId: fetchMoreForQueryId,
             }).catch(function (error) {
-                if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["b" /* isApolloError */])(error)) {
+                if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["b" /* isApolloError */])(error)) {
                     throw error;
                 }
                 else {
@@ -4502,11 +5438,10 @@ var QueryManager = (function () {
                         fetchMoreForQueryId: fetchMoreForQueryId,
                     });
                     _this.removeFetchQueryPromise(requestId);
-                    throw new __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["a" /* ApolloError */]({
+                    throw new __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["a" /* ApolloError */]({
                         networkError: error,
                     });
                 }
-                ;
             });
             if (fetchPolicy !== 'cache-and-network') {
                 return networkResult;
@@ -4517,24 +5452,30 @@ var QueryManager = (function () {
     QueryManager.prototype.queryListenerForObserver = function (queryId, options, observer) {
         var _this = this;
         var lastResult;
+        var previouslyHadError = false;
         return function (queryStoreValue) {
             if (!queryStoreValue) {
                 return;
             }
+            queryStoreValue = _this.getApolloState().queries[queryId];
             var storedQuery = _this.observableQueries[queryId];
             var fetchPolicy = storedQuery ? storedQuery.observableQuery.options.fetchPolicy : options.fetchPolicy;
+            if (fetchPolicy === 'standby') {
+                return;
+            }
             var shouldNotifyIfLoading = queryStoreValue.previousVariables ||
                 fetchPolicy === 'cache-only' || fetchPolicy === 'cache-and-network';
             var networkStatusChanged = lastResult && queryStoreValue.networkStatus !== lastResult.networkStatus;
-            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(queryStoreValue.networkStatus) ||
+            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(queryStoreValue.networkStatus) ||
                 (networkStatusChanged && options.notifyOnNetworkStatusChange) ||
                 shouldNotifyIfLoading) {
                 if ((queryStoreValue.graphQLErrors && queryStoreValue.graphQLErrors.length > 0) ||
                     queryStoreValue.networkError) {
-                    var apolloError_1 = new __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["a" /* ApolloError */]({
+                    var apolloError_1 = new __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["a" /* ApolloError */]({
                         graphQLErrors: queryStoreValue.graphQLErrors,
                         networkError: queryStoreValue.networkError,
                     });
+                    previouslyHadError = true;
                     if (observer.error) {
                         try {
                             observer.error(apolloError_1);
@@ -4545,7 +5486,7 @@ var QueryManager = (function () {
                     }
                     else {
                         setTimeout(function () { throw apolloError_1; }, 0);
-                        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__util_environment__["a" /* isProduction */])()) {
+                        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util_environment__["a" /* isProduction */])()) {
                             console.info('An unhandled error was thrown because no error handler is registered ' +
                                 'for the query ' + queryStoreValue.queryString);
                         }
@@ -4553,7 +5494,7 @@ var QueryManager = (function () {
                 }
                 else {
                     try {
-                        var _a = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__data_readFromStore__["b" /* diffQueryAgainstStore */])({
+                        var _a = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_13__data_readFromStore__["b" /* diffQueryAgainstStore */])({
                             store: _this.getDataWithOptimisticResults(),
                             query: _this.queryDocuments[queryId],
                             variables: queryStoreValue.previousVariables || queryStoreValue.variables,
@@ -4565,7 +5506,7 @@ var QueryManager = (function () {
                         if (isMissing && fetchPolicy !== 'cache-only') {
                             resultFromStore = {
                                 data: lastResult && lastResult.data,
-                                loading: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(queryStoreValue.networkStatus),
+                                loading: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(queryStoreValue.networkStatus),
                                 networkStatus: queryStoreValue.networkStatus,
                                 stale: true,
                             };
@@ -4573,7 +5514,7 @@ var QueryManager = (function () {
                         else {
                             resultFromStore = {
                                 data: data,
-                                loading: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(queryStoreValue.networkStatus),
+                                loading: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__queries_networkStatus__["b" /* isNetworkRequestInFlight */])(queryStoreValue.networkStatus),
                                 networkStatus: queryStoreValue.networkStatus,
                                 stale: false,
                             };
@@ -4584,20 +5525,22 @@ var QueryManager = (function () {
                                 lastResult.networkStatus === resultFromStore.networkStatus &&
                                 lastResult.stale === resultFromStore.stale &&
                                 lastResult.data === resultFromStore.data);
-                            if (isDifferentResult) {
+                            if (isDifferentResult || previouslyHadError) {
                                 lastResult = resultFromStore;
                                 try {
-                                    observer.next(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util_maybeDeepFreeze__["a" /* default */])(resultFromStore));
+                                    observer.next(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util_maybeDeepFreeze__["a" /* default */])(resultFromStore));
                                 }
                                 catch (e) {
                                     setTimeout(function () { throw e; }, 0);
                                 }
                             }
                         }
+                        previouslyHadError = false;
                     }
                     catch (error) {
+                        previouslyHadError = true;
                         if (observer.error) {
-                            observer.error(new __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["a" /* ApolloError */]({
+                            observer.error(new __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["a" /* ApolloError */]({
                                 networkError: error,
                             }));
                         }
@@ -4618,12 +5561,19 @@ var QueryManager = (function () {
         if (options.noFetch) {
             throw new Error('noFetch option is no longer supported since Apollo Client 1.0. Use fetchPolicy instead.');
         }
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["b" /* getQueryDefinition */])(options.query);
+        if (options.fetchPolicy === 'standby') {
+            throw new Error('client.watchQuery cannot be called with fetchPolicy set to "standby"');
+        }
+        var queryDefinition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["b" /* getQueryDefinition */])(options.query);
+        if (queryDefinition.variableDefinitions && queryDefinition.variableDefinitions.length) {
+            var defaultValues = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["g" /* getDefaultValues */])(queryDefinition);
+            options.variables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_assign__["a" /* assign */])({}, defaultValues, options.variables);
+        }
         if (typeof options.notifyOnNetworkStatusChange === 'undefined') {
             options.notifyOnNetworkStatusChange = false;
         }
         var transformedOptions = __assign({}, options);
-        var observableQuery = new __WEBPACK_IMPORTED_MODULE_16__ObservableQuery__["a" /* ObservableQuery */]({
+        var observableQuery = new __WEBPACK_IMPORTED_MODULE_17__ObservableQuery__["a" /* ObservableQuery */]({
             scheduler: this.scheduler,
             options: transformedOptions,
             shouldSubscribe: shouldSubscribe,
@@ -4678,7 +5628,6 @@ var QueryManager = (function () {
             queryId: queryId,
         });
     };
-    ;
     QueryManager.prototype.getApolloState = function () {
         return this.reduxRootSelector(this.store.getState());
     };
@@ -4689,7 +5638,7 @@ var QueryManager = (function () {
         return { data: this.getApolloState().data };
     };
     QueryManager.prototype.getDataWithOptimisticResults = function () {
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__store__["c" /* getDataWithOptimisticResults */])(this.getApolloState());
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__store__["c" /* getDataWithOptimisticResults */])(this.getApolloState());
     };
     QueryManager.prototype.addQueryListener = function (queryId, listener) {
         this.queryListeners[queryId] = this.queryListeners[queryId] || [];
@@ -4703,7 +5652,7 @@ var QueryManager = (function () {
     };
     QueryManager.prototype.addObservableQuery = function (queryId, observableQuery) {
         this.observableQueries[queryId] = { observableQuery: observableQuery };
-        var queryDef = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["b" /* getQueryDefinition */])(observableQuery.options.query);
+        var queryDef = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["b" /* getQueryDefinition */])(observableQuery.options.query);
         if (queryDef.name && queryDef.name.value) {
             var queryName = queryDef.name.value;
             this.queryIdsByName[queryName] = this.queryIdsByName[queryName] || [];
@@ -4712,7 +5661,7 @@ var QueryManager = (function () {
     };
     QueryManager.prototype.removeObservableQuery = function (queryId) {
         var observableQuery = this.observableQueries[queryId].observableQuery;
-        var definition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["b" /* getQueryDefinition */])(observableQuery.options.query);
+        var definition = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["b" /* getQueryDefinition */])(observableQuery.options.query);
         var queryName = definition.name ? definition.name.value : null;
         delete this.observableQueries[queryId];
         if (queryName) {
@@ -4731,13 +5680,15 @@ var QueryManager = (function () {
             type: 'APOLLO_STORE_RESET',
             observableQueryIds: Object.keys(this.observableQueries),
         });
+        var observableQueryPromises = [];
         Object.keys(this.observableQueries).forEach(function (queryId) {
             var storeQuery = _this.reduxRootSelector(_this.store.getState()).queries[queryId];
             var fetchPolicy = _this.observableQueries[queryId].observableQuery.options.fetchPolicy;
-            if (fetchPolicy !== 'cache-only') {
-                _this.observableQueries[queryId].observableQuery.refetch();
+            if (fetchPolicy !== 'cache-only' && fetchPolicy !== 'standby') {
+                observableQueryPromises.push(_this.observableQueries[queryId].observableQuery.refetch());
             }
         });
+        return Promise.all(observableQueryPromises);
     };
     QueryManager.prototype.startQuery = function (queryId, options, listener) {
         this.addQueryListener(queryId, listener);
@@ -4747,19 +5698,20 @@ var QueryManager = (function () {
     };
     QueryManager.prototype.startGraphQLSubscription = function (options) {
         var _this = this;
-        var query = options.query, variables = options.variables;
+        var query = options.query;
         var transformedDoc = query;
         if (this.addTypename) {
-            transformedDoc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_queryTransform__["a" /* addTypenameToDocument */])(transformedDoc);
+            transformedDoc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__queries_queryTransform__["a" /* addTypenameToDocument */])(transformedDoc);
         }
+        var variables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_assign__["a" /* assign */])({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["g" /* getDefaultValues */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["h" /* getOperationDefinition */])(query)), options.variables);
         var request = {
             query: transformedDoc,
             variables: variables,
-            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(transformedDoc),
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(transformedDoc),
         };
         var subId;
         var observers = [];
-        return new __WEBPACK_IMPORTED_MODULE_14__util_Observable__["a" /* Observable */](function (observer) {
+        return new __WEBPACK_IMPORTED_MODULE_15__util_Observable__["a" /* Observable */](function (observer) {
             observers.push(observer);
             if (observers.length === 1) {
                 var handler = function (error, result) {
@@ -4774,9 +5726,9 @@ var QueryManager = (function () {
                         _this.store.dispatch({
                             type: 'APOLLO_SUBSCRIPTION_RESULT',
                             document: transformedDoc,
-                            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(transformedDoc),
+                            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(transformedDoc),
                             result: { data: result },
-                            variables: variables || {},
+                            variables: variables,
                             subscriptionId: subId,
                             extraReducers: _this.getExtraReducers(),
                         });
@@ -4800,10 +5752,12 @@ var QueryManager = (function () {
             };
         });
     };
-    ;
-    QueryManager.prototype.stopQuery = function (queryId) {
+    QueryManager.prototype.removeQuery = function (queryId) {
         delete this.queryListeners[queryId];
         delete this.queryDocuments[queryId];
+    };
+    QueryManager.prototype.stopQuery = function (queryId) {
+        this.removeQuery(queryId);
         this.stopQueryInStore(queryId);
     };
     QueryManager.prototype.getCurrentQueryResult = function (observableQuery, isOptimistic) {
@@ -4820,11 +5774,11 @@ var QueryManager = (function () {
             fragmentMatcherFunction: this.fragmentMatcher.match,
         };
         try {
-            var data = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__data_readFromStore__["a" /* readQueryFromStore */])(readOptions);
-            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util_maybeDeepFreeze__["a" /* default */])({ data: data, partial: false });
+            var data = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_13__data_readFromStore__["a" /* readQueryFromStore */])(readOptions);
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util_maybeDeepFreeze__["a" /* default */])({ data: data, partial: false });
         }
         catch (e) {
-            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__util_maybeDeepFreeze__["a" /* default */])({ data: {}, partial: true });
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__util_maybeDeepFreeze__["a" /* default */])({ data: {}, partial: true });
         }
     };
     QueryManager.prototype.getQueryWithPreviousResult = function (queryIdOrObservable, isOptimistic) {
@@ -4851,7 +5805,7 @@ var QueryManager = (function () {
         var queryOptions = observableQuery.options;
         var transformedDoc = observableQuery.options.query;
         if (this.addTypename) {
-            transformedDoc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_queryTransform__["a" /* addTypenameToDocument */])(transformedDoc);
+            transformedDoc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__queries_queryTransform__["a" /* addTypenameToDocument */])(transformedDoc);
         }
         return {
             variables: queryOptions.variables,
@@ -4861,7 +5815,7 @@ var QueryManager = (function () {
     QueryManager.prototype.transformQueryDocument = function (options) {
         var queryDoc = options.query;
         if (this.addTypename) {
-            queryDoc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_queryTransform__["a" /* addTypenameToDocument */])(queryDoc);
+            queryDoc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__queries_queryTransform__["a" /* addTypenameToDocument */])(queryDoc);
         }
         return {
             queryDoc: queryDoc,
@@ -4873,7 +5827,7 @@ var QueryManager = (function () {
             var query = _this.observableQueries[obsQueryId].observableQuery;
             var queryOptions = query.options;
             if (queryOptions.reducer) {
-                return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__data_resultReducers__["a" /* createStoreReducer */])(queryOptions.reducer, _this.addTypename ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_queryTransform__["a" /* addTypenameToDocument */])(queryOptions.query) : queryOptions.query, query.variables || {}, _this.reducerConfig);
+                return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__data_resultReducers__["a" /* createStoreReducer */])(queryOptions.reducer, _this.addTypename ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__queries_queryTransform__["a" /* addTypenameToDocument */])(queryOptions.query) : queryOptions.query, query.variables || {}, _this.reducerConfig);
             }
             return null;
         }).filter(function (reducer) { return reducer !== null; });
@@ -4885,7 +5839,7 @@ var QueryManager = (function () {
         var request = {
             query: document,
             variables: variables,
-            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(document),
+            operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(document),
         };
         var retPromise = new Promise(function (resolve, reject) {
             _this.addFetchQueryPromise(requestId, retPromise, resolve, reject);
@@ -4895,7 +5849,7 @@ var QueryManager = (function () {
                 _this.store.dispatch({
                     type: 'APOLLO_QUERY_RESULT',
                     document: document,
-                    operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__queries_getFromAST__["f" /* getOperationName */])(document),
+                    operationName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__queries_getFromAST__["f" /* getOperationName */])(document),
                     result: result,
                     queryId: queryId,
                     requestId: requestId,
@@ -4904,7 +5858,7 @@ var QueryManager = (function () {
                 });
                 _this.removeFetchQueryPromise(requestId);
                 if (result.errors) {
-                    throw new __WEBPACK_IMPORTED_MODULE_15__errors_ApolloError__["a" /* ApolloError */]({
+                    throw new __WEBPACK_IMPORTED_MODULE_16__errors_ApolloError__["a" /* ApolloError */]({
                         graphQLErrors: result.errors,
                     });
                 }
@@ -4912,7 +5866,7 @@ var QueryManager = (function () {
             }).then(function () {
                 var resultFromStore;
                 try {
-                    resultFromStore = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__data_readFromStore__["a" /* readQueryFromStore */])({
+                    resultFromStore = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_13__data_readFromStore__["a" /* readQueryFromStore */])({
                         store: _this.getApolloState().data,
                         variables: variables,
                         query: document,
@@ -4922,12 +5876,12 @@ var QueryManager = (function () {
                 }
                 catch (e) { }
                 var reducerError = _this.getApolloState().reducerError;
-                if (!resultFromStore && reducerError) {
-                    return Promise.reject(reducerError);
+                if (reducerError && reducerError.queryId === queryId) {
+                    return Promise.reject(reducerError.error);
                 }
                 _this.removeFetchQueryPromise(requestId);
-                resolve({ data: resultFromStore, loading: false, networkStatus: __WEBPACK_IMPORTED_MODULE_3__queries_networkStatus__["a" /* NetworkStatus */].ready, stale: false });
-                return null;
+                resolve({ data: resultFromStore, loading: false, networkStatus: __WEBPACK_IMPORTED_MODULE_4__queries_networkStatus__["a" /* NetworkStatus */].ready, stale: false });
+                return Promise.resolve();
             }).catch(function (error) {
                 reject(error);
             });
@@ -4939,11 +5893,10 @@ var QueryManager = (function () {
         var refetchedQueries = this.queryIdsByName[queryName];
         if (refetchedQueries === undefined) {
             console.warn("Warning: unknown query with name " + queryName + " asked to refetch");
+            return;
         }
         else {
-            refetchedQueries.forEach(function (queryId) {
-                _this.observableQueries[queryId].observableQuery.refetch();
-            });
+            return Promise.all(refetchedQueries.map(function (queryId) { return _this.observableQueries[queryId].observableQuery.refetch(); }));
         }
     };
     QueryManager.prototype.broadcastQueries = function () {
@@ -4972,12 +5925,12 @@ var QueryManager = (function () {
 //# sourceMappingURL=QueryManager.js.map
 
 /***/ }),
-/* 39 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__writeToStore__ = __webpack_require__(3);
 /* harmony export (immutable) */ __webpack_exports__["a"] = replaceQueryResults;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__writeToStore__ = __webpack_require__(7);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -4997,18 +5950,19 @@ function replaceQueryResults(state, _a, config) {
         document: document,
         store: clonedState,
         dataIdFromObject: config.dataIdFromObject,
+        fragmentMatcherFunction: config.fragmentMatcher,
     });
 }
 //# sourceMappingURL=replaceQueryResults.js.map
 
 /***/ }),
-/* 40 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__readFromStore__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writeToStore__ = __webpack_require__(3);
 /* harmony export (immutable) */ __webpack_exports__["a"] = createStoreReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__readFromStore__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writeToStore__ = __webpack_require__(7);
 
 
 function createStoreReducer(resultReducer, document, variables, config) {
@@ -5040,6 +5994,7 @@ function createStoreReducer(resultReducer, document, variables, config) {
                 document: document,
                 variables: variables,
                 dataIdFromObject: config.dataIdFromObject,
+                fragmentMatcherFunction: config.fragmentMatcher,
             });
         }
         return store;
@@ -5048,12 +6003,12 @@ function createStoreReducer(resultReducer, document, variables, config) {
 //# sourceMappingURL=resultReducers.js.map
 
 /***/ }),
-/* 41 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(5);
 /* harmony export (immutable) */ __webpack_exports__["a"] = mutations;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(6);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -5092,7 +6047,7 @@ function mutations(previousState, action) {
 //# sourceMappingURL=store.js.map
 
 /***/ }),
-/* 42 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5144,15 +6099,15 @@ function shouldInclude(selection, variables) {
 //# sourceMappingURL=directives.js.map
 
 /***/ }),
-/* 43 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_storeUtils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_isEqual__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__networkStatus__ = __webpack_require__(4);
 /* harmony export (immutable) */ __webpack_exports__["a"] = queries;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_storeUtils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_isEqual__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__networkStatus__ = __webpack_require__(8);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -5220,7 +6175,7 @@ function queries(previousState, action) {
             return previousState;
         }
         var newState = __assign({}, previousState);
-        var resultHasGraphQLErrors = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__data_storeUtils__["h" /* graphQLResultHasError */])(action.result);
+        var resultHasGraphQLErrors = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__data_storeUtils__["i" /* graphQLResultHasError */])(action.result);
         newState[action.queryId] = __assign({}, previousState[action.queryId], { networkError: null, graphQLErrors: resultHasGraphQLErrors ? action.result.errors : [], previousVariables: null, networkStatus: __WEBPACK_IMPORTED_MODULE_3__networkStatus__["a" /* NetworkStatus */].ready });
         if (typeof action.fetchMoreForQueryId === 'string') {
             newState[action.fetchMoreForQueryId] = __assign({}, previousState[action.fetchMoreForQueryId], { networkStatus: __WEBPACK_IMPORTED_MODULE_3__networkStatus__["a" /* NetworkStatus */].ready });
@@ -5272,14 +6227,14 @@ function resetQueryState(state, action) {
 //# sourceMappingURL=store.js.map
 
 /***/ }),
-/* 44 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_types__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_ObservableQuery__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_networkStatus__ = __webpack_require__(4);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QueryScheduler; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_types__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_ObservableQuery__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__queries_networkStatus__ = __webpack_require__(8);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -5317,6 +6272,9 @@ var QueryScheduler = (function () {
     QueryScheduler.prototype.startPollingQuery = function (options, queryId, listener) {
         if (!options.pollInterval) {
             throw new Error('Attempted to start a polling query without a polling interval.');
+        }
+        if (this.queryManager.ssrMode) {
+            return queryId;
         }
         this.registeredQueries[queryId] = options;
         if (listener) {
@@ -5379,13 +6337,13 @@ var QueryScheduler = (function () {
 //# sourceMappingURL=scheduler.js.map
 
 /***/ }),
-/* 45 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_language_printer__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_graphql_language_printer__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Deduplicator; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_language_printer__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_graphql_language_printer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_graphql_language_printer__);
 
 var Deduplicator = (function () {
     function Deduplicator(networkInterface) {
@@ -5421,17 +6379,17 @@ var Deduplicator = (function () {
 //# sourceMappingURL=Deduplicator.js.map
 
 /***/ }),
-/* 46 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__networkInterface__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__batching__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_assign__ = __webpack_require__(22);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HTTPBatchedNetworkInterface; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = createBatchingNetworkInterface;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__networkInterface__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__batching__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_assign__ = __webpack_require__(3);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -5454,7 +6412,6 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 
 
 
-;
 var HTTPBatchedNetworkInterface = (function (_super) {
     __extends(HTTPBatchedNetworkInterface, _super);
     function HTTPBatchedNetworkInterface(uri, batchInterval, fetchOpts) {
@@ -5468,7 +6425,6 @@ var HTTPBatchedNetworkInterface = (function (_super) {
         });
         return _this;
     }
-    ;
     HTTPBatchedNetworkInterface.prototype.query = function (request) {
         return this.batcher.enqueueRequest(request);
     };
@@ -5590,7 +6546,6 @@ var HTTPBatchedNetworkInterface = (function (_super) {
         });
         return fetch(this._uri, __assign({}, this._opts, { body: JSON.stringify(printedRequests), method: 'POST' }, options, { headers: __assign({ Accept: '*/*', 'Content-Type': 'application/json' }, options.headers) }));
     };
-    ;
     return HTTPBatchedNetworkInterface;
 }(__WEBPACK_IMPORTED_MODULE_1__networkInterface__["d" /* BaseNetworkInterface */]));
 
@@ -5603,12 +6558,11 @@ function createBatchingNetworkInterface(options) {
 //# sourceMappingURL=batchedNetworkInterface.js.map
 
 /***/ }),
-/* 47 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QueryBatcher; });
-;
 var QueryBatcher = (function () {
     function QueryBatcher(_a) {
         var batchInterval = _a.batchInterval, batchFetchFunction = _a.batchFetchFunction;
@@ -5666,7 +6620,7 @@ var QueryBatcher = (function () {
 //# sourceMappingURL=batching.js.map
 
 /***/ }),
-/* 48 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5689,27 +6643,93 @@ function cloneDeep(value) {
 //# sourceMappingURL=cloneDeep.js.map
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports) {
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-exports.version = "1.0.2"
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = warnOnceInDevelopment;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environment__ = __webpack_require__(4);
+
+var haveWarned = Object.create({});
+function warnOnceInDevelopment(msg, type) {
+    if (type === void 0) { type = 'warn'; }
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__environment__["a" /* isProduction */])()) {
+        return;
+    }
+    if (!haveWarned[msg]) {
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__environment__["c" /* isTest */])()) {
+            haveWarned[msg] = true;
+        }
+        switch (type) {
+            case 'error':
+                console.error(msg);
+                break;
+            default:
+                console.warn(msg);
+        }
+    }
+}
+//# sourceMappingURL=warnOnce.js.map
 
 /***/ }),
-/* 50 */
+/* 56 */
+/***/ (function(module, exports) {
+
+exports.version = "1.4.2"
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-function shouldInclude(selection, variables) {
-    if (!variables) {
-        variables = {};
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.gql = exports.createNetworkInterface = exports.ApolloClient = undefined;
+
+var _apolloClient = __webpack_require__(40);
+
+var _apolloClient2 = _interopRequireDefault(_apolloClient);
+
+var _graphqlTag = __webpack_require__(41);
+
+var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.ApolloClient = _apolloClient2.default;
+exports.createNetworkInterface = _apolloClient.createNetworkInterface;
+exports.gql = _graphqlTag2.default;
+
+/***/ }),
+/* 58 */,
+/* 59 */,
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var storeUtils_1 = __webpack_require__(30);
+function getDirectiveInfoFromField(field, variables) {
+    if (field.directives && field.directives.length) {
+        var directiveObj_1 = {};
+        field.directives.forEach(function (directive) {
+            directiveObj_1[directive.name.value] = storeUtils_1.argumentsObjectFromField(directive, variables);
+        });
+        return directiveObj_1;
     }
+    return null;
+}
+exports.getDirectiveInfoFromField = getDirectiveInfoFromField;
+function shouldInclude(selection, variables) {
+    if (variables === void 0) { variables = {}; }
     if (!selection.directives) {
         return true;
     }
     var res = true;
-    selection.directives.forEach(function (directive) {
+    selection.directives.some(function (directive) {
         if (directive.name.value !== 'skip' && directive.name.value !== 'include') {
             return;
         }
@@ -5743,7 +6763,9 @@ function shouldInclude(selection, variables) {
         }
         if (!evaledValue) {
             res = false;
+            return true;
         }
+        return false;
     });
     return res;
 }
@@ -5751,12 +6773,11 @@ exports.shouldInclude = shouldInclude;
 //# sourceMappingURL=directives.js.map
 
 /***/ }),
-/* 51 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
 function checkDocument(doc) {
     if (doc.kind !== 'Document') {
         throw new Error("Expecting a parsed GraphQL document. Perhaps you need to wrap the query string in a \"gql\" tag? http://docs.apollostack.com/apollo-client/core.html#gql");
@@ -5813,118 +6834,27 @@ exports.getMainDefinition = getMainDefinition;
 //# sourceMappingURL=getFromAST.js.map
 
 /***/ }),
-/* 52 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var utilities_1 = __webpack_require__(54);
+var utilities_1 = __webpack_require__(63);
 exports.filter = utilities_1.filter;
 exports.check = utilities_1.check;
 exports.propType = utilities_1.propType;
-var graphql_1 = __webpack_require__(25);
+var graphql_1 = __webpack_require__(29);
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = graphql_1.graphql;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 53 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-function isScalarValue(value) {
-    var SCALAR_TYPES = {
-        StringValue: 1,
-        BooleanValue: 1,
-        EnumValue: 1,
-    };
-    return !!SCALAR_TYPES[value.kind];
-}
-function isNumberValue(value) {
-    var NUMBER_TYPES = {
-        IntValue: 1,
-        FloatValue: 1,
-    };
-    return NUMBER_TYPES[value.kind];
-}
-function isVariable(value) {
-    return value.kind === 'Variable';
-}
-function isObject(value) {
-    return value.kind === 'ObjectValue';
-}
-function isList(value) {
-    return value.kind === 'ListValue';
-}
-function valueToObjectRepresentation(argObj, name, value, variables) {
-    if (isNumberValue(value)) {
-        argObj[name.value] = Number(value.value);
-    }
-    else if (isScalarValue(value)) {
-        argObj[name.value] = value.value;
-    }
-    else if (isObject(value)) {
-        var nestedArgObj_1 = {};
-        value.fields.map(function (obj) { return valueToObjectRepresentation(nestedArgObj_1, obj.name, obj.value, variables); });
-        argObj[name.value] = nestedArgObj_1;
-    }
-    else if (isVariable(value)) {
-        var variableValue = (variables || {})[value.name.value];
-        argObj[name.value] = variableValue;
-    }
-    else if (isList(value)) {
-        argObj[name.value] = value.values.map(function (listValue) {
-            var nestedArgArrayObj = {};
-            valueToObjectRepresentation(nestedArgArrayObj, name, listValue, variables);
-            return nestedArgArrayObj[name.value];
-        });
-    }
-    else {
-        throw new Error("The inline argument \"" + name.value + "\" of kind \"" + value.kind + "\" is not supported. Use variables instead of inline arguments to overcome this limitation.");
-    }
-}
-function argumentsObjectFromField(field, variables) {
-    if (field.arguments && field.arguments.length) {
-        var argObj_1 = {};
-        field.arguments.forEach(function (_a) {
-            var name = _a.name, value = _a.value;
-            return valueToObjectRepresentation(argObj_1, name, value, variables);
-        });
-        return argObj_1;
-    }
-    return null;
-}
-exports.argumentsObjectFromField = argumentsObjectFromField;
-function resultKeyNameFromField(field) {
-    return field.alias ?
-        field.alias.value :
-        field.name.value;
-}
-exports.resultKeyNameFromField = resultKeyNameFromField;
-function isField(selection) {
-    return selection.kind === 'Field';
-}
-exports.isField = isField;
-function isInlineFragment(selection) {
-    return selection.kind === 'InlineFragment';
-}
-exports.isInlineFragment = isInlineFragment;
-function graphQLResultHasError(result) {
-    return result.errors && result.errors.length;
-}
-exports.graphQLResultHasError = graphQLResultHasError;
-//# sourceMappingURL=storeUtils.js.map
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var graphql_1 = __webpack_require__(25);
+var graphql_1 = __webpack_require__(29);
 function filter(doc, data) {
     var resolver = function (fieldName, root, args, context, info) {
         return root[info.resultKey];
@@ -5995,2078 +6925,7 @@ exports.propType = propType;
 //# sourceMappingURL=utilities.js.map
 
 /***/ }),
-/* 55 */
-/***/ (function(module, exports) {
-
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-
-
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(1);
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.parse = parse;
-	exports.parseValue = parseValue;
-	exports.parseType = parseType;
-	exports.parseConstValue = parseConstValue;
-	exports.parseTypeReference = parseTypeReference;
-	exports.parseNamedType = parseNamedType;
-
-	var _source = __webpack_require__(2);
-
-	var _error = __webpack_require__(3);
-
-	var _lexer = __webpack_require__(10);
-
-	var _kinds = __webpack_require__(11);
-
-	/**
-	 * Given a GraphQL source, parses it into a Document.
-	 * Throws GraphQLError if a syntax error is encountered.
-	 */
-
-
-	/**
-	 * Configuration options to control parser behavior
-	 */
-
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	function parse(source, options) {
-	  var sourceObj = typeof source === 'string' ? new _source.Source(source) : source;
-	  var lexer = (0, _lexer.createLexer)(sourceObj, options || {});
-	  return parseDocument(lexer);
-	}
-
-	/**
-	 * Given a string containing a GraphQL value (ex. `[42]`), parse the AST for
-	 * that value.
-	 * Throws GraphQLError if a syntax error is encountered.
-	 *
-	 * This is useful within tools that operate upon GraphQL Values directly and
-	 * in isolation of complete GraphQL documents.
-	 *
-	 * Consider providing the results to the utility function: valueFromAST().
-	 */
-	function parseValue(source, options) {
-	  var sourceObj = typeof source === 'string' ? new _source.Source(source) : source;
-	  var lexer = (0, _lexer.createLexer)(sourceObj, options || {});
-	  expect(lexer, _lexer.TokenKind.SOF);
-	  var value = parseValueLiteral(lexer, false);
-	  expect(lexer, _lexer.TokenKind.EOF);
-	  return value;
-	}
-
-	/**
-	 * Given a string containing a GraphQL Type (ex. `[Int!]`), parse the AST for
-	 * that type.
-	 * Throws GraphQLError if a syntax error is encountered.
-	 *
-	 * This is useful within tools that operate upon GraphQL Types directly and
-	 * in isolation of complete GraphQL documents.
-	 *
-	 * Consider providing the results to the utility function: typeFromAST().
-	 */
-	function parseType(source, options) {
-	  var sourceObj = typeof source === 'string' ? new _source.Source(source) : source;
-	  var lexer = (0, _lexer.createLexer)(sourceObj, options || {});
-	  expect(lexer, _lexer.TokenKind.SOF);
-	  var type = parseTypeReference(lexer);
-	  expect(lexer, _lexer.TokenKind.EOF);
-	  return type;
-	}
-
-	/**
-	 * Converts a name lex token into a name parse node.
-	 */
-	function parseName(lexer) {
-	  var token = expect(lexer, _lexer.TokenKind.NAME);
-	  return {
-	    kind: _kinds.NAME,
-	    value: token.value,
-	    loc: loc(lexer, token)
-	  };
-	}
-
-	// Implements the parsing rules in the Document section.
-
-	/**
-	 * Document : Definition+
-	 */
-	function parseDocument(lexer) {
-	  var start = lexer.token;
-	  expect(lexer, _lexer.TokenKind.SOF);
-	  var definitions = [];
-	  do {
-	    definitions.push(parseDefinition(lexer));
-	  } while (!skip(lexer, _lexer.TokenKind.EOF));
-
-	  return {
-	    kind: _kinds.DOCUMENT,
-	    definitions: definitions,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * Definition :
-	 *   - OperationDefinition
-	 *   - FragmentDefinition
-	 *   - TypeSystemDefinition
-	 */
-	function parseDefinition(lexer) {
-	  if (peek(lexer, _lexer.TokenKind.BRACE_L)) {
-	    return parseOperationDefinition(lexer);
-	  }
-
-	  if (peek(lexer, _lexer.TokenKind.NAME)) {
-	    switch (lexer.token.value) {
-	      // Note: subscription is an experimental non-spec addition.
-	      case 'query':
-	      case 'mutation':
-	      case 'subscription':
-	        return parseOperationDefinition(lexer);
-
-	      case 'fragment':
-	        return parseFragmentDefinition(lexer);
-
-	      // Note: the Type System IDL is an experimental non-spec addition.
-	      case 'schema':
-	      case 'scalar':
-	      case 'type':
-	      case 'interface':
-	      case 'union':
-	      case 'enum':
-	      case 'input':
-	      case 'extend':
-	      case 'directive':
-	        return parseTypeSystemDefinition(lexer);
-	    }
-	  }
-
-	  throw unexpected(lexer);
-	}
-
-	// Implements the parsing rules in the Operations section.
-
-	/**
-	 * OperationDefinition :
-	 *  - SelectionSet
-	 *  - OperationType Name? VariableDefinitions? Directives? SelectionSet
-	 */
-	function parseOperationDefinition(lexer) {
-	  var start = lexer.token;
-	  if (peek(lexer, _lexer.TokenKind.BRACE_L)) {
-	    return {
-	      kind: _kinds.OPERATION_DEFINITION,
-	      operation: 'query',
-	      name: null,
-	      variableDefinitions: null,
-	      directives: [],
-	      selectionSet: parseSelectionSet(lexer),
-	      loc: loc(lexer, start)
-	    };
-	  }
-	  var operation = parseOperationType(lexer);
-	  var name = void 0;
-	  if (peek(lexer, _lexer.TokenKind.NAME)) {
-	    name = parseName(lexer);
-	  }
-	  return {
-	    kind: _kinds.OPERATION_DEFINITION,
-	    operation: operation,
-	    name: name,
-	    variableDefinitions: parseVariableDefinitions(lexer),
-	    directives: parseDirectives(lexer),
-	    selectionSet: parseSelectionSet(lexer),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * OperationType : one of query mutation subscription
-	 */
-	function parseOperationType(lexer) {
-	  var operationToken = expect(lexer, _lexer.TokenKind.NAME);
-	  switch (operationToken.value) {
-	    case 'query':
-	      return 'query';
-	    case 'mutation':
-	      return 'mutation';
-	    // Note: subscription is an experimental non-spec addition.
-	    case 'subscription':
-	      return 'subscription';
-	  }
-
-	  throw unexpected(lexer, operationToken);
-	}
-
-	/**
-	 * VariableDefinitions : ( VariableDefinition+ )
-	 */
-	function parseVariableDefinitions(lexer) {
-	  return peek(lexer, _lexer.TokenKind.PAREN_L) ? many(lexer, _lexer.TokenKind.PAREN_L, parseVariableDefinition, _lexer.TokenKind.PAREN_R) : [];
-	}
-
-	/**
-	 * VariableDefinition : Variable : Type DefaultValue?
-	 */
-	function parseVariableDefinition(lexer) {
-	  var start = lexer.token;
-	  return {
-	    kind: _kinds.VARIABLE_DEFINITION,
-	    variable: parseVariable(lexer),
-	    type: (expect(lexer, _lexer.TokenKind.COLON), parseTypeReference(lexer)),
-	    defaultValue: skip(lexer, _lexer.TokenKind.EQUALS) ? parseValueLiteral(lexer, true) : null,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * Variable : $ Name
-	 */
-	function parseVariable(lexer) {
-	  var start = lexer.token;
-	  expect(lexer, _lexer.TokenKind.DOLLAR);
-	  return {
-	    kind: _kinds.VARIABLE,
-	    name: parseName(lexer),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * SelectionSet : { Selection+ }
-	 */
-	function parseSelectionSet(lexer) {
-	  var start = lexer.token;
-	  return {
-	    kind: _kinds.SELECTION_SET,
-	    selections: many(lexer, _lexer.TokenKind.BRACE_L, parseSelection, _lexer.TokenKind.BRACE_R),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * Selection :
-	 *   - Field
-	 *   - FragmentSpread
-	 *   - InlineFragment
-	 */
-	function parseSelection(lexer) {
-	  return peek(lexer, _lexer.TokenKind.SPREAD) ? parseFragment(lexer) : parseField(lexer);
-	}
-
-	/**
-	 * Field : Alias? Name Arguments? Directives? SelectionSet?
-	 *
-	 * Alias : Name :
-	 */
-	function parseField(lexer) {
-	  var start = lexer.token;
-
-	  var nameOrAlias = parseName(lexer);
-	  var alias = void 0;
-	  var name = void 0;
-	  if (skip(lexer, _lexer.TokenKind.COLON)) {
-	    alias = nameOrAlias;
-	    name = parseName(lexer);
-	  } else {
-	    alias = null;
-	    name = nameOrAlias;
-	  }
-
-	  return {
-	    kind: _kinds.FIELD,
-	    alias: alias,
-	    name: name,
-	    arguments: parseArguments(lexer),
-	    directives: parseDirectives(lexer),
-	    selectionSet: peek(lexer, _lexer.TokenKind.BRACE_L) ? parseSelectionSet(lexer) : null,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * Arguments : ( Argument+ )
-	 */
-	function parseArguments(lexer) {
-	  return peek(lexer, _lexer.TokenKind.PAREN_L) ? many(lexer, _lexer.TokenKind.PAREN_L, parseArgument, _lexer.TokenKind.PAREN_R) : [];
-	}
-
-	/**
-	 * Argument : Name : Value
-	 */
-	function parseArgument(lexer) {
-	  var start = lexer.token;
-	  return {
-	    kind: _kinds.ARGUMENT,
-	    name: parseName(lexer),
-	    value: (expect(lexer, _lexer.TokenKind.COLON), parseValueLiteral(lexer, false)),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	// Implements the parsing rules in the Fragments section.
-
-	/**
-	 * Corresponds to both FragmentSpread and InlineFragment in the spec.
-	 *
-	 * FragmentSpread : ... FragmentName Directives?
-	 *
-	 * InlineFragment : ... TypeCondition? Directives? SelectionSet
-	 */
-	function parseFragment(lexer) {
-	  var start = lexer.token;
-	  expect(lexer, _lexer.TokenKind.SPREAD);
-	  if (peek(lexer, _lexer.TokenKind.NAME) && lexer.token.value !== 'on') {
-	    return {
-	      kind: _kinds.FRAGMENT_SPREAD,
-	      name: parseFragmentName(lexer),
-	      directives: parseDirectives(lexer),
-	      loc: loc(lexer, start)
-	    };
-	  }
-	  var typeCondition = null;
-	  if (lexer.token.value === 'on') {
-	    lexer.advance();
-	    typeCondition = parseNamedType(lexer);
-	  }
-	  return {
-	    kind: _kinds.INLINE_FRAGMENT,
-	    typeCondition: typeCondition,
-	    directives: parseDirectives(lexer),
-	    selectionSet: parseSelectionSet(lexer),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * FragmentDefinition :
-	 *   - fragment FragmentName on TypeCondition Directives? SelectionSet
-	 *
-	 * TypeCondition : NamedType
-	 */
-	function parseFragmentDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'fragment');
-	  return {
-	    kind: _kinds.FRAGMENT_DEFINITION,
-	    name: parseFragmentName(lexer),
-	    typeCondition: (expectKeyword(lexer, 'on'), parseNamedType(lexer)),
-	    directives: parseDirectives(lexer),
-	    selectionSet: parseSelectionSet(lexer),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * FragmentName : Name but not `on`
-	 */
-	function parseFragmentName(lexer) {
-	  if (lexer.token.value === 'on') {
-	    throw unexpected(lexer);
-	  }
-	  return parseName(lexer);
-	}
-
-	// Implements the parsing rules in the Values section.
-
-	/**
-	 * Value[Const] :
-	 *   - [~Const] Variable
-	 *   - IntValue
-	 *   - FloatValue
-	 *   - StringValue
-	 *   - BooleanValue
-	 *   - NullValue
-	 *   - EnumValue
-	 *   - ListValue[?Const]
-	 *   - ObjectValue[?Const]
-	 *
-	 * BooleanValue : one of `true` `false`
-	 *
-	 * NullValue : `null`
-	 *
-	 * EnumValue : Name but not `true`, `false` or `null`
-	 */
-	function parseValueLiteral(lexer, isConst) {
-	  var token = lexer.token;
-	  switch (token.kind) {
-	    case _lexer.TokenKind.BRACKET_L:
-	      return parseList(lexer, isConst);
-	    case _lexer.TokenKind.BRACE_L:
-	      return parseObject(lexer, isConst);
-	    case _lexer.TokenKind.INT:
-	      lexer.advance();
-	      return {
-	        kind: _kinds.INT,
-	        value: token.value,
-	        loc: loc(lexer, token)
-	      };
-	    case _lexer.TokenKind.FLOAT:
-	      lexer.advance();
-	      return {
-	        kind: _kinds.FLOAT,
-	        value: token.value,
-	        loc: loc(lexer, token)
-	      };
-	    case _lexer.TokenKind.STRING:
-	      lexer.advance();
-	      return {
-	        kind: _kinds.STRING,
-	        value: token.value,
-	        loc: loc(lexer, token)
-	      };
-	    case _lexer.TokenKind.NAME:
-	      if (token.value === 'true' || token.value === 'false') {
-	        lexer.advance();
-	        return {
-	          kind: _kinds.BOOLEAN,
-	          value: token.value === 'true',
-	          loc: loc(lexer, token)
-	        };
-	      } else if (token.value === 'null') {
-	        lexer.advance();
-	        return {
-	          kind: _kinds.NULL,
-	          loc: loc(lexer, token)
-	        };
-	      }
-	      lexer.advance();
-	      return {
-	        kind: _kinds.ENUM,
-	        value: token.value,
-	        loc: loc(lexer, token)
-	      };
-	    case _lexer.TokenKind.DOLLAR:
-	      if (!isConst) {
-	        return parseVariable(lexer);
-	      }
-	      break;
-	  }
-	  throw unexpected(lexer);
-	}
-
-	function parseConstValue(lexer) {
-	  return parseValueLiteral(lexer, true);
-	}
-
-	function parseValueValue(lexer) {
-	  return parseValueLiteral(lexer, false);
-	}
-
-	/**
-	 * ListValue[Const] :
-	 *   - [ ]
-	 *   - [ Value[?Const]+ ]
-	 */
-	function parseList(lexer, isConst) {
-	  var start = lexer.token;
-	  var item = isConst ? parseConstValue : parseValueValue;
-	  return {
-	    kind: _kinds.LIST,
-	    values: any(lexer, _lexer.TokenKind.BRACKET_L, item, _lexer.TokenKind.BRACKET_R),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * ObjectValue[Const] :
-	 *   - { }
-	 *   - { ObjectField[?Const]+ }
-	 */
-	function parseObject(lexer, isConst) {
-	  var start = lexer.token;
-	  expect(lexer, _lexer.TokenKind.BRACE_L);
-	  var fields = [];
-	  while (!skip(lexer, _lexer.TokenKind.BRACE_R)) {
-	    fields.push(parseObjectField(lexer, isConst));
-	  }
-	  return {
-	    kind: _kinds.OBJECT,
-	    fields: fields,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * ObjectField[Const] : Name : Value[?Const]
-	 */
-	function parseObjectField(lexer, isConst) {
-	  var start = lexer.token;
-	  return {
-	    kind: _kinds.OBJECT_FIELD,
-	    name: parseName(lexer),
-	    value: (expect(lexer, _lexer.TokenKind.COLON), parseValueLiteral(lexer, isConst)),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	// Implements the parsing rules in the Directives section.
-
-	/**
-	 * Directives : Directive+
-	 */
-	function parseDirectives(lexer) {
-	  var directives = [];
-	  while (peek(lexer, _lexer.TokenKind.AT)) {
-	    directives.push(parseDirective(lexer));
-	  }
-	  return directives;
-	}
-
-	/**
-	 * Directive : @ Name Arguments?
-	 */
-	function parseDirective(lexer) {
-	  var start = lexer.token;
-	  expect(lexer, _lexer.TokenKind.AT);
-	  return {
-	    kind: _kinds.DIRECTIVE,
-	    name: parseName(lexer),
-	    arguments: parseArguments(lexer),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	// Implements the parsing rules in the Types section.
-
-	/**
-	 * Type :
-	 *   - NamedType
-	 *   - ListType
-	 *   - NonNullType
-	 */
-	function parseTypeReference(lexer) {
-	  var start = lexer.token;
-	  var type = void 0;
-	  if (skip(lexer, _lexer.TokenKind.BRACKET_L)) {
-	    type = parseTypeReference(lexer);
-	    expect(lexer, _lexer.TokenKind.BRACKET_R);
-	    type = {
-	      kind: _kinds.LIST_TYPE,
-	      type: type,
-	      loc: loc(lexer, start)
-	    };
-	  } else {
-	    type = parseNamedType(lexer);
-	  }
-	  if (skip(lexer, _lexer.TokenKind.BANG)) {
-	    return {
-	      kind: _kinds.NON_NULL_TYPE,
-	      type: type,
-	      loc: loc(lexer, start)
-	    };
-	  }
-	  return type;
-	}
-
-	/**
-	 * NamedType : Name
-	 */
-	function parseNamedType(lexer) {
-	  var start = lexer.token;
-	  return {
-	    kind: _kinds.NAMED_TYPE,
-	    name: parseName(lexer),
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	// Implements the parsing rules in the Type Definition section.
-
-	/**
-	 * TypeSystemDefinition :
-	 *   - SchemaDefinition
-	 *   - TypeDefinition
-	 *   - TypeExtensionDefinition
-	 *   - DirectiveDefinition
-	 *
-	 * TypeDefinition :
-	 *   - ScalarTypeDefinition
-	 *   - ObjectTypeDefinition
-	 *   - InterfaceTypeDefinition
-	 *   - UnionTypeDefinition
-	 *   - EnumTypeDefinition
-	 *   - InputObjectTypeDefinition
-	 */
-	function parseTypeSystemDefinition(lexer) {
-	  if (peek(lexer, _lexer.TokenKind.NAME)) {
-	    switch (lexer.token.value) {
-	      case 'schema':
-	        return parseSchemaDefinition(lexer);
-	      case 'scalar':
-	        return parseScalarTypeDefinition(lexer);
-	      case 'type':
-	        return parseObjectTypeDefinition(lexer);
-	      case 'interface':
-	        return parseInterfaceTypeDefinition(lexer);
-	      case 'union':
-	        return parseUnionTypeDefinition(lexer);
-	      case 'enum':
-	        return parseEnumTypeDefinition(lexer);
-	      case 'input':
-	        return parseInputObjectTypeDefinition(lexer);
-	      case 'extend':
-	        return parseTypeExtensionDefinition(lexer);
-	      case 'directive':
-	        return parseDirectiveDefinition(lexer);
-	    }
-	  }
-
-	  throw unexpected(lexer);
-	}
-
-	/**
-	 * SchemaDefinition : schema Directives? { OperationTypeDefinition+ }
-	 *
-	 * OperationTypeDefinition : OperationType : NamedType
-	 */
-	function parseSchemaDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'schema');
-	  var directives = parseDirectives(lexer);
-	  var operationTypes = many(lexer, _lexer.TokenKind.BRACE_L, parseOperationTypeDefinition, _lexer.TokenKind.BRACE_R);
-	  return {
-	    kind: _kinds.SCHEMA_DEFINITION,
-	    directives: directives,
-	    operationTypes: operationTypes,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	function parseOperationTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  var operation = parseOperationType(lexer);
-	  expect(lexer, _lexer.TokenKind.COLON);
-	  var type = parseNamedType(lexer);
-	  return {
-	    kind: _kinds.OPERATION_TYPE_DEFINITION,
-	    operation: operation,
-	    type: type,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * ScalarTypeDefinition : scalar Name Directives?
-	 */
-	function parseScalarTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'scalar');
-	  var name = parseName(lexer);
-	  var directives = parseDirectives(lexer);
-	  return {
-	    kind: _kinds.SCALAR_TYPE_DEFINITION,
-	    name: name,
-	    directives: directives,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * ObjectTypeDefinition :
-	 *   - type Name ImplementsInterfaces? Directives? { FieldDefinition+ }
-	 */
-	function parseObjectTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'type');
-	  var name = parseName(lexer);
-	  var interfaces = parseImplementsInterfaces(lexer);
-	  var directives = parseDirectives(lexer);
-	  var fields = any(lexer, _lexer.TokenKind.BRACE_L, parseFieldDefinition, _lexer.TokenKind.BRACE_R);
-	  return {
-	    kind: _kinds.OBJECT_TYPE_DEFINITION,
-	    name: name,
-	    interfaces: interfaces,
-	    directives: directives,
-	    fields: fields,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * ImplementsInterfaces : implements NamedType+
-	 */
-	function parseImplementsInterfaces(lexer) {
-	  var types = [];
-	  if (lexer.token.value === 'implements') {
-	    lexer.advance();
-	    do {
-	      types.push(parseNamedType(lexer));
-	    } while (peek(lexer, _lexer.TokenKind.NAME));
-	  }
-	  return types;
-	}
-
-	/**
-	 * FieldDefinition : Name ArgumentsDefinition? : Type Directives?
-	 */
-	function parseFieldDefinition(lexer) {
-	  var start = lexer.token;
-	  var name = parseName(lexer);
-	  var args = parseArgumentDefs(lexer);
-	  expect(lexer, _lexer.TokenKind.COLON);
-	  var type = parseTypeReference(lexer);
-	  var directives = parseDirectives(lexer);
-	  return {
-	    kind: _kinds.FIELD_DEFINITION,
-	    name: name,
-	    arguments: args,
-	    type: type,
-	    directives: directives,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * ArgumentsDefinition : ( InputValueDefinition+ )
-	 */
-	function parseArgumentDefs(lexer) {
-	  if (!peek(lexer, _lexer.TokenKind.PAREN_L)) {
-	    return [];
-	  }
-	  return many(lexer, _lexer.TokenKind.PAREN_L, parseInputValueDef, _lexer.TokenKind.PAREN_R);
-	}
-
-	/**
-	 * InputValueDefinition : Name : Type DefaultValue? Directives?
-	 */
-	function parseInputValueDef(lexer) {
-	  var start = lexer.token;
-	  var name = parseName(lexer);
-	  expect(lexer, _lexer.TokenKind.COLON);
-	  var type = parseTypeReference(lexer);
-	  var defaultValue = null;
-	  if (skip(lexer, _lexer.TokenKind.EQUALS)) {
-	    defaultValue = parseConstValue(lexer);
-	  }
-	  var directives = parseDirectives(lexer);
-	  return {
-	    kind: _kinds.INPUT_VALUE_DEFINITION,
-	    name: name,
-	    type: type,
-	    defaultValue: defaultValue,
-	    directives: directives,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * InterfaceTypeDefinition : interface Name Directives? { FieldDefinition+ }
-	 */
-	function parseInterfaceTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'interface');
-	  var name = parseName(lexer);
-	  var directives = parseDirectives(lexer);
-	  var fields = any(lexer, _lexer.TokenKind.BRACE_L, parseFieldDefinition, _lexer.TokenKind.BRACE_R);
-	  return {
-	    kind: _kinds.INTERFACE_TYPE_DEFINITION,
-	    name: name,
-	    directives: directives,
-	    fields: fields,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * UnionTypeDefinition : union Name Directives? = UnionMembers
-	 */
-	function parseUnionTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'union');
-	  var name = parseName(lexer);
-	  var directives = parseDirectives(lexer);
-	  expect(lexer, _lexer.TokenKind.EQUALS);
-	  var types = parseUnionMembers(lexer);
-	  return {
-	    kind: _kinds.UNION_TYPE_DEFINITION,
-	    name: name,
-	    directives: directives,
-	    types: types,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * UnionMembers :
-	 *   - NamedType
-	 *   - UnionMembers | NamedType
-	 */
-	function parseUnionMembers(lexer) {
-	  var members = [];
-	  do {
-	    members.push(parseNamedType(lexer));
-	  } while (skip(lexer, _lexer.TokenKind.PIPE));
-	  return members;
-	}
-
-	/**
-	 * EnumTypeDefinition : enum Name Directives? { EnumValueDefinition+ }
-	 */
-	function parseEnumTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'enum');
-	  var name = parseName(lexer);
-	  var directives = parseDirectives(lexer);
-	  var values = many(lexer, _lexer.TokenKind.BRACE_L, parseEnumValueDefinition, _lexer.TokenKind.BRACE_R);
-	  return {
-	    kind: _kinds.ENUM_TYPE_DEFINITION,
-	    name: name,
-	    directives: directives,
-	    values: values,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * EnumValueDefinition : EnumValue Directives?
-	 *
-	 * EnumValue : Name
-	 */
-	function parseEnumValueDefinition(lexer) {
-	  var start = lexer.token;
-	  var name = parseName(lexer);
-	  var directives = parseDirectives(lexer);
-	  return {
-	    kind: _kinds.ENUM_VALUE_DEFINITION,
-	    name: name,
-	    directives: directives,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * InputObjectTypeDefinition : input Name Directives? { InputValueDefinition+ }
-	 */
-	function parseInputObjectTypeDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'input');
-	  var name = parseName(lexer);
-	  var directives = parseDirectives(lexer);
-	  var fields = any(lexer, _lexer.TokenKind.BRACE_L, parseInputValueDef, _lexer.TokenKind.BRACE_R);
-	  return {
-	    kind: _kinds.INPUT_OBJECT_TYPE_DEFINITION,
-	    name: name,
-	    directives: directives,
-	    fields: fields,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * TypeExtensionDefinition : extend ObjectTypeDefinition
-	 */
-	function parseTypeExtensionDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'extend');
-	  var definition = parseObjectTypeDefinition(lexer);
-	  return {
-	    kind: _kinds.TYPE_EXTENSION_DEFINITION,
-	    definition: definition,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * DirectiveDefinition :
-	 *   - directive @ Name ArgumentsDefinition? on DirectiveLocations
-	 */
-	function parseDirectiveDefinition(lexer) {
-	  var start = lexer.token;
-	  expectKeyword(lexer, 'directive');
-	  expect(lexer, _lexer.TokenKind.AT);
-	  var name = parseName(lexer);
-	  var args = parseArgumentDefs(lexer);
-	  expectKeyword(lexer, 'on');
-	  var locations = parseDirectiveLocations(lexer);
-	  return {
-	    kind: _kinds.DIRECTIVE_DEFINITION,
-	    name: name,
-	    arguments: args,
-	    locations: locations,
-	    loc: loc(lexer, start)
-	  };
-	}
-
-	/**
-	 * DirectiveLocations :
-	 *   - Name
-	 *   - DirectiveLocations | Name
-	 */
-	function parseDirectiveLocations(lexer) {
-	  var locations = [];
-	  do {
-	    locations.push(parseName(lexer));
-	  } while (skip(lexer, _lexer.TokenKind.PIPE));
-	  return locations;
-	}
-
-	// Core parsing utility functions
-
-	/**
-	 * Returns a location object, used to identify the place in
-	 * the source that created a given parsed object.
-	 */
-	function loc(lexer, startToken) {
-	  if (!lexer.options.noLocation) {
-	    return new Loc(startToken, lexer.lastToken, lexer.source);
-	  }
-	}
-
-	function Loc(startToken, endToken, source) {
-	  this.start = startToken.start;
-	  this.end = endToken.end;
-	  this.startToken = startToken;
-	  this.endToken = endToken;
-	  this.source = source;
-	}
-
-	// Print a simplified form when appearing in JSON/util.inspect.
-	Loc.prototype.toJSON = Loc.prototype.inspect = function toJSON() {
-	  return { start: this.start, end: this.end };
-	};
-
-	/**
-	 * Determines if the next token is of a given kind
-	 */
-	function peek(lexer, kind) {
-	  return lexer.token.kind === kind;
-	}
-
-	/**
-	 * If the next token is of the given kind, return true after advancing
-	 * the lexer. Otherwise, do not change the parser state and return false.
-	 */
-	function skip(lexer, kind) {
-	  var match = lexer.token.kind === kind;
-	  if (match) {
-	    lexer.advance();
-	  }
-	  return match;
-	}
-
-	/**
-	 * If the next token is of the given kind, return that token after advancing
-	 * the lexer. Otherwise, do not change the parser state and throw an error.
-	 */
-	function expect(lexer, kind) {
-	  var token = lexer.token;
-	  if (token.kind === kind) {
-	    lexer.advance();
-	    return token;
-	  }
-	  throw (0, _error.syntaxError)(lexer.source, token.start, 'Expected ' + kind + ', found ' + (0, _lexer.getTokenDesc)(token));
-	}
-
-	/**
-	 * If the next token is a keyword with the given value, return that token after
-	 * advancing the lexer. Otherwise, do not change the parser state and return
-	 * false.
-	 */
-	function expectKeyword(lexer, value) {
-	  var token = lexer.token;
-	  if (token.kind === _lexer.TokenKind.NAME && token.value === value) {
-	    lexer.advance();
-	    return token;
-	  }
-	  throw (0, _error.syntaxError)(lexer.source, token.start, 'Expected "' + value + '", found ' + (0, _lexer.getTokenDesc)(token));
-	}
-
-	/**
-	 * Helper function for creating an error when an unexpected lexed token
-	 * is encountered.
-	 */
-	function unexpected(lexer, atToken) {
-	  var token = atToken || lexer.token;
-	  return (0, _error.syntaxError)(lexer.source, token.start, 'Unexpected ' + (0, _lexer.getTokenDesc)(token));
-	}
-
-	/**
-	 * Returns a possibly empty list of parse nodes, determined by
-	 * the parseFn. This list begins with a lex token of openKind
-	 * and ends with a lex token of closeKind. Advances the parser
-	 * to the next lex token after the closing token.
-	 */
-	function any(lexer, openKind, parseFn, closeKind) {
-	  expect(lexer, openKind);
-	  var nodes = [];
-	  while (!skip(lexer, closeKind)) {
-	    nodes.push(parseFn(lexer));
-	  }
-	  return nodes;
-	}
-
-	/**
-	 * Returns a non-empty list of parse nodes, determined by
-	 * the parseFn. This list begins with a lex token of openKind
-	 * and ends with a lex token of closeKind. Advances the parser
-	 * to the next lex token after the closing token.
-	 */
-	function many(lexer, openKind, parseFn, closeKind) {
-	  expect(lexer, openKind);
-	  var nodes = [parseFn(lexer)];
-	  while (!skip(lexer, closeKind)) {
-	    nodes.push(parseFn(lexer));
-	  }
-	  return nodes;
-	}
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	/**
-	 * A representation of source input to GraphQL. The name is optional,
-	 * but is mostly useful for clients who store GraphQL documents in
-	 * source files; for example, if the GraphQL input is in a file Foo.graphql,
-	 * it might be useful for name to be "Foo.graphql".
-	 */
-	var Source = exports.Source = function Source(body, name) {
-	  _classCallCheck(this, Source);
-
-	  this.body = body;
-	  this.name = name || 'GraphQL';
-	};
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _GraphQLError = __webpack_require__(4);
-
-	Object.defineProperty(exports, 'GraphQLError', {
-	  enumerable: true,
-	  get: function get() {
-	    return _GraphQLError.GraphQLError;
-	  }
-	});
-
-	var _syntaxError = __webpack_require__(6);
-
-	Object.defineProperty(exports, 'syntaxError', {
-	  enumerable: true,
-	  get: function get() {
-	    return _syntaxError.syntaxError;
-	  }
-	});
-
-	var _locatedError = __webpack_require__(7);
-
-	Object.defineProperty(exports, 'locatedError', {
-	  enumerable: true,
-	  get: function get() {
-	    return _locatedError.locatedError;
-	  }
-	});
-
-	var _formatError = __webpack_require__(8);
-
-	Object.defineProperty(exports, 'formatError', {
-	  enumerable: true,
-	  get: function get() {
-	    return _formatError.formatError;
-	  }
-	});
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.GraphQLError = GraphQLError;
-
-	var _location = __webpack_require__(5);
-
-	/**
-	 * A GraphQLError describes an Error found during the parse, validate, or
-	 * execute phases of performing a GraphQL operation. In addition to a message
-	 * and stack trace, it also includes information about the locations in a
-	 * GraphQL document and/or execution result that correspond to the Error.
-	 */
-	function GraphQLError( // eslint-disable-line no-redeclare
-	message, nodes, source, positions, path, originalError) {
-	  // Include (non-enumerable) stack trace.
-	  if (originalError && originalError.stack) {
-	    Object.defineProperty(this, 'stack', {
-	      value: originalError.stack,
-	      writable: true,
-	      configurable: true
-	    });
-	  } else if (Error.captureStackTrace) {
-	    Error.captureStackTrace(this, GraphQLError);
-	  } else {
-	    Object.defineProperty(this, 'stack', {
-	      value: Error().stack,
-	      writable: true,
-	      configurable: true
-	    });
-	  }
-
-	  // Compute locations in the source for the given nodes/positions.
-	  var _source = source;
-	  if (!_source && nodes && nodes.length > 0) {
-	    var node = nodes[0];
-	    _source = node && node.loc && node.loc.source;
-	  }
-
-	  var _positions = positions;
-	  if (!_positions && nodes) {
-	    _positions = nodes.filter(function (node) {
-	      return Boolean(node.loc);
-	    }).map(function (node) {
-	      return node.loc.start;
-	    });
-	  }
-	  if (_positions && _positions.length === 0) {
-	    _positions = undefined;
-	  }
-
-	  var _locations = void 0;
-	  var _source2 = _source; // seems here Flow need a const to resolve type.
-	  if (_source2 && _positions) {
-	    _locations = _positions.map(function (pos) {
-	      return (0, _location.getLocation)(_source2, pos);
-	    });
-	  }
-
-	  Object.defineProperties(this, {
-	    message: {
-	      value: message,
-	      // By being enumerable, JSON.stringify will include `message` in the
-	      // resulting output. This ensures that the simplist possible GraphQL
-	      // service adheres to the spec.
-	      enumerable: true,
-	      writable: true
-	    },
-	    locations: {
-	      // Coercing falsey values to undefined ensures they will not be included
-	      // in JSON.stringify() when not provided.
-	      value: _locations || undefined,
-	      // By being enumerable, JSON.stringify will include `locations` in the
-	      // resulting output. This ensures that the simplist possible GraphQL
-	      // service adheres to the spec.
-	      enumerable: true
-	    },
-	    path: {
-	      // Coercing falsey values to undefined ensures they will not be included
-	      // in JSON.stringify() when not provided.
-	      value: path || undefined,
-	      // By being enumerable, JSON.stringify will include `path` in the
-	      // resulting output. This ensures that the simplist possible GraphQL
-	      // service adheres to the spec.
-	      enumerable: true
-	    },
-	    nodes: {
-	      value: nodes || undefined
-	    },
-	    source: {
-	      value: _source || undefined
-	    },
-	    positions: {
-	      value: _positions || undefined
-	    },
-	    originalError: {
-	      value: originalError
-	    }
-	  });
-	}
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	GraphQLError.prototype = Object.create(Error.prototype, {
-	  constructor: { value: GraphQLError },
-	  name: { value: 'GraphQLError' }
-	});
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getLocation = getLocation;
-
-
-	/**
-	 * Takes a Source and a UTF-8 character offset, and returns the corresponding
-	 * line and column as a SourceLocation.
-	 */
-
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	function getLocation(source, position) {
-	  var lineRegexp = /\r\n|[\n\r]/g;
-	  var line = 1;
-	  var column = position + 1;
-	  var match = void 0;
-	  while ((match = lineRegexp.exec(source.body)) && match.index < position) {
-	    line += 1;
-	    column = position + 1 - (match.index + match[0].length);
-	  }
-	  return { line: line, column: column };
-	}
-
-	/**
-	 * Represents a location in a Source.
-	 */
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.syntaxError = syntaxError;
-
-	var _location = __webpack_require__(5);
-
-	var _GraphQLError = __webpack_require__(4);
-
-	/**
-	 * Produces a GraphQLError representing a syntax error, containing useful
-	 * descriptive information about the syntax error's position in the source.
-	 */
-
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	function syntaxError(source, position, description) {
-	  var location = (0, _location.getLocation)(source, position);
-	  var error = new _GraphQLError.GraphQLError('Syntax Error ' + source.name + ' (' + location.line + ':' + location.column + ') ' + description + '\n\n' + highlightSourceAtLocation(source, location), undefined, source, [position]);
-	  return error;
-	}
-
-	/**
-	 * Render a helpful description of the location of the error in the GraphQL
-	 * Source document.
-	 */
-	function highlightSourceAtLocation(source, location) {
-	  var line = location.line;
-	  var prevLineNum = (line - 1).toString();
-	  var lineNum = line.toString();
-	  var nextLineNum = (line + 1).toString();
-	  var padLen = nextLineNum.length;
-	  var lines = source.body.split(/\r\n|[\n\r]/g);
-	  return (line >= 2 ? lpad(padLen, prevLineNum) + ': ' + lines[line - 2] + '\n' : '') + lpad(padLen, lineNum) + ': ' + lines[line - 1] + '\n' + Array(2 + padLen + location.column).join(' ') + '^\n' + (line < lines.length ? lpad(padLen, nextLineNum) + ': ' + lines[line] + '\n' : '');
-	}
-
-	function lpad(len, str) {
-	  return Array(len - str.length + 1).join(' ') + str;
-	}
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.locatedError = locatedError;
-
-	var _GraphQLError = __webpack_require__(4);
-
-	/**
-	 * Given an arbitrary Error, presumably thrown while attempting to execute a
-	 * GraphQL operation, produce a new GraphQLError aware of the location in the
-	 * document responsible for the original Error.
-	 */
-	function locatedError(originalError, nodes, path) {
-	  // Note: this uses a brand-check to support GraphQL errors originating from
-	  // other contexts.
-	  if (originalError && originalError.path) {
-	    return originalError;
-	  }
-
-	  var message = originalError ? originalError.message || String(originalError) : 'An unknown error occurred.';
-	  return new _GraphQLError.GraphQLError(message, originalError && originalError.nodes || nodes, originalError && originalError.source, originalError && originalError.positions, path, originalError);
-	}
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.formatError = formatError;
-
-	var _invariant = __webpack_require__(9);
-
-	var _invariant2 = _interopRequireDefault(_invariant);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	/**
-	 * Given a GraphQLError, format it according to the rules described by the
-	 * Response Format, Errors section of the GraphQL Specification.
-	 */
-	function formatError(error) {
-	  (0, _invariant2.default)(error, 'Received null or undefined error.');
-	  return {
-	    message: error.message,
-	    locations: error.locations,
-	    path: error.path
-	  };
-	}
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = invariant;
-
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	function invariant(condition, message) {
-	  if (!condition) {
-	    throw new Error(message);
-	  }
-	}
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.TokenKind = undefined;
-	exports.createLexer = createLexer;
-	exports.getTokenDesc = getTokenDesc;
-
-	var _error = __webpack_require__(3);
-
-	/**
-	 * Given a Source object, this returns a Lexer for that source.
-	 * A Lexer is a stateful stream generator in that every time
-	 * it is advanced, it returns the next token in the Source. Assuming the
-	 * source lexes, the final Token emitted by the lexer will be of kind
-	 * EOF, after which the lexer will repeatedly return the same EOF token
-	 * whenever called.
-	 */
-	function createLexer(source, options) {
-	  var startOfFileToken = new Tok(SOF, 0, 0, 0, 0, null);
-	  var lexer = {
-	    source: source,
-	    options: options,
-	    lastToken: startOfFileToken,
-	    token: startOfFileToken,
-	    line: 1,
-	    lineStart: 0,
-	    advance: advanceLexer
-	  };
-	  return lexer;
-	} /*  /
-	  /**
-	   *  Copyright (c) 2015, Facebook, Inc.
-	   *  All rights reserved.
-	   *
-	   *  This source code is licensed under the BSD-style license found in the
-	   *  LICENSE file in the root directory of this source tree. An additional grant
-	   *  of patent rights can be found in the PATENTS file in the same directory.
-	   */
-
-	function advanceLexer() {
-	  var token = this.lastToken = this.token;
-	  if (token.kind !== EOF) {
-	    do {
-	      token = token.next = readToken(this, token);
-	    } while (token.kind === COMMENT);
-	    this.token = token;
-	  }
-	  return token;
-	}
-
-	/**
-	 * The return type of createLexer.
-	 */
-
-
-	// Each kind of token.
-	var SOF = '<SOF>';
-	var EOF = '<EOF>';
-	var BANG = '!';
-	var DOLLAR = '$';
-	var PAREN_L = '(';
-	var PAREN_R = ')';
-	var SPREAD = '...';
-	var COLON = ':';
-	var EQUALS = '=';
-	var AT = '@';
-	var BRACKET_L = '[';
-	var BRACKET_R = ']';
-	var BRACE_L = '{';
-	var PIPE = '|';
-	var BRACE_R = '}';
-	var NAME = 'Name';
-	var INT = 'Int';
-	var FLOAT = 'Float';
-	var STRING = 'String';
-	var COMMENT = 'Comment';
-
-	/**
-	 * An exported enum describing the different kinds of tokens that the
-	 * lexer emits.
-	 */
-	var TokenKind = exports.TokenKind = {
-	  SOF: SOF,
-	  EOF: EOF,
-	  BANG: BANG,
-	  DOLLAR: DOLLAR,
-	  PAREN_L: PAREN_L,
-	  PAREN_R: PAREN_R,
-	  SPREAD: SPREAD,
-	  COLON: COLON,
-	  EQUALS: EQUALS,
-	  AT: AT,
-	  BRACKET_L: BRACKET_L,
-	  BRACKET_R: BRACKET_R,
-	  BRACE_L: BRACE_L,
-	  PIPE: PIPE,
-	  BRACE_R: BRACE_R,
-	  NAME: NAME,
-	  INT: INT,
-	  FLOAT: FLOAT,
-	  STRING: STRING,
-	  COMMENT: COMMENT
-	};
-
-	/**
-	 * A helper function to describe a token as a string for debugging
-	 */
-	function getTokenDesc(token) {
-	  var value = token.value;
-	  return value ? token.kind + ' "' + value + '"' : token.kind;
-	}
-
-	var charCodeAt = String.prototype.charCodeAt;
-	var slice = String.prototype.slice;
-
-	/**
-	 * Helper function for constructing the Token object.
-	 */
-	function Tok(kind, start, end, line, column, prev, value) {
-	  this.kind = kind;
-	  this.start = start;
-	  this.end = end;
-	  this.line = line;
-	  this.column = column;
-	  this.value = value;
-	  this.prev = prev;
-	  this.next = null;
-	}
-
-	// Print a simplified form when appearing in JSON/util.inspect.
-	Tok.prototype.toJSON = Tok.prototype.inspect = function toJSON() {
-	  return {
-	    kind: this.kind,
-	    value: this.value,
-	    line: this.line,
-	    column: this.column
-	  };
-	};
-
-	function printCharCode(code) {
-	  return (
-	    // NaN/undefined represents access beyond the end of the file.
-	    isNaN(code) ? EOF :
-	    // Trust JSON for ASCII.
-	    code < 0x007F ? JSON.stringify(String.fromCharCode(code)) :
-	    // Otherwise print the escaped form.
-	    '"\\u' + ('00' + code.toString(16).toUpperCase()).slice(-4) + '"'
-	  );
-	}
-
-	/**
-	 * Gets the next token from the source starting at the given position.
-	 *
-	 * This skips over whitespace and comments until it finds the next lexable
-	 * token, then lexes punctuators immediately or calls the appropriate helper
-	 * function for more complicated tokens.
-	 */
-	function readToken(lexer, prev) {
-	  var source = lexer.source;
-	  var body = source.body;
-	  var bodyLength = body.length;
-
-	  var position = positionAfterWhitespace(body, prev.end, lexer);
-	  var line = lexer.line;
-	  var col = 1 + position - lexer.lineStart;
-
-	  if (position >= bodyLength) {
-	    return new Tok(EOF, bodyLength, bodyLength, line, col, prev);
-	  }
-
-	  var code = charCodeAt.call(body, position);
-
-	  // SourceCharacter
-	  if (code < 0x0020 && code !== 0x0009 && code !== 0x000A && code !== 0x000D) {
-	    throw (0, _error.syntaxError)(source, position, 'Cannot contain the invalid character ' + printCharCode(code) + '.');
-	  }
-
-	  switch (code) {
-	    // !
-	    case 33:
-	      return new Tok(BANG, position, position + 1, line, col, prev);
-	    // #
-	    case 35:
-	      return readComment(source, position, line, col, prev);
-	    // $
-	    case 36:
-	      return new Tok(DOLLAR, position, position + 1, line, col, prev);
-	    // (
-	    case 40:
-	      return new Tok(PAREN_L, position, position + 1, line, col, prev);
-	    // )
-	    case 41:
-	      return new Tok(PAREN_R, position, position + 1, line, col, prev);
-	    // .
-	    case 46:
-	      if (charCodeAt.call(body, position + 1) === 46 && charCodeAt.call(body, position + 2) === 46) {
-	        return new Tok(SPREAD, position, position + 3, line, col, prev);
-	      }
-	      break;
-	    // :
-	    case 58:
-	      return new Tok(COLON, position, position + 1, line, col, prev);
-	    // =
-	    case 61:
-	      return new Tok(EQUALS, position, position + 1, line, col, prev);
-	    // @
-	    case 64:
-	      return new Tok(AT, position, position + 1, line, col, prev);
-	    // [
-	    case 91:
-	      return new Tok(BRACKET_L, position, position + 1, line, col, prev);
-	    // ]
-	    case 93:
-	      return new Tok(BRACKET_R, position, position + 1, line, col, prev);
-	    // {
-	    case 123:
-	      return new Tok(BRACE_L, position, position + 1, line, col, prev);
-	    // |
-	    case 124:
-	      return new Tok(PIPE, position, position + 1, line, col, prev);
-	    // }
-	    case 125:
-	      return new Tok(BRACE_R, position, position + 1, line, col, prev);
-	    // A-Z _ a-z
-	    case 65:case 66:case 67:case 68:case 69:case 70:case 71:case 72:
-	    case 73:case 74:case 75:case 76:case 77:case 78:case 79:case 80:
-	    case 81:case 82:case 83:case 84:case 85:case 86:case 87:case 88:
-	    case 89:case 90:
-	    case 95:
-	    case 97:case 98:case 99:case 100:case 101:case 102:case 103:case 104:
-	    case 105:case 106:case 107:case 108:case 109:case 110:case 111:
-	    case 112:case 113:case 114:case 115:case 116:case 117:case 118:
-	    case 119:case 120:case 121:case 122:
-	      return readName(source, position, line, col, prev);
-	    // - 0-9
-	    case 45:
-	    case 48:case 49:case 50:case 51:case 52:
-	    case 53:case 54:case 55:case 56:case 57:
-	      return readNumber(source, position, code, line, col, prev);
-	    // "
-	    case 34:
-	      return readString(source, position, line, col, prev);
-	  }
-
-	  throw (0, _error.syntaxError)(source, position, unexpectedCharacterMessage(code));
-	}
-
-	/**
-	 * Report a message that an unexpected character was encountered.
-	 */
-	function unexpectedCharacterMessage(code) {
-	  if (code === 39) {
-	    // '
-	    return 'Unexpected single quote character (\'), did you mean to use ' + 'a double quote (")?';
-	  }
-
-	  return 'Cannot parse the unexpected character ' + printCharCode(code) + '.';
-	}
-
-	/**
-	 * Reads from body starting at startPosition until it finds a non-whitespace
-	 * or commented character, then returns the position of that character for
-	 * lexing.
-	 */
-	function positionAfterWhitespace(body, startPosition, lexer) {
-	  var bodyLength = body.length;
-	  var position = startPosition;
-	  while (position < bodyLength) {
-	    var code = charCodeAt.call(body, position);
-	    // tab | space | comma | BOM
-	    if (code === 9 || code === 32 || code === 44 || code === 0xFEFF) {
-	      ++position;
-	    } else if (code === 10) {
-	      // new line
-	      ++position;
-	      ++lexer.line;
-	      lexer.lineStart = position;
-	    } else if (code === 13) {
-	      // carriage return
-	      if (charCodeAt.call(body, position + 1) === 10) {
-	        position += 2;
-	      } else {
-	        ++position;
-	      }
-	      ++lexer.line;
-	      lexer.lineStart = position;
-	    } else {
-	      break;
-	    }
-	  }
-	  return position;
-	}
-
-	/**
-	 * Reads a comment token from the source file.
-	 *
-	 * #[\u0009\u0020-\uFFFF]*
-	 */
-	function readComment(source, start, line, col, prev) {
-	  var body = source.body;
-	  var code = void 0;
-	  var position = start;
-
-	  do {
-	    code = charCodeAt.call(body, ++position);
-	  } while (code !== null && (
-	  // SourceCharacter but not LineTerminator
-	  code > 0x001F || code === 0x0009));
-
-	  return new Tok(COMMENT, start, position, line, col, prev, slice.call(body, start + 1, position));
-	}
-
-	/**
-	 * Reads a number token from the source file, either a float
-	 * or an int depending on whether a decimal point appears.
-	 *
-	 * Int:   -?(0|[1-9][0-9]*)
-	 * Float: -?(0|[1-9][0-9]*)(\.[0-9]+)?((E|e)(+|-)?[0-9]+)?
-	 */
-	function readNumber(source, start, firstCode, line, col, prev) {
-	  var body = source.body;
-	  var code = firstCode;
-	  var position = start;
-	  var isFloat = false;
-
-	  if (code === 45) {
-	    // -
-	    code = charCodeAt.call(body, ++position);
-	  }
-
-	  if (code === 48) {
-	    // 0
-	    code = charCodeAt.call(body, ++position);
-	    if (code >= 48 && code <= 57) {
-	      throw (0, _error.syntaxError)(source, position, 'Invalid number, unexpected digit after 0: ' + printCharCode(code) + '.');
-	    }
-	  } else {
-	    position = readDigits(source, position, code);
-	    code = charCodeAt.call(body, position);
-	  }
-
-	  if (code === 46) {
-	    // .
-	    isFloat = true;
-
-	    code = charCodeAt.call(body, ++position);
-	    position = readDigits(source, position, code);
-	    code = charCodeAt.call(body, position);
-	  }
-
-	  if (code === 69 || code === 101) {
-	    // E e
-	    isFloat = true;
-
-	    code = charCodeAt.call(body, ++position);
-	    if (code === 43 || code === 45) {
-	      // + -
-	      code = charCodeAt.call(body, ++position);
-	    }
-	    position = readDigits(source, position, code);
-	  }
-
-	  return new Tok(isFloat ? FLOAT : INT, start, position, line, col, prev, slice.call(body, start, position));
-	}
-
-	/**
-	 * Returns the new position in the source after reading digits.
-	 */
-	function readDigits(source, start, firstCode) {
-	  var body = source.body;
-	  var position = start;
-	  var code = firstCode;
-	  if (code >= 48 && code <= 57) {
-	    // 0 - 9
-	    do {
-	      code = charCodeAt.call(body, ++position);
-	    } while (code >= 48 && code <= 57); // 0 - 9
-	    return position;
-	  }
-	  throw (0, _error.syntaxError)(source, position, 'Invalid number, expected digit but got: ' + printCharCode(code) + '.');
-	}
-
-	/**
-	 * Reads a string token from the source file.
-	 *
-	 * "([^"\\\u000A\u000D]|(\\(u[0-9a-fA-F]{4}|["\\/bfnrt])))*"
-	 */
-	function readString(source, start, line, col, prev) {
-	  var body = source.body;
-	  var position = start + 1;
-	  var chunkStart = position;
-	  var code = 0;
-	  var value = '';
-
-	  while (position < body.length && (code = charCodeAt.call(body, position)) !== null &&
-	  // not LineTerminator
-	  code !== 0x000A && code !== 0x000D &&
-	  // not Quote (")
-	  code !== 34) {
-	    // SourceCharacter
-	    if (code < 0x0020 && code !== 0x0009) {
-	      throw (0, _error.syntaxError)(source, position, 'Invalid character within String: ' + printCharCode(code) + '.');
-	    }
-
-	    ++position;
-	    if (code === 92) {
-	      // \
-	      value += slice.call(body, chunkStart, position - 1);
-	      code = charCodeAt.call(body, position);
-	      switch (code) {
-	        case 34:
-	          value += '"';break;
-	        case 47:
-	          value += '/';break;
-	        case 92:
-	          value += '\\';break;
-	        case 98:
-	          value += '\b';break;
-	        case 102:
-	          value += '\f';break;
-	        case 110:
-	          value += '\n';break;
-	        case 114:
-	          value += '\r';break;
-	        case 116:
-	          value += '\t';break;
-	        case 117:
-	          // u
-	          var charCode = uniCharCode(charCodeAt.call(body, position + 1), charCodeAt.call(body, position + 2), charCodeAt.call(body, position + 3), charCodeAt.call(body, position + 4));
-	          if (charCode < 0) {
-	            throw (0, _error.syntaxError)(source, position, 'Invalid character escape sequence: ' + ('\\u' + body.slice(position + 1, position + 5) + '.'));
-	          }
-	          value += String.fromCharCode(charCode);
-	          position += 4;
-	          break;
-	        default:
-	          throw (0, _error.syntaxError)(source, position, 'Invalid character escape sequence: \\' + String.fromCharCode(code) + '.');
-	      }
-	      ++position;
-	      chunkStart = position;
-	    }
-	  }
-
-	  if (code !== 34) {
-	    // quote (")
-	    throw (0, _error.syntaxError)(source, position, 'Unterminated string.');
-	  }
-
-	  value += slice.call(body, chunkStart, position);
-	  return new Tok(STRING, start, position + 1, line, col, prev, value);
-	}
-
-	/**
-	 * Converts four hexidecimal chars to the integer that the
-	 * string represents. For example, uniCharCode('0','0','0','f')
-	 * will return 15, and uniCharCode('0','0','f','f') returns 255.
-	 *
-	 * Returns a negative number on error, if a char was invalid.
-	 *
-	 * This is implemented by noting that char2hex() returns -1 on error,
-	 * which means the result of ORing the char2hex() will also be negative.
-	 */
-	function uniCharCode(a, b, c, d) {
-	  return char2hex(a) << 12 | char2hex(b) << 8 | char2hex(c) << 4 | char2hex(d);
-	}
-
-	/**
-	 * Converts a hex character to its integer value.
-	 * '0' becomes 0, '9' becomes 9
-	 * 'A' becomes 10, 'F' becomes 15
-	 * 'a' becomes 10, 'f' becomes 15
-	 *
-	 * Returns -1 on error.
-	 */
-	function char2hex(a) {
-	  return a >= 48 && a <= 57 ? a - 48 : // 0-9
-	  a >= 65 && a <= 70 ? a - 55 : // A-F
-	  a >= 97 && a <= 102 ? a - 87 : // a-f
-	  -1;
-	}
-
-	/**
-	 * Reads an alphanumeric + underscore name from the source.
-	 *
-	 * [_A-Za-z][_0-9A-Za-z]*
-	 */
-	function readName(source, position, line, col, prev) {
-	  var body = source.body;
-	  var bodyLength = body.length;
-	  var end = position + 1;
-	  var code = 0;
-	  while (end !== bodyLength && (code = charCodeAt.call(body, end)) !== null && (code === 95 || // _
-	  code >= 48 && code <= 57 || // 0-9
-	  code >= 65 && code <= 90 || // A-Z
-	  code >= 97 && code <= 122 // a-z
-	  )) {
-	    ++end;
-	  }
-	  return new Tok(NAME, position, end, line, col, prev, slice.call(body, position, end));
-	}
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	/**
-	 *  Copyright (c) 2015, Facebook, Inc.
-	 *  All rights reserved.
-	 *
-	 *  This source code is licensed under the BSD-style license found in the
-	 *  LICENSE file in the root directory of this source tree. An additional grant
-	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	// Name
-
-	var NAME = exports.NAME = 'Name';
-
-	// Document
-
-	var DOCUMENT = exports.DOCUMENT = 'Document';
-	var OPERATION_DEFINITION = exports.OPERATION_DEFINITION = 'OperationDefinition';
-	var VARIABLE_DEFINITION = exports.VARIABLE_DEFINITION = 'VariableDefinition';
-	var VARIABLE = exports.VARIABLE = 'Variable';
-	var SELECTION_SET = exports.SELECTION_SET = 'SelectionSet';
-	var FIELD = exports.FIELD = 'Field';
-	var ARGUMENT = exports.ARGUMENT = 'Argument';
-
-	// Fragments
-
-	var FRAGMENT_SPREAD = exports.FRAGMENT_SPREAD = 'FragmentSpread';
-	var INLINE_FRAGMENT = exports.INLINE_FRAGMENT = 'InlineFragment';
-	var FRAGMENT_DEFINITION = exports.FRAGMENT_DEFINITION = 'FragmentDefinition';
-
-	// Values
-
-	var INT = exports.INT = 'IntValue';
-	var FLOAT = exports.FLOAT = 'FloatValue';
-	var STRING = exports.STRING = 'StringValue';
-	var BOOLEAN = exports.BOOLEAN = 'BooleanValue';
-	var NULL = exports.NULL = 'NullValue';
-	var ENUM = exports.ENUM = 'EnumValue';
-	var LIST = exports.LIST = 'ListValue';
-	var OBJECT = exports.OBJECT = 'ObjectValue';
-	var OBJECT_FIELD = exports.OBJECT_FIELD = 'ObjectField';
-
-	// Directives
-
-	var DIRECTIVE = exports.DIRECTIVE = 'Directive';
-
-	// Types
-
-	var NAMED_TYPE = exports.NAMED_TYPE = 'NamedType';
-	var LIST_TYPE = exports.LIST_TYPE = 'ListType';
-	var NON_NULL_TYPE = exports.NON_NULL_TYPE = 'NonNullType';
-
-	// Type System Definitions
-
-	var SCHEMA_DEFINITION = exports.SCHEMA_DEFINITION = 'SchemaDefinition';
-	var OPERATION_TYPE_DEFINITION = exports.OPERATION_TYPE_DEFINITION = 'OperationTypeDefinition';
-
-	// Type Definitions
-
-	var SCALAR_TYPE_DEFINITION = exports.SCALAR_TYPE_DEFINITION = 'ScalarTypeDefinition';
-	var OBJECT_TYPE_DEFINITION = exports.OBJECT_TYPE_DEFINITION = 'ObjectTypeDefinition';
-	var FIELD_DEFINITION = exports.FIELD_DEFINITION = 'FieldDefinition';
-	var INPUT_VALUE_DEFINITION = exports.INPUT_VALUE_DEFINITION = 'InputValueDefinition';
-	var INTERFACE_TYPE_DEFINITION = exports.INTERFACE_TYPE_DEFINITION = 'InterfaceTypeDefinition';
-	var UNION_TYPE_DEFINITION = exports.UNION_TYPE_DEFINITION = 'UnionTypeDefinition';
-	var ENUM_TYPE_DEFINITION = exports.ENUM_TYPE_DEFINITION = 'EnumTypeDefinition';
-	var ENUM_VALUE_DEFINITION = exports.ENUM_VALUE_DEFINITION = 'EnumValueDefinition';
-	var INPUT_OBJECT_TYPE_DEFINITION = exports.INPUT_OBJECT_TYPE_DEFINITION = 'InputObjectTypeDefinition';
-
-	// Type Extensions
-
-	var TYPE_EXTENSION_DEFINITION = exports.TYPE_EXTENSION_DEFINITION = 'TypeExtensionDefinition';
-
-	// Directive Definitions
-
-	var DIRECTIVE_DEFINITION = exports.DIRECTIVE_DEFINITION = 'DirectiveDefinition';
-
-/***/ }
-/******/ ]);
-
-/***/ }),
-/* 56 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8075,9 +6934,26 @@ module.exports =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.visit = visit;
-exports.visitInParallel = visitInParallel;
-exports.visitWithTypeInfo = visitWithTypeInfo;
+exports.formatError = formatError;
+
+var _invariant = __webpack_require__(67);
+
+var _invariant2 = _interopRequireDefault(_invariant);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/**
+ * Given a GraphQLError, format it according to the rules described by the
+ * Response Format, Errors section of the GraphQL Specification.
+ */
+function formatError(error) {
+  (0, _invariant2.default)(error, 'Received null or undefined error.');
+  return {
+    message: error.message,
+    locations: error.locations,
+    path: error.path
+  };
+}
 /**
  *  Copyright (c) 2015, Facebook, Inc.
  *  All rights reserved.
@@ -8087,388 +6963,1706 @@ exports.visitWithTypeInfo = visitWithTypeInfo;
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
 
-var QueryDocumentKeys = exports.QueryDocumentKeys = {
-  Name: [],
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
 
-  Document: ['definitions'],
-  OperationDefinition: ['name', 'variableDefinitions', 'directives', 'selectionSet'],
-  VariableDefinition: ['variable', 'type', 'defaultValue'],
-  Variable: ['name'],
-  SelectionSet: ['selections'],
-  Field: ['alias', 'name', 'arguments', 'directives', 'selectionSet'],
-  Argument: ['name', 'value'],
+"use strict";
 
-  FragmentSpread: ['name', 'directives'],
-  InlineFragment: ['typeCondition', 'directives', 'selectionSet'],
-  FragmentDefinition: ['name', 'typeCondition', 'directives', 'selectionSet'],
 
-  IntValue: [],
-  FloatValue: [],
-  StringValue: [],
-  BooleanValue: [],
-  NullValue: [],
-  EnumValue: [],
-  ListValue: ['values'],
-  ObjectValue: ['fields'],
-  ObjectField: ['name', 'value'],
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.locatedError = locatedError;
 
-  Directive: ['name', 'arguments'],
-
-  NamedType: ['name'],
-  ListType: ['type'],
-  NonNullType: ['type'],
-
-  SchemaDefinition: ['directives', 'operationTypes'],
-  OperationTypeDefinition: ['type'],
-
-  ScalarTypeDefinition: ['name', 'directives'],
-  ObjectTypeDefinition: ['name', 'interfaces', 'directives', 'fields'],
-  FieldDefinition: ['name', 'arguments', 'type', 'directives'],
-  InputValueDefinition: ['name', 'type', 'defaultValue', 'directives'],
-  InterfaceTypeDefinition: ['name', 'directives', 'fields'],
-  UnionTypeDefinition: ['name', 'directives', 'types'],
-  EnumTypeDefinition: ['name', 'directives', 'values'],
-  EnumValueDefinition: ['name', 'directives'],
-  InputObjectTypeDefinition: ['name', 'directives', 'fields'],
-
-  TypeExtensionDefinition: ['definition'],
-
-  DirectiveDefinition: ['name', 'arguments', 'locations']
-};
-
-var BREAK = exports.BREAK = {};
+var _GraphQLError = __webpack_require__(19);
 
 /**
- * visit() will walk through an AST using a depth first traversal, calling
- * the visitor's enter function at each node in the traversal, and calling the
- * leave function after visiting that node and all of its child nodes.
- *
- * By returning different values from the enter and leave functions, the
- * behavior of the visitor can be altered, including skipping over a sub-tree of
- * the AST (by returning false), editing the AST by returning a value or null
- * to remove the value, or to stop the whole traversal by returning BREAK.
- *
- * When using visit() to edit an AST, the original AST will not be modified, and
- * a new version of the AST with the changes applied will be returned from the
- * visit function.
- *
- *     const editedAST = visit(ast, {
- *       enter(node, key, parent, path, ancestors) {
- *         // @return
- *         //   undefined: no action
- *         //   false: skip visiting this node
- *         //   visitor.BREAK: stop visiting altogether
- *         //   null: delete this node
- *         //   any value: replace this node with the returned value
- *       },
- *       leave(node, key, parent, path, ancestors) {
- *         // @return
- *         //   undefined: no action
- *         //   false: no action
- *         //   visitor.BREAK: stop visiting altogether
- *         //   null: delete this node
- *         //   any value: replace this node with the returned value
- *       }
- *     });
- *
- * Alternatively to providing enter() and leave() functions, a visitor can
- * instead provide functions named the same as the kinds of AST nodes, or
- * enter/leave visitors at a named key, leading to four permutations of
- * visitor API:
- *
- * 1) Named visitors triggered when entering a node a specific kind.
- *
- *     visit(ast, {
- *       Kind(node) {
- *         // enter the "Kind" node
- *       }
- *     })
- *
- * 2) Named visitors that trigger upon entering and leaving a node of
- *    a specific kind.
- *
- *     visit(ast, {
- *       Kind: {
- *         enter(node) {
- *           // enter the "Kind" node
- *         }
- *         leave(node) {
- *           // leave the "Kind" node
- *         }
- *       }
- *     })
- *
- * 3) Generic visitors that trigger upon entering and leaving any node.
- *
- *     visit(ast, {
- *       enter(node) {
- *         // enter any node
- *       },
- *       leave(node) {
- *         // leave any node
- *       }
- *     })
- *
- * 4) Parallel visitors for entering and leaving nodes of a specific kind.
- *
- *     visit(ast, {
- *       enter: {
- *         Kind(node) {
- *           // enter the "Kind" node
- *         }
- *       },
- *       leave: {
- *         Kind(node) {
- *           // leave the "Kind" node
- *         }
- *       }
- *     })
+ * Given an arbitrary Error, presumably thrown while attempting to execute a
+ * GraphQL operation, produce a new GraphQLError aware of the location in the
+ * document responsible for the original Error.
  */
-function visit(root, visitor, keyMap) {
-  var visitorKeys = keyMap || QueryDocumentKeys;
-
-  var stack = void 0;
-  var inArray = Array.isArray(root);
-  var keys = [root];
-  var index = -1;
-  var edits = [];
-  var parent = void 0;
-  var path = [];
-  var ancestors = [];
-  var newRoot = root;
-
-  do {
-    index++;
-    var isLeaving = index === keys.length;
-    var key = void 0;
-    var node = void 0;
-    var isEdited = isLeaving && edits.length !== 0;
-    if (isLeaving) {
-      key = ancestors.length === 0 ? undefined : path.pop();
-      node = parent;
-      parent = ancestors.pop();
-      if (isEdited) {
-        if (inArray) {
-          node = node.slice();
-        } else {
-          var clone = {};
-          for (var k in node) {
-            if (node.hasOwnProperty(k)) {
-              clone[k] = node[k];
-            }
-          }
-          node = clone;
-        }
-        var editOffset = 0;
-        for (var ii = 0; ii < edits.length; ii++) {
-          var editKey = edits[ii][0];
-          var editValue = edits[ii][1];
-          if (inArray) {
-            editKey -= editOffset;
-          }
-          if (inArray && editValue === null) {
-            node.splice(editKey, 1);
-            editOffset++;
-          } else {
-            node[editKey] = editValue;
-          }
-        }
-      }
-      index = stack.index;
-      keys = stack.keys;
-      edits = stack.edits;
-      inArray = stack.inArray;
-      stack = stack.prev;
-    } else {
-      key = parent ? inArray ? index : keys[index] : undefined;
-      node = parent ? parent[key] : newRoot;
-      if (node === null || node === undefined) {
-        continue;
-      }
-      if (parent) {
-        path.push(key);
-      }
-    }
-
-    var result = void 0;
-    if (!Array.isArray(node)) {
-      if (!isNode(node)) {
-        throw new Error('Invalid AST Node: ' + JSON.stringify(node));
-      }
-      var visitFn = getVisitFn(visitor, node.kind, isLeaving);
-      if (visitFn) {
-        result = visitFn.call(visitor, node, key, parent, path, ancestors);
-
-        if (result === BREAK) {
-          break;
-        }
-
-        if (result === false) {
-          if (!isLeaving) {
-            path.pop();
-            continue;
-          }
-        } else if (result !== undefined) {
-          edits.push([key, result]);
-          if (!isLeaving) {
-            if (isNode(result)) {
-              node = result;
-            } else {
-              path.pop();
-              continue;
-            }
-          }
-        }
-      }
-    }
-
-    if (result === undefined && isEdited) {
-      edits.push([key, node]);
-    }
-
-    if (!isLeaving) {
-      stack = { inArray: inArray, index: index, keys: keys, edits: edits, prev: stack };
-      inArray = Array.isArray(node);
-      keys = inArray ? node : visitorKeys[node.kind] || [];
-      index = -1;
-      edits = [];
-      if (parent) {
-        ancestors.push(parent);
-      }
-      parent = node;
-    }
-  } while (stack !== undefined);
-
-  if (edits.length !== 0) {
-    newRoot = edits[edits.length - 1][1];
+function locatedError(originalError, nodes, path) {
+  // Note: this uses a brand-check to support GraphQL errors originating from
+  // other contexts.
+  if (originalError && originalError.path) {
+    return originalError;
   }
 
-  return newRoot;
+  var message = originalError ? originalError.message || String(originalError) : 'An unknown error occurred.';
+  return new _GraphQLError.GraphQLError(message, originalError && originalError.nodes || nodes, originalError && originalError.source, originalError && originalError.positions, path, originalError);
 }
-
-function isNode(maybeNode) {
-  return maybeNode && typeof maybeNode.kind === 'string';
-}
-
 /**
- * Creates a new visitor instance which delegates to many visitors to run in
- * parallel. Each visitor will be visited for each node before moving on.
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
  *
- * If a prior visitor edits a node, no following visitors will see that node.
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
  */
-function visitInParallel(visitors) {
-  var skipping = new Array(visitors.length);
 
-  return {
-    enter: function enter(node) {
-      for (var i = 0; i < visitors.length; i++) {
-        if (!skipping[i]) {
-          var fn = getVisitFn(visitors[i], node.kind, /* isLeaving */false);
-          if (fn) {
-            var result = fn.apply(visitors[i], arguments);
-            if (result === false) {
-              skipping[i] = node;
-            } else if (result === BREAK) {
-              skipping[i] = BREAK;
-            } else if (result !== undefined) {
-              return result;
-            }
-          }
-        }
-      }
-    },
-    leave: function leave(node) {
-      for (var i = 0; i < visitors.length; i++) {
-        if (!skipping[i]) {
-          var fn = getVisitFn(visitors[i], node.kind, /* isLeaving */true);
-          if (fn) {
-            var result = fn.apply(visitors[i], arguments);
-            if (result === BREAK) {
-              skipping[i] = BREAK;
-            } else if (result !== undefined && result !== false) {
-              return result;
-            }
-          }
-        } else if (skipping[i] === node) {
-          skipping[i] = null;
-        }
-      }
-    }
-  };
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.syntaxError = syntaxError;
+
+var _location = __webpack_require__(32);
+
+var _GraphQLError = __webpack_require__(19);
+
+/**
+ * Produces a GraphQLError representing a syntax error, containing useful
+ * descriptive information about the syntax error's position in the source.
+ */
+
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+function syntaxError(source, position, description) {
+  var location = (0, _location.getLocation)(source, position);
+  var error = new _GraphQLError.GraphQLError('Syntax Error ' + source.name + ' (' + location.line + ':' + location.column + ') ' + description + '\n\n' + highlightSourceAtLocation(source, location), undefined, source, [position]);
+  return error;
 }
 
 /**
- * Creates a new visitor instance which maintains a provided TypeInfo instance
- * along with visiting visitor.
+ * Render a helpful description of the location of the error in the GraphQL
+ * Source document.
  */
-function visitWithTypeInfo(typeInfo, visitor) {
-  return {
-    enter: function enter(node) {
-      typeInfo.enter(node);
-      var fn = getVisitFn(visitor, node.kind, /* isLeaving */false);
-      if (fn) {
-        var result = fn.apply(visitor, arguments);
-        if (result !== undefined) {
-          typeInfo.leave(node);
-          if (isNode(result)) {
-            typeInfo.enter(result);
-          }
-        }
-        return result;
-      }
-    },
-    leave: function leave(node) {
-      var fn = getVisitFn(visitor, node.kind, /* isLeaving */true);
-      var result = void 0;
-      if (fn) {
-        result = fn.apply(visitor, arguments);
-      }
-      typeInfo.leave(node);
-      return result;
-    }
-  };
+function highlightSourceAtLocation(source, location) {
+  var line = location.line;
+  var prevLineNum = (line - 1).toString();
+  var lineNum = line.toString();
+  var nextLineNum = (line + 1).toString();
+  var padLen = nextLineNum.length;
+  var lines = source.body.split(/\r\n|[\n\r]/g);
+  return (line >= 2 ? lpad(padLen, prevLineNum) + ': ' + lines[line - 2] + '\n' : '') + lpad(padLen, lineNum) + ': ' + lines[line - 1] + '\n' + Array(2 + padLen + location.column).join(' ') + '^\n' + (line < lines.length ? lpad(padLen, nextLineNum) + ': ' + lines[line] + '\n' : '');
 }
 
+function lpad(len, str) {
+  return Array(len - str.length + 1).join(' ') + str;
+}
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = invariant;
+
 /**
- * Given a visitor instance, if it is leaving or not, and a node kind, return
- * the function the visitor runtime should call.
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
  */
-function getVisitFn(visitor, kind, isLeaving) {
-  var kindVisitor = visitor[kind];
-  if (kindVisitor) {
-    if (!isLeaving && typeof kindVisitor === 'function') {
-      // { Kind() {} }
-      return kindVisitor;
-    }
-    var kindSpecificVisitor = isLeaving ? kindVisitor.leave : kindVisitor.enter;
-    if (typeof kindSpecificVisitor === 'function') {
-      // { Kind: { enter() {}, leave() {} } }
-      return kindSpecificVisitor;
-    }
-  } else {
-    var specificVisitor = isLeaving ? visitor.leave : visitor.enter;
-    if (specificVisitor) {
-      if (typeof specificVisitor === 'function') {
-        // { enter() {}, leave() {} }
-        return specificVisitor;
-      }
-      var specificKindVisitor = specificVisitor[kind];
-      if (typeof specificKindVisitor === 'function') {
-        // { enter: { Kind() {} }, leave: { Kind() {} } }
-        return specificKindVisitor;
-      }
-    }
+
+function invariant(condition, message) {
+  if (!condition) {
+    throw new Error(message);
   }
 }
 
 /***/ }),
-/* 57 */
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TokenKind = undefined;
+exports.createLexer = createLexer;
+exports.getTokenDesc = getTokenDesc;
+
+var _error = __webpack_require__(31);
+
+/**
+ * Given a Source object, this returns a Lexer for that source.
+ * A Lexer is a stateful stream generator in that every time
+ * it is advanced, it returns the next token in the Source. Assuming the
+ * source lexes, the final Token emitted by the lexer will be of kind
+ * EOF, after which the lexer will repeatedly return the same EOF token
+ * whenever called.
+ */
+function createLexer(source, options) {
+  var startOfFileToken = new Tok(SOF, 0, 0, 0, 0, null);
+  var lexer = {
+    source: source,
+    options: options,
+    lastToken: startOfFileToken,
+    token: startOfFileToken,
+    line: 1,
+    lineStart: 0,
+    advance: advanceLexer
+  };
+  return lexer;
+} /*  /
+  /**
+   *  Copyright (c) 2015, Facebook, Inc.
+   *  All rights reserved.
+   *
+   *  This source code is licensed under the BSD-style license found in the
+   *  LICENSE file in the root directory of this source tree. An additional grant
+   *  of patent rights can be found in the PATENTS file in the same directory.
+   */
+
+function advanceLexer() {
+  var token = this.lastToken = this.token;
+  if (token.kind !== EOF) {
+    do {
+      token = token.next = readToken(this, token);
+    } while (token.kind === COMMENT);
+    this.token = token;
+  }
+  return token;
+}
+
+/**
+ * The return type of createLexer.
+ */
+
+
+// Each kind of token.
+var SOF = '<SOF>';
+var EOF = '<EOF>';
+var BANG = '!';
+var DOLLAR = '$';
+var PAREN_L = '(';
+var PAREN_R = ')';
+var SPREAD = '...';
+var COLON = ':';
+var EQUALS = '=';
+var AT = '@';
+var BRACKET_L = '[';
+var BRACKET_R = ']';
+var BRACE_L = '{';
+var PIPE = '|';
+var BRACE_R = '}';
+var NAME = 'Name';
+var INT = 'Int';
+var FLOAT = 'Float';
+var STRING = 'String';
+var COMMENT = 'Comment';
+
+/**
+ * An exported enum describing the different kinds of tokens that the
+ * lexer emits.
+ */
+var TokenKind = exports.TokenKind = {
+  SOF: SOF,
+  EOF: EOF,
+  BANG: BANG,
+  DOLLAR: DOLLAR,
+  PAREN_L: PAREN_L,
+  PAREN_R: PAREN_R,
+  SPREAD: SPREAD,
+  COLON: COLON,
+  EQUALS: EQUALS,
+  AT: AT,
+  BRACKET_L: BRACKET_L,
+  BRACKET_R: BRACKET_R,
+  BRACE_L: BRACE_L,
+  PIPE: PIPE,
+  BRACE_R: BRACE_R,
+  NAME: NAME,
+  INT: INT,
+  FLOAT: FLOAT,
+  STRING: STRING,
+  COMMENT: COMMENT
+};
+
+/**
+ * A helper function to describe a token as a string for debugging
+ */
+function getTokenDesc(token) {
+  var value = token.value;
+  return value ? token.kind + ' "' + value + '"' : token.kind;
+}
+
+var charCodeAt = String.prototype.charCodeAt;
+var slice = String.prototype.slice;
+
+/**
+ * Helper function for constructing the Token object.
+ */
+function Tok(kind, start, end, line, column, prev, value) {
+  this.kind = kind;
+  this.start = start;
+  this.end = end;
+  this.line = line;
+  this.column = column;
+  this.value = value;
+  this.prev = prev;
+  this.next = null;
+}
+
+// Print a simplified form when appearing in JSON/util.inspect.
+Tok.prototype.toJSON = Tok.prototype.inspect = function toJSON() {
+  return {
+    kind: this.kind,
+    value: this.value,
+    line: this.line,
+    column: this.column
+  };
+};
+
+function printCharCode(code) {
+  return (
+    // NaN/undefined represents access beyond the end of the file.
+    isNaN(code) ? EOF :
+    // Trust JSON for ASCII.
+    code < 0x007F ? JSON.stringify(String.fromCharCode(code)) :
+    // Otherwise print the escaped form.
+    '"\\u' + ('00' + code.toString(16).toUpperCase()).slice(-4) + '"'
+  );
+}
+
+/**
+ * Gets the next token from the source starting at the given position.
+ *
+ * This skips over whitespace and comments until it finds the next lexable
+ * token, then lexes punctuators immediately or calls the appropriate helper
+ * function for more complicated tokens.
+ */
+function readToken(lexer, prev) {
+  var source = lexer.source;
+  var body = source.body;
+  var bodyLength = body.length;
+
+  var position = positionAfterWhitespace(body, prev.end, lexer);
+  var line = lexer.line;
+  var col = 1 + position - lexer.lineStart;
+
+  if (position >= bodyLength) {
+    return new Tok(EOF, bodyLength, bodyLength, line, col, prev);
+  }
+
+  var code = charCodeAt.call(body, position);
+
+  // SourceCharacter
+  if (code < 0x0020 && code !== 0x0009 && code !== 0x000A && code !== 0x000D) {
+    throw (0, _error.syntaxError)(source, position, 'Cannot contain the invalid character ' + printCharCode(code) + '.');
+  }
+
+  switch (code) {
+    // !
+    case 33:
+      return new Tok(BANG, position, position + 1, line, col, prev);
+    // #
+    case 35:
+      return readComment(source, position, line, col, prev);
+    // $
+    case 36:
+      return new Tok(DOLLAR, position, position + 1, line, col, prev);
+    // (
+    case 40:
+      return new Tok(PAREN_L, position, position + 1, line, col, prev);
+    // )
+    case 41:
+      return new Tok(PAREN_R, position, position + 1, line, col, prev);
+    // .
+    case 46:
+      if (charCodeAt.call(body, position + 1) === 46 && charCodeAt.call(body, position + 2) === 46) {
+        return new Tok(SPREAD, position, position + 3, line, col, prev);
+      }
+      break;
+    // :
+    case 58:
+      return new Tok(COLON, position, position + 1, line, col, prev);
+    // =
+    case 61:
+      return new Tok(EQUALS, position, position + 1, line, col, prev);
+    // @
+    case 64:
+      return new Tok(AT, position, position + 1, line, col, prev);
+    // [
+    case 91:
+      return new Tok(BRACKET_L, position, position + 1, line, col, prev);
+    // ]
+    case 93:
+      return new Tok(BRACKET_R, position, position + 1, line, col, prev);
+    // {
+    case 123:
+      return new Tok(BRACE_L, position, position + 1, line, col, prev);
+    // |
+    case 124:
+      return new Tok(PIPE, position, position + 1, line, col, prev);
+    // }
+    case 125:
+      return new Tok(BRACE_R, position, position + 1, line, col, prev);
+    // A-Z _ a-z
+    case 65:case 66:case 67:case 68:case 69:case 70:case 71:case 72:
+    case 73:case 74:case 75:case 76:case 77:case 78:case 79:case 80:
+    case 81:case 82:case 83:case 84:case 85:case 86:case 87:case 88:
+    case 89:case 90:
+    case 95:
+    case 97:case 98:case 99:case 100:case 101:case 102:case 103:case 104:
+    case 105:case 106:case 107:case 108:case 109:case 110:case 111:
+    case 112:case 113:case 114:case 115:case 116:case 117:case 118:
+    case 119:case 120:case 121:case 122:
+      return readName(source, position, line, col, prev);
+    // - 0-9
+    case 45:
+    case 48:case 49:case 50:case 51:case 52:
+    case 53:case 54:case 55:case 56:case 57:
+      return readNumber(source, position, code, line, col, prev);
+    // "
+    case 34:
+      return readString(source, position, line, col, prev);
+  }
+
+  throw (0, _error.syntaxError)(source, position, unexpectedCharacterMessage(code));
+}
+
+/**
+ * Report a message that an unexpected character was encountered.
+ */
+function unexpectedCharacterMessage(code) {
+  if (code === 39) {
+    // '
+    return 'Unexpected single quote character (\'), did you mean to use ' + 'a double quote (")?';
+  }
+
+  return 'Cannot parse the unexpected character ' + printCharCode(code) + '.';
+}
+
+/**
+ * Reads from body starting at startPosition until it finds a non-whitespace
+ * or commented character, then returns the position of that character for
+ * lexing.
+ */
+function positionAfterWhitespace(body, startPosition, lexer) {
+  var bodyLength = body.length;
+  var position = startPosition;
+  while (position < bodyLength) {
+    var code = charCodeAt.call(body, position);
+    // tab | space | comma | BOM
+    if (code === 9 || code === 32 || code === 44 || code === 0xFEFF) {
+      ++position;
+    } else if (code === 10) {
+      // new line
+      ++position;
+      ++lexer.line;
+      lexer.lineStart = position;
+    } else if (code === 13) {
+      // carriage return
+      if (charCodeAt.call(body, position + 1) === 10) {
+        position += 2;
+      } else {
+        ++position;
+      }
+      ++lexer.line;
+      lexer.lineStart = position;
+    } else {
+      break;
+    }
+  }
+  return position;
+}
+
+/**
+ * Reads a comment token from the source file.
+ *
+ * #[\u0009\u0020-\uFFFF]*
+ */
+function readComment(source, start, line, col, prev) {
+  var body = source.body;
+  var code = void 0;
+  var position = start;
+
+  do {
+    code = charCodeAt.call(body, ++position);
+  } while (code !== null && (
+  // SourceCharacter but not LineTerminator
+  code > 0x001F || code === 0x0009));
+
+  return new Tok(COMMENT, start, position, line, col, prev, slice.call(body, start + 1, position));
+}
+
+/**
+ * Reads a number token from the source file, either a float
+ * or an int depending on whether a decimal point appears.
+ *
+ * Int:   -?(0|[1-9][0-9]*)
+ * Float: -?(0|[1-9][0-9]*)(\.[0-9]+)?((E|e)(+|-)?[0-9]+)?
+ */
+function readNumber(source, start, firstCode, line, col, prev) {
+  var body = source.body;
+  var code = firstCode;
+  var position = start;
+  var isFloat = false;
+
+  if (code === 45) {
+    // -
+    code = charCodeAt.call(body, ++position);
+  }
+
+  if (code === 48) {
+    // 0
+    code = charCodeAt.call(body, ++position);
+    if (code >= 48 && code <= 57) {
+      throw (0, _error.syntaxError)(source, position, 'Invalid number, unexpected digit after 0: ' + printCharCode(code) + '.');
+    }
+  } else {
+    position = readDigits(source, position, code);
+    code = charCodeAt.call(body, position);
+  }
+
+  if (code === 46) {
+    // .
+    isFloat = true;
+
+    code = charCodeAt.call(body, ++position);
+    position = readDigits(source, position, code);
+    code = charCodeAt.call(body, position);
+  }
+
+  if (code === 69 || code === 101) {
+    // E e
+    isFloat = true;
+
+    code = charCodeAt.call(body, ++position);
+    if (code === 43 || code === 45) {
+      // + -
+      code = charCodeAt.call(body, ++position);
+    }
+    position = readDigits(source, position, code);
+  }
+
+  return new Tok(isFloat ? FLOAT : INT, start, position, line, col, prev, slice.call(body, start, position));
+}
+
+/**
+ * Returns the new position in the source after reading digits.
+ */
+function readDigits(source, start, firstCode) {
+  var body = source.body;
+  var position = start;
+  var code = firstCode;
+  if (code >= 48 && code <= 57) {
+    // 0 - 9
+    do {
+      code = charCodeAt.call(body, ++position);
+    } while (code >= 48 && code <= 57); // 0 - 9
+    return position;
+  }
+  throw (0, _error.syntaxError)(source, position, 'Invalid number, expected digit but got: ' + printCharCode(code) + '.');
+}
+
+/**
+ * Reads a string token from the source file.
+ *
+ * "([^"\\\u000A\u000D]|(\\(u[0-9a-fA-F]{4}|["\\/bfnrt])))*"
+ */
+function readString(source, start, line, col, prev) {
+  var body = source.body;
+  var position = start + 1;
+  var chunkStart = position;
+  var code = 0;
+  var value = '';
+
+  while (position < body.length && (code = charCodeAt.call(body, position)) !== null &&
+  // not LineTerminator
+  code !== 0x000A && code !== 0x000D &&
+  // not Quote (")
+  code !== 34) {
+    // SourceCharacter
+    if (code < 0x0020 && code !== 0x0009) {
+      throw (0, _error.syntaxError)(source, position, 'Invalid character within String: ' + printCharCode(code) + '.');
+    }
+
+    ++position;
+    if (code === 92) {
+      // \
+      value += slice.call(body, chunkStart, position - 1);
+      code = charCodeAt.call(body, position);
+      switch (code) {
+        case 34:
+          value += '"';break;
+        case 47:
+          value += '/';break;
+        case 92:
+          value += '\\';break;
+        case 98:
+          value += '\b';break;
+        case 102:
+          value += '\f';break;
+        case 110:
+          value += '\n';break;
+        case 114:
+          value += '\r';break;
+        case 116:
+          value += '\t';break;
+        case 117:
+          // u
+          var charCode = uniCharCode(charCodeAt.call(body, position + 1), charCodeAt.call(body, position + 2), charCodeAt.call(body, position + 3), charCodeAt.call(body, position + 4));
+          if (charCode < 0) {
+            throw (0, _error.syntaxError)(source, position, 'Invalid character escape sequence: ' + ('\\u' + body.slice(position + 1, position + 5) + '.'));
+          }
+          value += String.fromCharCode(charCode);
+          position += 4;
+          break;
+        default:
+          throw (0, _error.syntaxError)(source, position, 'Invalid character escape sequence: \\' + String.fromCharCode(code) + '.');
+      }
+      ++position;
+      chunkStart = position;
+    }
+  }
+
+  if (code !== 34) {
+    // quote (")
+    throw (0, _error.syntaxError)(source, position, 'Unterminated string.');
+  }
+
+  value += slice.call(body, chunkStart, position);
+  return new Tok(STRING, start, position + 1, line, col, prev, value);
+}
+
+/**
+ * Converts four hexidecimal chars to the integer that the
+ * string represents. For example, uniCharCode('0','0','0','f')
+ * will return 15, and uniCharCode('0','0','f','f') returns 255.
+ *
+ * Returns a negative number on error, if a char was invalid.
+ *
+ * This is implemented by noting that char2hex() returns -1 on error,
+ * which means the result of ORing the char2hex() will also be negative.
+ */
+function uniCharCode(a, b, c, d) {
+  return char2hex(a) << 12 | char2hex(b) << 8 | char2hex(c) << 4 | char2hex(d);
+}
+
+/**
+ * Converts a hex character to its integer value.
+ * '0' becomes 0, '9' becomes 9
+ * 'A' becomes 10, 'F' becomes 15
+ * 'a' becomes 10, 'f' becomes 15
+ *
+ * Returns -1 on error.
+ */
+function char2hex(a) {
+  return a >= 48 && a <= 57 ? a - 48 : // 0-9
+  a >= 65 && a <= 70 ? a - 55 : // A-F
+  a >= 97 && a <= 102 ? a - 87 : // a-f
+  -1;
+}
+
+/**
+ * Reads an alphanumeric + underscore name from the source.
+ *
+ * [_A-Za-z][_0-9A-Za-z]*
+ */
+function readName(source, position, line, col, prev) {
+  var body = source.body;
+  var bodyLength = body.length;
+  var end = position + 1;
+  var code = 0;
+  while (end !== bodyLength && (code = charCodeAt.call(body, end)) !== null && (code === 95 || // _
+  code >= 48 && code <= 57 || // 0-9
+  code >= 65 && code <= 90 || // A-Z
+  code >= 97 && code <= 122 // a-z
+  )) {
+    ++end;
+  }
+  return new Tok(NAME, position, end, line, col, prev, slice.call(body, position, end));
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parse = parse;
+exports.parseValue = parseValue;
+exports.parseType = parseType;
+exports.parseConstValue = parseConstValue;
+exports.parseTypeReference = parseTypeReference;
+exports.parseNamedType = parseNamedType;
+
+var _source = __webpack_require__(70);
+
+var _error = __webpack_require__(31);
+
+var _lexer = __webpack_require__(68);
+
+var _kinds = __webpack_require__(20);
+
+/**
+ * Given a GraphQL source, parses it into a Document.
+ * Throws GraphQLError if a syntax error is encountered.
+ */
+
+
+/**
+ * Configuration options to control parser behavior
+ */
+
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+function parse(source, options) {
+  var sourceObj = typeof source === 'string' ? new _source.Source(source) : source;
+  if (!(sourceObj instanceof _source.Source)) {
+    throw new TypeError('Must provide Source. Received: ' + String(sourceObj));
+  }
+  var lexer = (0, _lexer.createLexer)(sourceObj, options || {});
+  return parseDocument(lexer);
+}
+
+/**
+ * Given a string containing a GraphQL value (ex. `[42]`), parse the AST for
+ * that value.
+ * Throws GraphQLError if a syntax error is encountered.
+ *
+ * This is useful within tools that operate upon GraphQL Values directly and
+ * in isolation of complete GraphQL documents.
+ *
+ * Consider providing the results to the utility function: valueFromAST().
+ */
+function parseValue(source, options) {
+  var sourceObj = typeof source === 'string' ? new _source.Source(source) : source;
+  var lexer = (0, _lexer.createLexer)(sourceObj, options || {});
+  expect(lexer, _lexer.TokenKind.SOF);
+  var value = parseValueLiteral(lexer, false);
+  expect(lexer, _lexer.TokenKind.EOF);
+  return value;
+}
+
+/**
+ * Given a string containing a GraphQL Type (ex. `[Int!]`), parse the AST for
+ * that type.
+ * Throws GraphQLError if a syntax error is encountered.
+ *
+ * This is useful within tools that operate upon GraphQL Types directly and
+ * in isolation of complete GraphQL documents.
+ *
+ * Consider providing the results to the utility function: typeFromAST().
+ */
+function parseType(source, options) {
+  var sourceObj = typeof source === 'string' ? new _source.Source(source) : source;
+  var lexer = (0, _lexer.createLexer)(sourceObj, options || {});
+  expect(lexer, _lexer.TokenKind.SOF);
+  var type = parseTypeReference(lexer);
+  expect(lexer, _lexer.TokenKind.EOF);
+  return type;
+}
+
+/**
+ * Converts a name lex token into a name parse node.
+ */
+function parseName(lexer) {
+  var token = expect(lexer, _lexer.TokenKind.NAME);
+  return {
+    kind: _kinds.NAME,
+    value: token.value,
+    loc: loc(lexer, token)
+  };
+}
+
+// Implements the parsing rules in the Document section.
+
+/**
+ * Document : Definition+
+ */
+function parseDocument(lexer) {
+  var start = lexer.token;
+  expect(lexer, _lexer.TokenKind.SOF);
+  var definitions = [];
+  do {
+    definitions.push(parseDefinition(lexer));
+  } while (!skip(lexer, _lexer.TokenKind.EOF));
+
+  return {
+    kind: _kinds.DOCUMENT,
+    definitions: definitions,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * Definition :
+ *   - OperationDefinition
+ *   - FragmentDefinition
+ *   - TypeSystemDefinition
+ */
+function parseDefinition(lexer) {
+  if (peek(lexer, _lexer.TokenKind.BRACE_L)) {
+    return parseOperationDefinition(lexer);
+  }
+
+  if (peek(lexer, _lexer.TokenKind.NAME)) {
+    switch (lexer.token.value) {
+      // Note: subscription is an experimental non-spec addition.
+      case 'query':
+      case 'mutation':
+      case 'subscription':
+        return parseOperationDefinition(lexer);
+
+      case 'fragment':
+        return parseFragmentDefinition(lexer);
+
+      // Note: the Type System IDL is an experimental non-spec addition.
+      case 'schema':
+      case 'scalar':
+      case 'type':
+      case 'interface':
+      case 'union':
+      case 'enum':
+      case 'input':
+      case 'extend':
+      case 'directive':
+        return parseTypeSystemDefinition(lexer);
+    }
+  }
+
+  throw unexpected(lexer);
+}
+
+// Implements the parsing rules in the Operations section.
+
+/**
+ * OperationDefinition :
+ *  - SelectionSet
+ *  - OperationType Name? VariableDefinitions? Directives? SelectionSet
+ */
+function parseOperationDefinition(lexer) {
+  var start = lexer.token;
+  if (peek(lexer, _lexer.TokenKind.BRACE_L)) {
+    return {
+      kind: _kinds.OPERATION_DEFINITION,
+      operation: 'query',
+      name: null,
+      variableDefinitions: null,
+      directives: [],
+      selectionSet: parseSelectionSet(lexer),
+      loc: loc(lexer, start)
+    };
+  }
+  var operation = parseOperationType(lexer);
+  var name = void 0;
+  if (peek(lexer, _lexer.TokenKind.NAME)) {
+    name = parseName(lexer);
+  }
+  return {
+    kind: _kinds.OPERATION_DEFINITION,
+    operation: operation,
+    name: name,
+    variableDefinitions: parseVariableDefinitions(lexer),
+    directives: parseDirectives(lexer),
+    selectionSet: parseSelectionSet(lexer),
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * OperationType : one of query mutation subscription
+ */
+function parseOperationType(lexer) {
+  var operationToken = expect(lexer, _lexer.TokenKind.NAME);
+  switch (operationToken.value) {
+    case 'query':
+      return 'query';
+    case 'mutation':
+      return 'mutation';
+    // Note: subscription is an experimental non-spec addition.
+    case 'subscription':
+      return 'subscription';
+  }
+
+  throw unexpected(lexer, operationToken);
+}
+
+/**
+ * VariableDefinitions : ( VariableDefinition+ )
+ */
+function parseVariableDefinitions(lexer) {
+  return peek(lexer, _lexer.TokenKind.PAREN_L) ? many(lexer, _lexer.TokenKind.PAREN_L, parseVariableDefinition, _lexer.TokenKind.PAREN_R) : [];
+}
+
+/**
+ * VariableDefinition : Variable : Type DefaultValue?
+ */
+function parseVariableDefinition(lexer) {
+  var start = lexer.token;
+  return {
+    kind: _kinds.VARIABLE_DEFINITION,
+    variable: parseVariable(lexer),
+    type: (expect(lexer, _lexer.TokenKind.COLON), parseTypeReference(lexer)),
+    defaultValue: skip(lexer, _lexer.TokenKind.EQUALS) ? parseValueLiteral(lexer, true) : null,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * Variable : $ Name
+ */
+function parseVariable(lexer) {
+  var start = lexer.token;
+  expect(lexer, _lexer.TokenKind.DOLLAR);
+  return {
+    kind: _kinds.VARIABLE,
+    name: parseName(lexer),
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * SelectionSet : { Selection+ }
+ */
+function parseSelectionSet(lexer) {
+  var start = lexer.token;
+  return {
+    kind: _kinds.SELECTION_SET,
+    selections: many(lexer, _lexer.TokenKind.BRACE_L, parseSelection, _lexer.TokenKind.BRACE_R),
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * Selection :
+ *   - Field
+ *   - FragmentSpread
+ *   - InlineFragment
+ */
+function parseSelection(lexer) {
+  return peek(lexer, _lexer.TokenKind.SPREAD) ? parseFragment(lexer) : parseField(lexer);
+}
+
+/**
+ * Field : Alias? Name Arguments? Directives? SelectionSet?
+ *
+ * Alias : Name :
+ */
+function parseField(lexer) {
+  var start = lexer.token;
+
+  var nameOrAlias = parseName(lexer);
+  var alias = void 0;
+  var name = void 0;
+  if (skip(lexer, _lexer.TokenKind.COLON)) {
+    alias = nameOrAlias;
+    name = parseName(lexer);
+  } else {
+    alias = null;
+    name = nameOrAlias;
+  }
+
+  return {
+    kind: _kinds.FIELD,
+    alias: alias,
+    name: name,
+    arguments: parseArguments(lexer),
+    directives: parseDirectives(lexer),
+    selectionSet: peek(lexer, _lexer.TokenKind.BRACE_L) ? parseSelectionSet(lexer) : null,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * Arguments : ( Argument+ )
+ */
+function parseArguments(lexer) {
+  return peek(lexer, _lexer.TokenKind.PAREN_L) ? many(lexer, _lexer.TokenKind.PAREN_L, parseArgument, _lexer.TokenKind.PAREN_R) : [];
+}
+
+/**
+ * Argument : Name : Value
+ */
+function parseArgument(lexer) {
+  var start = lexer.token;
+  return {
+    kind: _kinds.ARGUMENT,
+    name: parseName(lexer),
+    value: (expect(lexer, _lexer.TokenKind.COLON), parseValueLiteral(lexer, false)),
+    loc: loc(lexer, start)
+  };
+}
+
+// Implements the parsing rules in the Fragments section.
+
+/**
+ * Corresponds to both FragmentSpread and InlineFragment in the spec.
+ *
+ * FragmentSpread : ... FragmentName Directives?
+ *
+ * InlineFragment : ... TypeCondition? Directives? SelectionSet
+ */
+function parseFragment(lexer) {
+  var start = lexer.token;
+  expect(lexer, _lexer.TokenKind.SPREAD);
+  if (peek(lexer, _lexer.TokenKind.NAME) && lexer.token.value !== 'on') {
+    return {
+      kind: _kinds.FRAGMENT_SPREAD,
+      name: parseFragmentName(lexer),
+      directives: parseDirectives(lexer),
+      loc: loc(lexer, start)
+    };
+  }
+  var typeCondition = null;
+  if (lexer.token.value === 'on') {
+    lexer.advance();
+    typeCondition = parseNamedType(lexer);
+  }
+  return {
+    kind: _kinds.INLINE_FRAGMENT,
+    typeCondition: typeCondition,
+    directives: parseDirectives(lexer),
+    selectionSet: parseSelectionSet(lexer),
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * FragmentDefinition :
+ *   - fragment FragmentName on TypeCondition Directives? SelectionSet
+ *
+ * TypeCondition : NamedType
+ */
+function parseFragmentDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'fragment');
+  return {
+    kind: _kinds.FRAGMENT_DEFINITION,
+    name: parseFragmentName(lexer),
+    typeCondition: (expectKeyword(lexer, 'on'), parseNamedType(lexer)),
+    directives: parseDirectives(lexer),
+    selectionSet: parseSelectionSet(lexer),
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * FragmentName : Name but not `on`
+ */
+function parseFragmentName(lexer) {
+  if (lexer.token.value === 'on') {
+    throw unexpected(lexer);
+  }
+  return parseName(lexer);
+}
+
+// Implements the parsing rules in the Values section.
+
+/**
+ * Value[Const] :
+ *   - [~Const] Variable
+ *   - IntValue
+ *   - FloatValue
+ *   - StringValue
+ *   - BooleanValue
+ *   - NullValue
+ *   - EnumValue
+ *   - ListValue[?Const]
+ *   - ObjectValue[?Const]
+ *
+ * BooleanValue : one of `true` `false`
+ *
+ * NullValue : `null`
+ *
+ * EnumValue : Name but not `true`, `false` or `null`
+ */
+function parseValueLiteral(lexer, isConst) {
+  var token = lexer.token;
+  switch (token.kind) {
+    case _lexer.TokenKind.BRACKET_L:
+      return parseList(lexer, isConst);
+    case _lexer.TokenKind.BRACE_L:
+      return parseObject(lexer, isConst);
+    case _lexer.TokenKind.INT:
+      lexer.advance();
+      return {
+        kind: _kinds.INT,
+        value: token.value,
+        loc: loc(lexer, token)
+      };
+    case _lexer.TokenKind.FLOAT:
+      lexer.advance();
+      return {
+        kind: _kinds.FLOAT,
+        value: token.value,
+        loc: loc(lexer, token)
+      };
+    case _lexer.TokenKind.STRING:
+      lexer.advance();
+      return {
+        kind: _kinds.STRING,
+        value: token.value,
+        loc: loc(lexer, token)
+      };
+    case _lexer.TokenKind.NAME:
+      if (token.value === 'true' || token.value === 'false') {
+        lexer.advance();
+        return {
+          kind: _kinds.BOOLEAN,
+          value: token.value === 'true',
+          loc: loc(lexer, token)
+        };
+      } else if (token.value === 'null') {
+        lexer.advance();
+        return {
+          kind: _kinds.NULL,
+          loc: loc(lexer, token)
+        };
+      }
+      lexer.advance();
+      return {
+        kind: _kinds.ENUM,
+        value: token.value,
+        loc: loc(lexer, token)
+      };
+    case _lexer.TokenKind.DOLLAR:
+      if (!isConst) {
+        return parseVariable(lexer);
+      }
+      break;
+  }
+  throw unexpected(lexer);
+}
+
+function parseConstValue(lexer) {
+  return parseValueLiteral(lexer, true);
+}
+
+function parseValueValue(lexer) {
+  return parseValueLiteral(lexer, false);
+}
+
+/**
+ * ListValue[Const] :
+ *   - [ ]
+ *   - [ Value[?Const]+ ]
+ */
+function parseList(lexer, isConst) {
+  var start = lexer.token;
+  var item = isConst ? parseConstValue : parseValueValue;
+  return {
+    kind: _kinds.LIST,
+    values: any(lexer, _lexer.TokenKind.BRACKET_L, item, _lexer.TokenKind.BRACKET_R),
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * ObjectValue[Const] :
+ *   - { }
+ *   - { ObjectField[?Const]+ }
+ */
+function parseObject(lexer, isConst) {
+  var start = lexer.token;
+  expect(lexer, _lexer.TokenKind.BRACE_L);
+  var fields = [];
+  while (!skip(lexer, _lexer.TokenKind.BRACE_R)) {
+    fields.push(parseObjectField(lexer, isConst));
+  }
+  return {
+    kind: _kinds.OBJECT,
+    fields: fields,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * ObjectField[Const] : Name : Value[?Const]
+ */
+function parseObjectField(lexer, isConst) {
+  var start = lexer.token;
+  return {
+    kind: _kinds.OBJECT_FIELD,
+    name: parseName(lexer),
+    value: (expect(lexer, _lexer.TokenKind.COLON), parseValueLiteral(lexer, isConst)),
+    loc: loc(lexer, start)
+  };
+}
+
+// Implements the parsing rules in the Directives section.
+
+/**
+ * Directives : Directive+
+ */
+function parseDirectives(lexer) {
+  var directives = [];
+  while (peek(lexer, _lexer.TokenKind.AT)) {
+    directives.push(parseDirective(lexer));
+  }
+  return directives;
+}
+
+/**
+ * Directive : @ Name Arguments?
+ */
+function parseDirective(lexer) {
+  var start = lexer.token;
+  expect(lexer, _lexer.TokenKind.AT);
+  return {
+    kind: _kinds.DIRECTIVE,
+    name: parseName(lexer),
+    arguments: parseArguments(lexer),
+    loc: loc(lexer, start)
+  };
+}
+
+// Implements the parsing rules in the Types section.
+
+/**
+ * Type :
+ *   - NamedType
+ *   - ListType
+ *   - NonNullType
+ */
+function parseTypeReference(lexer) {
+  var start = lexer.token;
+  var type = void 0;
+  if (skip(lexer, _lexer.TokenKind.BRACKET_L)) {
+    type = parseTypeReference(lexer);
+    expect(lexer, _lexer.TokenKind.BRACKET_R);
+    type = {
+      kind: _kinds.LIST_TYPE,
+      type: type,
+      loc: loc(lexer, start)
+    };
+  } else {
+    type = parseNamedType(lexer);
+  }
+  if (skip(lexer, _lexer.TokenKind.BANG)) {
+    return {
+      kind: _kinds.NON_NULL_TYPE,
+      type: type,
+      loc: loc(lexer, start)
+    };
+  }
+  return type;
+}
+
+/**
+ * NamedType : Name
+ */
+function parseNamedType(lexer) {
+  var start = lexer.token;
+  return {
+    kind: _kinds.NAMED_TYPE,
+    name: parseName(lexer),
+    loc: loc(lexer, start)
+  };
+}
+
+// Implements the parsing rules in the Type Definition section.
+
+/**
+ * TypeSystemDefinition :
+ *   - SchemaDefinition
+ *   - TypeDefinition
+ *   - TypeExtensionDefinition
+ *   - DirectiveDefinition
+ *
+ * TypeDefinition :
+ *   - ScalarTypeDefinition
+ *   - ObjectTypeDefinition
+ *   - InterfaceTypeDefinition
+ *   - UnionTypeDefinition
+ *   - EnumTypeDefinition
+ *   - InputObjectTypeDefinition
+ */
+function parseTypeSystemDefinition(lexer) {
+  if (peek(lexer, _lexer.TokenKind.NAME)) {
+    switch (lexer.token.value) {
+      case 'schema':
+        return parseSchemaDefinition(lexer);
+      case 'scalar':
+        return parseScalarTypeDefinition(lexer);
+      case 'type':
+        return parseObjectTypeDefinition(lexer);
+      case 'interface':
+        return parseInterfaceTypeDefinition(lexer);
+      case 'union':
+        return parseUnionTypeDefinition(lexer);
+      case 'enum':
+        return parseEnumTypeDefinition(lexer);
+      case 'input':
+        return parseInputObjectTypeDefinition(lexer);
+      case 'extend':
+        return parseTypeExtensionDefinition(lexer);
+      case 'directive':
+        return parseDirectiveDefinition(lexer);
+    }
+  }
+
+  throw unexpected(lexer);
+}
+
+/**
+ * SchemaDefinition : schema Directives? { OperationTypeDefinition+ }
+ *
+ * OperationTypeDefinition : OperationType : NamedType
+ */
+function parseSchemaDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'schema');
+  var directives = parseDirectives(lexer);
+  var operationTypes = many(lexer, _lexer.TokenKind.BRACE_L, parseOperationTypeDefinition, _lexer.TokenKind.BRACE_R);
+  return {
+    kind: _kinds.SCHEMA_DEFINITION,
+    directives: directives,
+    operationTypes: operationTypes,
+    loc: loc(lexer, start)
+  };
+}
+
+function parseOperationTypeDefinition(lexer) {
+  var start = lexer.token;
+  var operation = parseOperationType(lexer);
+  expect(lexer, _lexer.TokenKind.COLON);
+  var type = parseNamedType(lexer);
+  return {
+    kind: _kinds.OPERATION_TYPE_DEFINITION,
+    operation: operation,
+    type: type,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * ScalarTypeDefinition : scalar Name Directives?
+ */
+function parseScalarTypeDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'scalar');
+  var name = parseName(lexer);
+  var directives = parseDirectives(lexer);
+  return {
+    kind: _kinds.SCALAR_TYPE_DEFINITION,
+    name: name,
+    directives: directives,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * ObjectTypeDefinition :
+ *   - type Name ImplementsInterfaces? Directives? { FieldDefinition+ }
+ */
+function parseObjectTypeDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'type');
+  var name = parseName(lexer);
+  var interfaces = parseImplementsInterfaces(lexer);
+  var directives = parseDirectives(lexer);
+  var fields = any(lexer, _lexer.TokenKind.BRACE_L, parseFieldDefinition, _lexer.TokenKind.BRACE_R);
+  return {
+    kind: _kinds.OBJECT_TYPE_DEFINITION,
+    name: name,
+    interfaces: interfaces,
+    directives: directives,
+    fields: fields,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * ImplementsInterfaces : implements NamedType+
+ */
+function parseImplementsInterfaces(lexer) {
+  var types = [];
+  if (lexer.token.value === 'implements') {
+    lexer.advance();
+    do {
+      types.push(parseNamedType(lexer));
+    } while (peek(lexer, _lexer.TokenKind.NAME));
+  }
+  return types;
+}
+
+/**
+ * FieldDefinition : Name ArgumentsDefinition? : Type Directives?
+ */
+function parseFieldDefinition(lexer) {
+  var start = lexer.token;
+  var name = parseName(lexer);
+  var args = parseArgumentDefs(lexer);
+  expect(lexer, _lexer.TokenKind.COLON);
+  var type = parseTypeReference(lexer);
+  var directives = parseDirectives(lexer);
+  return {
+    kind: _kinds.FIELD_DEFINITION,
+    name: name,
+    arguments: args,
+    type: type,
+    directives: directives,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * ArgumentsDefinition : ( InputValueDefinition+ )
+ */
+function parseArgumentDefs(lexer) {
+  if (!peek(lexer, _lexer.TokenKind.PAREN_L)) {
+    return [];
+  }
+  return many(lexer, _lexer.TokenKind.PAREN_L, parseInputValueDef, _lexer.TokenKind.PAREN_R);
+}
+
+/**
+ * InputValueDefinition : Name : Type DefaultValue? Directives?
+ */
+function parseInputValueDef(lexer) {
+  var start = lexer.token;
+  var name = parseName(lexer);
+  expect(lexer, _lexer.TokenKind.COLON);
+  var type = parseTypeReference(lexer);
+  var defaultValue = null;
+  if (skip(lexer, _lexer.TokenKind.EQUALS)) {
+    defaultValue = parseConstValue(lexer);
+  }
+  var directives = parseDirectives(lexer);
+  return {
+    kind: _kinds.INPUT_VALUE_DEFINITION,
+    name: name,
+    type: type,
+    defaultValue: defaultValue,
+    directives: directives,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * InterfaceTypeDefinition : interface Name Directives? { FieldDefinition+ }
+ */
+function parseInterfaceTypeDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'interface');
+  var name = parseName(lexer);
+  var directives = parseDirectives(lexer);
+  var fields = any(lexer, _lexer.TokenKind.BRACE_L, parseFieldDefinition, _lexer.TokenKind.BRACE_R);
+  return {
+    kind: _kinds.INTERFACE_TYPE_DEFINITION,
+    name: name,
+    directives: directives,
+    fields: fields,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * UnionTypeDefinition : union Name Directives? = UnionMembers
+ */
+function parseUnionTypeDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'union');
+  var name = parseName(lexer);
+  var directives = parseDirectives(lexer);
+  expect(lexer, _lexer.TokenKind.EQUALS);
+  var types = parseUnionMembers(lexer);
+  return {
+    kind: _kinds.UNION_TYPE_DEFINITION,
+    name: name,
+    directives: directives,
+    types: types,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * UnionMembers :
+ *   - NamedType
+ *   - UnionMembers | NamedType
+ */
+function parseUnionMembers(lexer) {
+  var members = [];
+  do {
+    members.push(parseNamedType(lexer));
+  } while (skip(lexer, _lexer.TokenKind.PIPE));
+  return members;
+}
+
+/**
+ * EnumTypeDefinition : enum Name Directives? { EnumValueDefinition+ }
+ */
+function parseEnumTypeDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'enum');
+  var name = parseName(lexer);
+  var directives = parseDirectives(lexer);
+  var values = many(lexer, _lexer.TokenKind.BRACE_L, parseEnumValueDefinition, _lexer.TokenKind.BRACE_R);
+  return {
+    kind: _kinds.ENUM_TYPE_DEFINITION,
+    name: name,
+    directives: directives,
+    values: values,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * EnumValueDefinition : EnumValue Directives?
+ *
+ * EnumValue : Name
+ */
+function parseEnumValueDefinition(lexer) {
+  var start = lexer.token;
+  var name = parseName(lexer);
+  var directives = parseDirectives(lexer);
+  return {
+    kind: _kinds.ENUM_VALUE_DEFINITION,
+    name: name,
+    directives: directives,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * InputObjectTypeDefinition : input Name Directives? { InputValueDefinition+ }
+ */
+function parseInputObjectTypeDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'input');
+  var name = parseName(lexer);
+  var directives = parseDirectives(lexer);
+  var fields = any(lexer, _lexer.TokenKind.BRACE_L, parseInputValueDef, _lexer.TokenKind.BRACE_R);
+  return {
+    kind: _kinds.INPUT_OBJECT_TYPE_DEFINITION,
+    name: name,
+    directives: directives,
+    fields: fields,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * TypeExtensionDefinition : extend ObjectTypeDefinition
+ */
+function parseTypeExtensionDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'extend');
+  var definition = parseObjectTypeDefinition(lexer);
+  return {
+    kind: _kinds.TYPE_EXTENSION_DEFINITION,
+    definition: definition,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * DirectiveDefinition :
+ *   - directive @ Name ArgumentsDefinition? on DirectiveLocations
+ */
+function parseDirectiveDefinition(lexer) {
+  var start = lexer.token;
+  expectKeyword(lexer, 'directive');
+  expect(lexer, _lexer.TokenKind.AT);
+  var name = parseName(lexer);
+  var args = parseArgumentDefs(lexer);
+  expectKeyword(lexer, 'on');
+  var locations = parseDirectiveLocations(lexer);
+  return {
+    kind: _kinds.DIRECTIVE_DEFINITION,
+    name: name,
+    arguments: args,
+    locations: locations,
+    loc: loc(lexer, start)
+  };
+}
+
+/**
+ * DirectiveLocations :
+ *   - Name
+ *   - DirectiveLocations | Name
+ */
+function parseDirectiveLocations(lexer) {
+  var locations = [];
+  do {
+    locations.push(parseName(lexer));
+  } while (skip(lexer, _lexer.TokenKind.PIPE));
+  return locations;
+}
+
+// Core parsing utility functions
+
+/**
+ * Returns a location object, used to identify the place in
+ * the source that created a given parsed object.
+ */
+function loc(lexer, startToken) {
+  if (!lexer.options.noLocation) {
+    return new Loc(startToken, lexer.lastToken, lexer.source);
+  }
+}
+
+function Loc(startToken, endToken, source) {
+  this.start = startToken.start;
+  this.end = endToken.end;
+  this.startToken = startToken;
+  this.endToken = endToken;
+  this.source = source;
+}
+
+// Print a simplified form when appearing in JSON/util.inspect.
+Loc.prototype.toJSON = Loc.prototype.inspect = function toJSON() {
+  return { start: this.start, end: this.end };
+};
+
+/**
+ * Determines if the next token is of a given kind
+ */
+function peek(lexer, kind) {
+  return lexer.token.kind === kind;
+}
+
+/**
+ * If the next token is of the given kind, return true after advancing
+ * the lexer. Otherwise, do not change the parser state and return false.
+ */
+function skip(lexer, kind) {
+  var match = lexer.token.kind === kind;
+  if (match) {
+    lexer.advance();
+  }
+  return match;
+}
+
+/**
+ * If the next token is of the given kind, return that token after advancing
+ * the lexer. Otherwise, do not change the parser state and throw an error.
+ */
+function expect(lexer, kind) {
+  var token = lexer.token;
+  if (token.kind === kind) {
+    lexer.advance();
+    return token;
+  }
+  throw (0, _error.syntaxError)(lexer.source, token.start, 'Expected ' + kind + ', found ' + (0, _lexer.getTokenDesc)(token));
+}
+
+/**
+ * If the next token is a keyword with the given value, return that token after
+ * advancing the lexer. Otherwise, do not change the parser state and return
+ * false.
+ */
+function expectKeyword(lexer, value) {
+  var token = lexer.token;
+  if (token.kind === _lexer.TokenKind.NAME && token.value === value) {
+    lexer.advance();
+    return token;
+  }
+  throw (0, _error.syntaxError)(lexer.source, token.start, 'Expected "' + value + '", found ' + (0, _lexer.getTokenDesc)(token));
+}
+
+/**
+ * Helper function for creating an error when an unexpected lexed token
+ * is encountered.
+ */
+function unexpected(lexer, atToken) {
+  var token = atToken || lexer.token;
+  return (0, _error.syntaxError)(lexer.source, token.start, 'Unexpected ' + (0, _lexer.getTokenDesc)(token));
+}
+
+/**
+ * Returns a possibly empty list of parse nodes, determined by
+ * the parseFn. This list begins with a lex token of openKind
+ * and ends with a lex token of closeKind. Advances the parser
+ * to the next lex token after the closing token.
+ */
+function any(lexer, openKind, parseFn, closeKind) {
+  expect(lexer, openKind);
+  var nodes = [];
+  while (!skip(lexer, closeKind)) {
+    nodes.push(parseFn(lexer));
+  }
+  return nodes;
+}
+
+/**
+ * Returns a non-empty list of parse nodes, determined by
+ * the parseFn. This list begins with a lex token of openKind
+ * and ends with a lex token of closeKind. Advances the parser
+ * to the next lex token after the closing token.
+ */
+function many(lexer, openKind, parseFn, closeKind) {
+  expect(lexer, openKind);
+  var nodes = [parseFn(lexer)];
+  while (!skip(lexer, closeKind)) {
+    nodes.push(parseFn(lexer));
+  }
+  return nodes;
+}
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant
+ *  of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+/**
+ * A representation of source input to GraphQL. The name is optional,
+ * but is mostly useful for clients who store GraphQL documents in
+ * source files; for example, if the GraphQL input is in a file Foo.graphql,
+ * it might be useful for name to be "Foo.graphql".
+ */
+var Source = exports.Source = function Source(body, name) {
+  _classCallCheck(this, Source);
+
+  this.body = body;
+  this.name = name || 'GraphQL request';
+};
+
+/***/ }),
+/* 71 */,
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(76);
 
 
 
@@ -8500,7 +8694,7 @@ function baseGetTag(value) {
 
 
 /***/ }),
-/* 58 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8509,14 +8703,14 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(9)))
 
 /***/ }),
-/* 59 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(77);
 
 
 /** Built-in value references. */
@@ -8526,11 +8720,11 @@ var getPrototype = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__overArg_js
 
 
 /***/ }),
-/* 60 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(33);
 
 
 /** Used for built-in method references. */
@@ -8580,7 +8774,7 @@ function getRawTag(value) {
 
 
 /***/ }),
-/* 61 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8609,7 +8803,7 @@ function objectToString(value) {
 
 
 /***/ }),
-/* 62 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8631,11 +8825,11 @@ function overArg(func, transform) {
 
 
 /***/ }),
-/* 63 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(73);
 
 
 /** Detect free variable `self`. */
@@ -8648,7 +8842,7 @@ var root = __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__["a" /* default */] || fr
 
 
 /***/ }),
-/* 64 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8684,12 +8878,15 @@ function isObjectLike(value) {
 
 
 /***/ }),
-/* 65 */
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(28);
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(35);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -8740,7 +8937,7 @@ function applyMiddleware() {
 }
 
 /***/ }),
-/* 66 */
+/* 84 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8794,14 +8991,14 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 
 /***/ }),
-/* 67 */
+/* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(30);
 /* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(37);
 
 
 
@@ -8876,7 +9073,7 @@ function combineReducers(reducers) {
   for (var i = 0; i < reducerKeys.length; i++) {
     var key = reducerKeys[i];
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (undefined !== 'production') {
       if (typeof reducers[key] === 'undefined') {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils_warning__["a" /* default */])('No reducer provided for key "' + key + '"');
       }
@@ -8888,7 +9085,7 @@ function combineReducers(reducers) {
   }
   var finalReducerKeys = Object.keys(finalReducers);
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (undefined !== 'production') {
     var unexpectedKeyCache = {};
   }
 
@@ -8907,7 +9104,7 @@ function combineReducers(reducers) {
       throw sanityError;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (undefined !== 'production') {
       var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
       if (warningMessage) {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils_warning__["a" /* default */])(warningMessage);
@@ -8931,19 +9128,18 @@ function combineReducers(reducers) {
     return hasChanged ? nextState : state;
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
 
 /***/ }),
-/* 68 */
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(37);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* unused harmony reexport bindActionCreators */
@@ -8962,15 +9158,19 @@ function combineReducers(reducers) {
 */
 function isCrushed() {}
 
-if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
+if (undefined !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_warning__["a" /* default */])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
 
 /***/ }),
-/* 69 */
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8980,7 +9180,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(70);
+var _ponyfill = __webpack_require__(93);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -9003,10 +9203,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17), __webpack_require__(36)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(22)(module)))
 
 /***/ }),
-/* 70 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9033,35 +9233,6 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-
-/***/ }),
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.gql = exports.createNetworkInterface = exports.ApolloClient = undefined;
-
-var _apolloClient = __webpack_require__(34);
-
-var _apolloClient2 = _interopRequireDefault(_apolloClient);
-
-var _graphqlTag = __webpack_require__(35);
-
-var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.ApolloClient = _apolloClient2.default;
-exports.createNetworkInterface = _apolloClient.createNetworkInterface;
-exports.gql = _graphqlTag2.default;
 
 /***/ })
 /******/ ]);
