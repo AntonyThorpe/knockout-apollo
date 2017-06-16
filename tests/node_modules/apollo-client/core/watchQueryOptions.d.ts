@@ -1,0 +1,54 @@
+import { DocumentNode } from 'graphql';
+import { OperationResultReducer, MutationQueryReducersMap } from '../data/mutationResults';
+import { DataProxy } from '../data/proxy';
+import { PureQueryOptions } from './types';
+export declare type FetchPolicy = 'cache-first' | 'cache-and-network' | 'network-only' | 'cache-only';
+export interface ModifiableWatchQueryOptions {
+    variables?: {
+        [key: string]: any;
+    };
+    pollInterval?: number;
+    fetchPolicy?: FetchPolicy;
+    notifyOnNetworkStatusChange?: boolean;
+    reducer?: OperationResultReducer;
+}
+export interface WatchQueryOptions extends ModifiableWatchQueryOptions {
+    query: DocumentNode;
+    metadata?: any;
+}
+export interface FetchMoreQueryOptions {
+    query?: DocumentNode;
+    variables?: {
+        [key: string]: any;
+    };
+}
+export declare type SubscribeToMoreOptions = {
+    document: DocumentNode;
+    variables?: {
+        [key: string]: any;
+    };
+    updateQuery?: (previousQueryResult: Object, options: {
+        subscriptionData: {
+            data: any;
+        };
+        variables: {
+            [key: string]: any;
+        };
+    }) => Object;
+    onError?: (error: Error) => void;
+};
+export interface SubscriptionOptions {
+    query: DocumentNode;
+    variables?: {
+        [key: string]: any;
+    };
+}
+export interface MutationOptions {
+    mutation: DocumentNode;
+    variables?: Object;
+    optimisticResponse?: Object;
+    updateQueries?: MutationQueryReducersMap;
+    refetchQueries?: string[] | PureQueryOptions[];
+    update?: MutationUpdaterFn;
+}
+export declare type MutationUpdaterFn = (proxy: DataProxy, mutationResult: Object) => void;
