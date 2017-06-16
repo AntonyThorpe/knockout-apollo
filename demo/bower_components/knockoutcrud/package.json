@@ -1,0 +1,28 @@
+{
+	"name": "knockoutcrud",
+	"version": "1.3.4",
+	"description": "A knockoutjs extension to crud items in Observables and Observable Arrays",
+	"main": "knockoutcrud.js",
+	"repository": {
+		"type": "git",
+		"url": "https://AntonyThorpe@github.com/AntonyThorpe/knockoutcrud.git"
+	},
+	"dependencies": {
+		"knockout": "^3.4.2"
+	},
+	"keywords": [
+		"knockoutjs",
+		"crud",
+		"form"
+	],
+	"author": "Antony Thorpe",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/AntonyThorpe/knockoutcrud/issues"
+	},
+	"homepage": "https://github.com/AntonyThorpe/knockoutcrud",
+	"devDependencies": {
+		"browser-sync": "^2.18.6",
+		"gulp": "^3.9.1"
+	}
+}

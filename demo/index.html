@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Knockout-Apollo ToDo List Examples">
+		<title>Knockout-Apollo ToDo List Examples</title>
+		<link rel="stylesheet" href="js/todo.css">
+	</head>
+	<body>
+		<h1>Knockout ToDo List Examples integrated with Apollo Client</h1>
+		<h2>1) Directly edit the Observable Array</h2>
+		<p>Approach: CRUD the Observable Array.  Update the server upon save.</p>
+		<div class="left-panel">
+			<!-- ko ifnot: todoList.beforeEdit -->
+				<button data-bind="click: prepareCollectionEdit" class="button">Edit Todo List</button>
+			<!-- /ko -->
+			<!-- ko if: todoList.beforeEdit -->
+				<button data-bind="click: save" class="button">Save</button>
+				<button data-bind="click: cancel" class="button">Cancel</button>
+			<!-- /ko -->
+		</div>
+		
+		<!-- ko if: todoList.beforeEdit -->
+			<div class="content-panel">
+				<button data-bind="click: addTask" class="button">Add Task</button>
+			</div>
+			<div class="content-panel">
+				<div data-bind="foreach: todoList">
+					<div class="note" data-bind="click: $root.editItem, css: completed() ? 'complete' : 'incomplete'">
+						<div>
+							<span data-bind="click: $root.todoList.deleteItem, clickBubble: false" class="remove">X</span>
+						</div>
+						<div>
+							<!-- ko if: _id.isSelected -->
+								<input type="text" data-bind="textInput: task, hasFocus: _id.isSelected" class="todo-input">
+							<!-- /ko -->
+							<!-- ko ifnot: _id.isSelected -->
+								<p><span data-bind="text: task"></span></p>
+							<!-- /ko -->
+						</div>
+						<label>
+							 <input type="checkbox" data-bind="checked: completed">Complete
+						</label>
+					</div>
+				</div>
+			</div>
+		<!-- /ko -->
+
+		<div class="content-panel">
+			<div data-bind="visible: todoList.apollo.isRunning">Communicating with Server...</div>
+			<table data-bind="visible: !todoList.apollo.isRunning()">
+				<thead>
+					<tr>
+						<th>index</th>
+						<th>_id</th>
+						<th>Task</th>
+						<th>Completed</th>
+						<th>isSelected</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach: todoList">
+					<tr>
+						<td data-bind='text: $index'></td>
+						<td data-bind='text: _id'></td>
+						<td data-bind='text: task'></td>
+						<td data-bind='text: completed'></td>
+						<td data-bind='text: _id.isSelected'></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- ko if:todoList.messages().length -->
+				<div class="alert success">
+					<!-- ko foreach: todoList.messages -->
+						<stong data-bind="text: $data.title"></stong>
+						<pre data-bind="text: $data.content"></pre>
+						
+					<!-- /ko -->   
+				</div>
+			<!--  /ko -->
+		</div>
+		<hr/>
+
+		
+
+		<h2>2) Adding a new object to an Observable Array with a cancellation option</h2>
+		<p>Subscribe to changes in the ViewModel and update the server for each change</p>
+
+		<!-- ko ifnot: todoList2.itemForEditing() || todoList2.itemForAdding() -->
+			<div class="content-panel">
+				<button data-bind="click: addTask2" class="button">Add Task</button>
+			</div>
+			<div class="content-panel">
+				<div data-bind="foreach: todoList2">
+					<div class="note" data-bind="click: $root.todoList2.selectItem, css: completed() ? 'complete' : 'incomplete'">
+						<div>
+							<span data-bind="click: $root.todoList2.deleteItem, clickBubble: false" class="remove">X</span>
+						</div>
+						<div data-bind="click: $root.todoList2.selectItem">
+							<p><span data-bind="text: task"></span></p>
+							<p data-bind="if: completed"><span>Completed</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- /ko -->
+		<div class="content-panel" data-bind="with: todoList2.itemForEditing">
+			<h2>Editing</h2>
+			<input type="text" data-bind="textInput: task, hasFocus: true" class="todo-input">
+			<label>
+				 <input type="checkbox" data-bind="checked: completed">Complete
+			</label>
+			<button data-bind="click: $root.todoList2.acceptItem" class="button">Accept Edit</button>
+			<button data-bind="click: $root.todoList2.revertItem" class="button">Revert Edit</button>
+		</div>
+			
+		<div class="content-panel" data-bind="with: todoList2.itemForAdding">
+			<h2>Add</h2>
+			<input type="text" data-bind="textInput: task, hasFocus: true" class="todo-input">
+			<label>
+				 <input type="checkbox" data-bind="checked: completed">Complete
+			</label>
+			<button data-bind="click: $root.saveAdd" class="button">Save</button>
+			<button data-bind="click: $root.cancelAdd" class="button">Cancel</button>
+		</div>
+
+		<div class="content-panel">
+			<table>
+				<thead>
+					<tr>
+						<th>index</th>
+						<th>_id</th>
+						<th>Task</th>
+						<th>Completed</th>
+						<th>isSelected</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach: todoList2">
+					<tr>
+						<td data-bind='text: $index'></td>
+						<td data-bind='text: _id'></td>
+						<td data-bind='text: task'></td>
+						<td data-bind='text: completed'></td>
+						<td data-bind='text: _id.isSelected'></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- ko if:todoList2.messages().length -->
+				<div class="alert success">
+					<!-- ko foreach: todoList2.messages -->
+						<stong data-bind="text: $data.title"></stong>
+						<pre data-bind="text: $data.content"></pre>
+						
+					<!-- /ko -->   
+				</div>
+			<!--  /ko -->
+		</div>
+		<hr/>
+
+
+		<h2>3) Adjust List based upon the results received from a subscription</h2>
+		<tasks-list params="todoList: todoList3"></tasks-list>
+		
+	</body>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
+	<script type="text/javascript" src="bower_components/ko.plus/src/ko.command.js"></script>
+	<script type="text/javascript" src="knockout-apollo.js"></script>
+	<script type="text/javascript" src="bower_components/knockoutcrud/knockoutcrud.js"></script>
+	<script type="text/javascript" src="apollo-client.umd.bundle.js"></script>
+	<script type="text/javascript" src="subscription-transport-ws.umd.bundle.js"></script>
+	<script type="text/javascript" src="js/components.js"></script>
+	<script type="text/javascript" src="js/TodoList.js"></script>
+	<script type="text/javascript" src="js/viewModel.js"></script>
+</html>

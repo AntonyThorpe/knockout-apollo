@@ -1,0 +1,102 @@
+body {
+	background-color: #F8F8FF;
+}
+
+h1 {
+	font-family: "Comic Sans MS",  sans-serf;
+	font-size: 48px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+h2 {
+	font-family: "Comic Sans MS",  sans-serf;
+	font-size: 24px;
+	text-align: left;
+	margin-bottom: 3px;
+}
+
+
+.note {
+	width: 220px;
+	height: 80px;
+	float: left;
+	padding: 15px;
+	font-family: Arial;
+	background: #FFFF74;
+	text-align: cetner;
+	word-wrap: break-word;
+	box-shadow: 0px 10px 10px 2px rgba(0,0,0,0.3);
+	margin: 5px 5px;
+	transform: rotate(2deg);
+	display: inline;
+}
+
+.note:nth-child(2n) {
+	transform: rotate(-3deg);
+}
+
+.note:nth-child(3n) {
+	transform: rotate(4deg);
+}
+
+.note:nth-child(5n) {
+	transform: rotate(-2deg);
+}
+
+.note.complete {
+	background: #CCCCCC;
+	color: #999999;
+}
+
+.remove {
+	font-size: 20px;
+	font-weight: bold;
+	float: right;
+	margin: -7px -2px;
+	opacity: 0.4;
+}
+
+.remove:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.left-panel {
+	width: 250px;
+	float: left;
+	text-align: center;
+}
+
+
+.content-panel {
+	margin-left: 250px;
+	overflow: hidden;
+	padding: 20px;
+}
+
+.button{
+	font-family: "Work Sans", "Arial", sans-serif;
+	font-size: 20px;
+	color: #FFFFFF;
+	background-color: #5CB85C;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	padding: 7px 30px;
+	width: 230px;
+	cursor: pointer;
+	margin-top: 10px;
+}
+
+.todo-input{
+	width: 80%;
+	border: 1px solid #CCC;
+	border-radius: 6px;
+	padding: 5px;
+	font-family: "Work Sans","Arial", sans-serif;
+	resize: vertical;
+	margin-top: 10px;
+}
+.todo-input:focus {
+	margin-bottom: 10px;
+}
