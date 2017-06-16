@@ -6,7 +6,7 @@
 var self = this;
 self.todoList = ko.observableArray().launchApollo(apolloClient, errorCallback);  // A todo list because we are very busy
 
-// Now we are ready to make mutation, etc. with Apollo.  Outline below:
+// Now we are ready to make a mutation
 self.todoList.apollo({object for Apollo}, {object of callbacks});
 ```
 
@@ -15,7 +15,6 @@ On the server add the corresponding schema and resolver:
 ```javascript
 // Schema
 export const schema = `
-
 type TodoList {
   _id: ID
   task: String
@@ -67,7 +66,7 @@ export const resolvers = {
 };
 ```
 ## Client
-On the client within the viewModel:
+On the client within a viewModel:
 ```javascript
 // Create the GraphQL documents
 var createTodoMutation = gql`
@@ -93,6 +92,8 @@ var removeTodoMutation = gql`
         }
     }
 `;
+
+// Place the below mutations within your functions
 
 // Create
 self.todoList.apollo({
@@ -141,3 +142,5 @@ self.todoList.apollo({
 });
 ```
 
+## Index
+[Link](index.md)

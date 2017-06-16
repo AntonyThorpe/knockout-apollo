@@ -6,7 +6,7 @@
 var self = this;
 self.yourObservable = ko.observable().launchApollo(apolloClient, errorCallback);
 
-// Now we are ready to make queries, etc. with Apollo.  Outline below:
+// Now we are ready to make a query
 self.yourObservable.apollo({object for Apollo}, {object of callbacks});
 ```
 
@@ -67,3 +67,6 @@ Thanks to the `ko.plus` knockout plugin there are a couple of useful public obse
 
 ## Error Callback
 The default `errorCallback` is to console log the error.  To customise, provide a callback function as a second arguement to the `launchApollo` function when initialising (or the third option is that you can simply pass it in with the call).  Note that `ko.plus` provides a `failMessage` observable that can be set within the error callback.
+
+## Index
+[Link](index.md)

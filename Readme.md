@@ -2,11 +2,11 @@
 A knockoutjs extension to connect to a GraphQL endpoint through an ApolloClient instance
 
 ## Approach
-* Provide public access to the an instance of the ApolloClient class, as well as, ObservableQuery for the query, subscribe, etc., methods (subscriptions not fully implemented yet)
-* Utilise the structure and loading features of [ko.plus](http://stevegreatrex.github.io/ko.plus/)
+* A thin wrapper around an instance of the ApolloClient class for GraphQL queries, mutations and subscriptions 
+* Utilises the structure and loading features of [ko.plus](http://stevegreatrex.github.io/ko.plus/) for queries and mutations
 
 ## How it works
-Attaches additional methods to Observables/Observable Arrays via a [Custom Function](http://knockoutjs.com/documentation/fn.html).
+Attaches additional methods to Observables/Observable Arrays via a [Custom Function](http://knockoutjs.com/documentation/fn.html).  This library is strongly influenced by [Vue-Apollo](https://github.com/Akryum/vue-apollo).
 
 ## Requirements
 * [Apollo Client](https://github.com/apollostack/apollo-client)
@@ -19,14 +19,14 @@ Attaches additional methods to Observables/Observable Arrays via a [Custom Funct
 [Index](/docs/en/index.md)
 
 ## Demos
-1) To run the demo open a terminal and: 
+1) To run a demo in localhost open a terminal and: 
 * `git clone https://github.com/AntonyThorpe/knockout-apollo.git`.  
 * And `cd knockout-apollo` and type `npm install --save-dev`.
-* Next `cd test` and `meteor npm install -S`.  Then after meteor and associated libraries have been installed `cd ..` back to the project root.
+* Next `cd tests` and `meteor npm install -S`.  Then after meteor and associated libraries have been installed `cd ..` back to the project root.
 * Then `npm run test` (we use Meteor Tests as a server for the demo)
-* Once Meteor is up and runing, open another terminal and cd to the project root and then `npm run demo`.
+* Once Meteor is up and running, open another terminal and cd to the project root and then `npm run demo`.
 
-2) (Doesn't currently work - need a new endpoint that works) Find out info about the Pokemon from https://graphql-pokemon.now.sh/ endpoint at [http://antonythorpe.github.io/knockout-apollo](http://antonythorpe.github.io/knockout-apollo)
+2) (Doesn't currently work - need a new endpoint that works) Find out info about the Pokémon from https://graphql-pokemon.now.sh/ endpoint at [http://antonythorpe.github.io/knockout-apollo](http://antonythorpe.github.io/knockout-apollo)
 
 ## Example: Learn Apollo
 Under the `learn_apollo_example` folder, is code modified from [Learn Apollo](https://www.learnapollo.com).  If you want to get this up and running:
@@ -40,17 +40,17 @@ Under the `learn_apollo_example` folder, is code modified from [Learn Apollo](ht
 Hope this works :)
 
 ## Tests
-In the terminal cd to the `test` folder and `meteor test --driver-package=practicalmeteor:mocha --port 3002`.  None there yet.
+In the terminal cd to the `test` folder and `meteor test --driver-package=practicalmeteor:mocha --port 3002`.  Or `npm run test`.  No tests just yet.
 
-## Updating the Apollo Bundle
+## Updating the Bundles
 * At the project root `npm install -D`.
-* Then `./node_modules/webpack/bin/webpack.js`
+* Then `npm run build`
 
 ## Todo
 * write tests
 
 ## Contributions
-Pull requests most welcome!
+Pull requests are most welcome!
 
 ## Support
 None sorry.
@@ -62,7 +62,7 @@ None sorry.
 [MIT](LICENCE)
 
 ## Links
-[GraphQL-APIs](https://github.com/APIs-guru/graphql-apis) - A collective list of public GraphQL APIs
-[The Anatomy of a GraphQL Query](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747) - Apollo Blog by Sashko Stubailo
+[The Anatomy of a GraphQL Query](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747) - Apollo Blog by Sashko Stubailo.  The code follows these definitions.
 [Apollo-Vue](https://github.com/Akryum/vue-apollo) - contains good non-React examples
 [Meteor-Ticker](https://github.com/quintstoffers/meteornl-ticker) - Apollo+Meteor app showcasing GraphQL subscriptions in its simplest form
+[GraphQL-APIs](https://github.com/APIs-guru/graphql-apis) - A collective list of public GraphQL APIs

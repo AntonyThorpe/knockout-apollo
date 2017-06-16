@@ -6,7 +6,7 @@
 var self = this;
 self.todoList = ko.observableArray().launchApollo(apolloClient, errorCallback).blastoffSubscription(apolloClient, errorCallback);
 
-// Next step: populate via a [query](queries.md).
+// Next step: populate via a query.
 ```
 Note: the errorCallbacks are optional.  The default is to `console.error` any error.
 
@@ -47,6 +47,7 @@ schema {
   subscription: Subscription
 }
 `;
+```
 
 Create a Pubsub instance (server/pubsub.js) to be shared with the initialisation of the server, the publish event from the model and the Resolvers.
 ```javascript
@@ -95,7 +96,7 @@ new SubscriptionServer({
 });
 ```
 
-Import the pubsub instance into your model and publish upon a change event.  The below example utilises [Astronomy](http://jagi.github.io/meteor-astronomy/), a [Meteor](http://docs.meteor.com) package, that has event hooks.
+Import the pubsub instance into your model and publish upon a change event.  The below example utilises [Astronomy](http://jagi.github.io/meteor-astronomy/), a [Meteor](http://docs.meteor.com) package, that has an event hook feature.
 ```javascript
 import { Class } from 'meteor/jagi:astronomy';
 import { pubsub } from "/server/pubsub";
@@ -143,7 +144,6 @@ const TodoList = Class.create({
 ```
 Then in the Resolver (imports/api/resolver.js)
 ```javascript
-import { TodoList } from "/imports/models/TodoList.js";  // Obtain the model where you have a publish event from 
 import { pubsub } from "/server/pubsub";  // also access the pubsub instance
 
 export const resolvers = {
@@ -193,8 +193,8 @@ self.todoList.startGraphqlSubscription(
       query: graphqlDocumentTodoList,
     },
     {
-      next: function(data) {
-        switch (data.todoList.status) {
+        next: function(data) {
+            switch (data.todoList.status) {
                 case "added":
                   self.todoList.insert(data.todoList.value);
                   break;
@@ -204,15 +204,17 @@ self.todoList.startGraphqlSubscription(
                 case "deleted":
                   var _id = data.todoList.value._id;
                   var exists = ko.utils.arrayFirst(self.todoList.peek(), function(item) {
-                return ko.unwrap(item._id) === _id;
-              });
-              if (exists) {
-                    self.todoList.remove(exists);
-              }
+                      return ko.unwrap(item._id) === _id;
+                  });
+                  if (exists) {
+                      self.todoList.remove(exists);
+                  }
                   break;
-              }
-      }
+            }
+        }
     }
   );
 ```
 
+## Index
+[Link](index.md)
