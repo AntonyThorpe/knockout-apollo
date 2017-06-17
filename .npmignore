@@ -11,3 +11,4 @@ tests/
 .npmignore
 index.html
 webpack.config.js
+*.sublime*

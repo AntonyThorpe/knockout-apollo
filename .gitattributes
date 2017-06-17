@@ -1,6 +1,6 @@
 /demo export-ignore
-/dist/onlinedemo.umd.bundle.js
-/dist/onlinedemo.umd.bundle.min.js
+/dist/onlinedemo.umd.bundle.js export-ignore
+/dist/onlinedemo.umd.bundle.min.js export-ignore
 /learn_apollo_example export-ignore
 /src/apollo-client.js export-ignore
 /src/onlinedemo.js export-ignore

@@ -62,7 +62,7 @@ None sorry.
 [MIT](LICENCE)
 
 ## Links
-[The Anatomy of a GraphQL Query](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747) - Apollo Blog by Sashko Stubailo.  The code follows these definitions.
-[Apollo-Vue](https://github.com/Akryum/vue-apollo) - contains good non-React examples
-[Meteor-Ticker](https://github.com/quintstoffers/meteornl-ticker) - Apollo+Meteor app showcasing GraphQL subscriptions in its simplest form
-[GraphQL-APIs](https://github.com/APIs-guru/graphql-apis) - A collective list of public GraphQL APIs
+* [The Anatomy of a GraphQL Query](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747) - Apollo Blog by Sashko Stubailo.  The code follows these definitions.
+* [Apollo-Vue](https://github.com/Akryum/vue-apollo) - contains good non-React examples
+* [Meteor-Ticker](https://github.com/quintstoffers/meteornl-ticker) - Apollo+Meteor app showcasing GraphQL subscriptions in its simplest form
+* [GraphQL-APIs](https://github.com/APIs-guru/graphql-apis) - A collective list of public GraphQL APIs

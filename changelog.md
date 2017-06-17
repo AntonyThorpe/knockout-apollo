@@ -1,6 +1,6 @@
 # Changelog of Knockout Apollo
 
-0.3.0   New feature: subsciptions
+0.3.0   New feature: subscriptions
         Added UMD bundle for subscription-transport-ws v0.6
         Updated UMD bundle versions - Apollo Client v1.4.2, GraphQL Tag v2.3.0
         Added Meteor Test environment
