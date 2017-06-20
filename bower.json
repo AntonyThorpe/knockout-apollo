@@ -1,0 +1,27 @@
+{
+    "name": "knockout-apollo",
+    "description": "A knockoutjs extension to connect to a GraphQL endpoint through an ApolloClient instance",
+    "main": "dist/knockout-apollo.min.js",
+    "license": "MIT",
+    "keywords": [
+        "apollo",
+        "client",
+        "graphql",
+        "knockoutjs"
+    ],
+    "homepage": "https://github.com/AntonyThorpe/knockout-apollo",
+    "ignore": [
+        "demo",
+        "dist/onlinedemo.umd.bundle.js",
+        "dist/onlinedemo.umd.bundle.min.js",
+        "learn_apollo_example",
+        "node_modules",
+        "src",
+        "tests",
+        ".gitattributes",
+        ".gitignore",
+        ".npmignore",
+        "index.html",
+        "webpack.config.js"
+    ]
+}
