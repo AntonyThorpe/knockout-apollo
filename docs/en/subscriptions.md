@@ -4,7 +4,7 @@
 ```javascript
 // Initialise via a Custom Function in your viewModel
 var self = this;
-self.todoList = ko.observableArray().launchApollo(apolloClient, errorCallback).blastoffSubscription(apolloClient, errorCallback);
+self.todoList = ko.observableArray().launchApollo(apolloClient, errorCallback).liftOffSubscription(apolloClient, errorCallback);
 
 // Next step: populate via a query.
 ```
