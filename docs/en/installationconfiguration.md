@@ -33,10 +33,10 @@ Example below:
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
 <script type="text/javascript" src="bower_components/ko.plus/src/ko.command.js"></script>
-<script type="text/javascript" src="bower_components/knockout-apollo/knockout-apollo.js"></script>
+<script type="text/javascript" src="bower_components/knockout-apollo/dist/knockout-apollo.min.js"></script>
 <script type="text/javascript" src="bower_components/knockout-apollo/dist/apollo.umd.bundle.min.js"></script>
 ```
-Note: the `apollo.umd.bundle.min.js` exposes `ApolloClient`, `createNetworkInterface` (of the Apollo Client library) and `gql` (from GraphQL Tag).
+The `apollo-client.umd.bundle.min.js` file exposes `ApolloClient`, `createNetworkInterface` (of the Apollo Client library) and `gql` (from GraphQL Tag).
 
 
 ### Create an Apollo Client
@@ -52,7 +52,8 @@ var apolloClient = new ApolloClient({
 
 
 ## Subscriptions
-### Option 1: Import
+### Load Library
+#### Option 1: Import
 From the command line install [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws):
 ```sh
 npm install --S subscriptions-transport-ws
@@ -60,14 +61,15 @@ npm install --S subscriptions-transport-ws
 
 Load into the client
 ```javascript
-import 'graphql-subscriptions';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 ```
 
-### Option 2: Bundle
+#### Option 2: Bundle
 For [subscription-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) load the bundle:
 ```html
 <script type="text/javascript" src="bower_components/knockout-apollo/dist/subscription-transport-ws.umd.bundle.min.js"></script>
 ```
+The `subscription-transport-ws.umd.bundle.min.js` file exposes `SubscriptionClient` and `addGraphQLSubscriptions`.
 
 ### Create an Apollo Client that includes GraphQL Subscriptions
 In the client:
