@@ -19,6 +19,7 @@ export const resolvers = {
         createTodo(root, args, context) {
             let todo = new TodoList(args);
             let _id = todo.save();
+            pubsub.publish("todoAdded", { todoAdded: { _id: _id } });
             if (_id) {
                 return {_id: _id};
             }
@@ -39,7 +40,7 @@ export const resolvers = {
         todoList: {
             resolve: (data, args, context, info) => {
                     // Manipulate and return the new value
-                    //console.log("got to resolvers");
+                    //console.log("got to todoList resolver");
                     //console.log(data);
                     //console.log(args);
                     //console.log(context);

@@ -22,7 +22,6 @@ type Mutation {
 }
 
 type Subscription {
-  ticks: Int
   todoList: Result
 }
 
