@@ -1,29 +1,44 @@
+/**
+ * viewModel
+ * @link https://www.apollographql.com/docs/react/features/subscriptions.html
+ * @type function
+ */
+
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { WebSocketLink } from 'apollo-link-ws';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { getOperationAST } from 'graphql';
+import gql from 'graphql-tag';
+
+// Establish a GraphQL connection
+const link = ApolloLink.split(
+  operation => {
+    const operationAST = getOperationAST(operation.query, operation.operationName);
+    return !!operationAST && operationAST.operation === 'subscription';
+  },
+  new WebSocketLink({
+    uri: 'ws://localhost:3000/subscriptions',
+    options: {
+      reconnect: true,
+    }
+  }),
+  new HttpLink(
+	  { uri: 'http://localhost:3000/graphql' }
+  )
+);
+
+const cache = new InMemoryCache(window.__APOLLO_STATE);
+
+const apolloClient = new ApolloClient({
+  link,
+  cache
+});
+
+
+// viewModel
 function TodoViewModel() {
-	// Setup Subscription
-	var wsClient = new SubscriptionClient("ws://localhost:3000/subscriptions", {
-	    reconnect: true
-	});
-
-
-	// Create an Apollo Client
-	var networkInterface = createNetworkInterface({ uri: "http://localhost:3000/graphql"});
-	networkInterface.use([{
-	    applyMiddleware(req, next) {
-	      setTimeout(next, 500);   // create fake 500 ms of latency to every request
-	    }
-	}]);
-
-	// Extend the network interface with the WebSocket
-	var networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-	    networkInterface,
-	    wsClient
-	);
-
-	var apolloClient = new ApolloClient({
-	    networkInterface: networkInterfaceWithSubscriptions,
-	    connectToDevTools: true
-	});
-
 	// GraphQL Queries and Mutations
 	var getTodoListQuery = gql`query {
 						  todoList {
@@ -64,24 +79,6 @@ function TodoViewModel() {
       }
     `;
 
-/*  Vanilla subscription
-	var observable = apolloClient.subscribe({
-	    query: graphqlDocumentTodoList
-	},
-	function(error){
-		console.log(error);
-	});
-
-	observable.subscribe({
-	    next(data) {
-	      console.log(data);
-	    },
-	    error(error) {
-	      console.error(error);
-	    }
-	});
-*/
-	// Knockout
 	var self = this;
 	var data;
 
@@ -127,7 +124,7 @@ function TodoViewModel() {
 
 	self.save = function() {
 		/*** Save to server ***/
-		
+
 		// Remove Deleted
 		if (self.todoList.justRemoved().length) {
 			ko.utils.arrayForEach(self.todoList.justRemoved(), function(item){
@@ -140,7 +137,7 @@ function TodoViewModel() {
 				{
 					resolve: function(data){
 						self.todoList.messages.push({title: "Deleted"}, {content: ko.toJSON(data.data.removeTodo) });
-					} 
+					}
 				});
 			});
 		}
@@ -188,7 +185,7 @@ function TodoViewModel() {
 		}
 
 		// Knockout
-		self.todoList.justRemoved.removeAll(); // empty the parked removed 
+		self.todoList.justRemoved.removeAll(); // empty the parked removed
 		self.todoList.justAdded.removeAll(); // empty the parked adds
 		self.todoList.beforeEdit(null);
 	};
@@ -256,7 +253,7 @@ function TodoViewModel() {
 						{
 							resolve: function(data){
 								self.todoList2.messages.push({title: "Deleted"}, {content: ko.toJSON(data.data.removeTodo) });
-							} 
+							}
 						});
 						break;
 					case "updated":
@@ -283,7 +280,7 @@ function TodoViewModel() {
 	}, null, "arrayChange");
 
 
-	// Third example
+	// Third example - watch via a Subscription to the Server
 	self.todoList3 = ko.observableArray().crud({
 		constructor: TodoList,
 		uniqueIdentifier: "_id"
@@ -295,15 +292,15 @@ function TodoViewModel() {
 		},
 		{
 			next: function(data) {
-				switch (data.todoList.status) {
+				switch (data.data.todoList.status) {
     	        	case "added":
-    	        		self.todoList3.insert(data.todoList.value);
+    	        		self.todoList3.insert(data.data.todoList.value);
     	        		break;
     	        	case "updated":
-    	        		self.todoList3.upsert(data.todoList.value);
+    	        		self.todoList3.upsert(data.data.todoList.value);
     	        		break;
     	        	case "deleted":
-    	        		var _id = data.todoList.value._id;
+    	        		var _id = data.data.todoList.value._id;
     	        		var exists = ko.utils.arrayFirst(self.todoList3.peek(), function(item) {
     						return ko.unwrap(item._id) === _id;
     					});
@@ -316,9 +313,18 @@ function TodoViewModel() {
 		}
 	);
 
+	//  Vanilla subscription
+/*	apolloClient.subscribe({
+	    query: graphqlDocumentTodoList
+	}).subscribe({
+	    next (data) {
+	        // Notify your application with the new arrived data
+            console.log("got to Vanilla subscription");
+            console.log(data);
+	    }
+	}); */
 };
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function(event) {
     ko.applyBindings(new TodoViewModel());
 });
-

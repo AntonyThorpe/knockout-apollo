@@ -1,5 +1,5 @@
 // gulp serve
-// 
+//
 // npm install gulp --save-dev
 // npm install browser-sync --save-dev
 
@@ -15,18 +15,18 @@ gulp.task('serve', [], function() {
             baseDir: "./"
         },
         files: [
-            // Patterns for static files to watch.
-            // We're watching js and php files within mysite
-            // and SilverStripe template files within themes
-            "js/**.*",
-            "index.html"
+            // Patterns for static files to watch
+            "./demo/src/**.*",
+            "index.html",
+            "./dist/demo.js",
+            "./src/knockout-apollo.js"
         ],
         notify: false,
         browser: "google chrome",
         reloadOnRestart: false
     });
 
-    gulp.watch("./bower_components/knockout-apollo/knockout-apollo.js").on('change', browserSync.reload);
-    gulp.watch("./js/**.*").on('change', browserSync.reload);
+    gulp.watch("./dist/demo.js").on('change', browserSync.reload);
+    gulp.watch("./demo/src/**.*").on('change', browserSync.reload);
     gulp.watch("index.html").on('change', browserSync.reload);
 });
