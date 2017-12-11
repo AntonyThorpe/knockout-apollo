@@ -1,10 +1,5 @@
 demo/
-dist/onlinedemo.umd.bundle.js
-dist/onlinedemo.umd.bundle.min.js
-learn_apollo_example/
-/src/apollo-client.js
-/src/onlinedemo.js
-/src/subscription-transport-ws.js
+dist/demo.js
 tests/
 .gitattributes
 .gitignore
@@ -12,3 +7,4 @@ tests/
 index.html
 webpack.config.js
 *.sublime*
+gulpfile.js

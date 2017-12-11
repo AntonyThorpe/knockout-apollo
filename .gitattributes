@@ -1,13 +1,9 @@
 /demo export-ignore
-/dist/onlinedemo.umd.bundle.js export-ignore
-/dist/onlinedemo.umd.bundle.min.js export-ignore
-/learn_apollo_example export-ignore
-/src/apollo-client.js export-ignore
-/src/onlinedemo.js export-ignore
-/src/subscription-transport-ws.js export-ignore
+/dist/demo.js export-ignore
 /tests export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 .npmignore export-ignore
 index.html export-ignore
 webpack.config.js export-ignore
+gulpfile.js export-ignore

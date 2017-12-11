@@ -12,9 +12,7 @@
     "homepage": "https://github.com/AntonyThorpe/knockout-apollo",
     "ignore": [
         "demo",
-        "dist/onlinedemo.umd.bundle.js",
-        "dist/onlinedemo.umd.bundle.min.js",
-        "learn_apollo_example",
+        "dist/demo.js",
         "node_modules",
         "src",
         "tests",
@@ -22,6 +20,7 @@
         ".gitignore",
         ".npmignore",
         "index.html",
+        "gulpfile.js",
         "webpack.config.js"
     ]
 }

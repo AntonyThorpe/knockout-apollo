@@ -1,6 +1,6 @@
 {
   "name": "knockout-apollo",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "A knockoutjs extension to connect to a GraphQL endpoint through an ApolloClient instance",
   "main": "src/knockout-apollo.js",
   "repository": {
@@ -19,20 +19,30 @@
   },
   "homepage": "https://github.com/AntonyThorpe/knockout-apollo",
   "devDependencies": {
-    "apollo-client": "^1.4.2",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^6.2.10",
+    "apollo-cache-inmemory": "^1.1.2",
+    "apollo-link": "^1.0.5",
+    "apollo-link-http": "^1.3.0",
+    "apollo-link-ws": "^1.0.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.22.0",
-    "browser-sync": "^2.18.12",
-    "graphql-tag": "^2.3.0",
+    "browser-sync": "^2.18.13",
+    "graphql": "^0.11.7",
+    "graphql-subscriptions": "^0.5.5",
     "gulp": "^3.9.1",
     "gulp-livereload": "^3.8.1",
-    "subscriptions-transport-ws": "^0.6.0",
-    "webpack": "^2.6.1"
+    "path": "^0.12.7",
+    "subscriptions-transport-ws": "^0.9.4",
+    "webpack": "^3.10.0"
   },
   "scripts": {
-    "build": "./node_modules/webpack/bin/webpack.js && NODE_ENV='production' ./node_modules/webpack/bin/webpack.js -p && ./node_modules/uglify-js/bin/uglifyjs src/knockout-apollo.js --output dist/knockout-apollo.min.js -c -m",
-    "test": "cd tests && meteor",
-    "demo": "cd demo && gulp serve"
+    "build": "node_modules/.bin/webpack -p && ./node_modules/uglify-js/bin/uglifyjs src/knockout-apollo.js --output dist/knockout-apollo.min.js -c -m",
+    "tests": "cd tests && meteor",
+    "demo": "gulp serve",
+    "watch": "node_modules/.bin/webpack --watch"
+  },
+  "dependencies": {
+    "apollo-client": "^2.1.0",
+    "graphql-tag": "^2.4.1"
   }
 }

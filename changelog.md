@@ -1,5 +1,6 @@
 # Changelog of Knockout Apollo
 
+0.4.0   Upgraded to Apollo v2
 0.3.2   Added bower.json
 0.3.1   Added .npmignore updated .gitattributes
 0.3.0   New feature: subscriptions
