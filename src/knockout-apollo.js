@@ -1,7 +1,7 @@
 /**
  * knockout Apollo
  *
- * A knockoutjs extension to connect to a GraphQL endpoint through an ApolloClient instance
+ * A knockoutjs extension to connect to a GraphQL endpoint through an Apollo Client instance
  */
 ;
 (function(factory) {
@@ -80,11 +80,11 @@
 
 	            // Determine the Apollo Client/Observable Query method
 	            var methods = ["query", "mutation", "mutate"];
-	            
+
 	            self.method = ko.utils.arrayFilter(methods, function(item){
 	                return item in graphqlDocument;
 	            })[0];
-	            
+
 	            if (self.method === "mutation") {
 	                self.method = "mutate";
 	            }
@@ -161,9 +161,9 @@
 	        if (callback.reject) {
 		        self.reject = callback.reject;
 		    }
-        	
+
         	// holds the subscription
-        	// @{link http://dev.apollodata.com/core/apollo-client-api.html#Subscription}
+        	// @{link https://www.apollographql.com/docs/react/features/subscriptions.html}
         	self.graphqlSubscription = client.subscribe(
         		graphqlDocument,
 		        function(error){

@@ -1,41 +1,30 @@
 // ./node_modules/webpack/bin/webpack.js
+// ./node_modules/webpack/bin/webpack.js
 const webpack = require('webpack');
-
-if (process.env.NODE_ENV === "production") {
-	var file_name_suffix = ".umd.bundle.min.js";
-} else {
-	var file_name_suffix = ".umd.bundle.js";
-}
+const path = require('path');
 
 module.exports = {
-	entry: {
-		"apollo-client": "./src/apollo-client.js",
-		"subscription-transport-ws": "./src/subscription-transport-ws.js",
-		//onlinedemo: "./src/onlinedemo.js",  - need a new endpoint so skip
-	},
-	output: {
-		filename: "[name]" + file_name_suffix,
+    entry: {
+        demo: "./demo/src/viewModel.js"
+    },
+    output: {
+		filename: "[name].js",
 		path: __dirname + '/dist',
-		libraryTarget: "umd",
-		umdNamedDefine: true
-	},
-	module: {
-		loaders: [{
-			test: /\.js$/,
-			exclude: /(node_modules)/,
-			loader: "babel-loader",
-			query: {
-				presets: [
-					"es2015"
-				]
-			}
-		}]
-	},
-	plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        libraryTarget: "umd"
+    },
+    devtool: 'inline-source-map',
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015']
+                    }
+                }
             }
-        }),
-	]
+        ]
+    }
 };
