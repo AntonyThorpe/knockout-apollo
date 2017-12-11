@@ -4,14 +4,14 @@
 ```javascript
 // Initialise via a Custom Function in your viewModel
 var self = this;
-self.todoList = ko.observableArray().launchApollo(apolloClient, errorCallback).liftOffSubscription(apolloClient, errorCallback);
+self.todoList = ko.observableArray().launchApollo(apolloClient, defaultErrorCallback).liftOffSubscription(apolloClient, defaultErrorCallbackForSubscription);
 
 // Next step: populate via a query.
 ```
-Note: the errorCallbacks are optional.  The default is to `console.error` any error.
+Note: the above errorCallbacks are optional.  The default is to `console.error` any error.
 
 ## Server
-On the server add the corresponding to your schema:
+On the server add the Subscription to your schema:
 ```javascript
 // Schema (imports/api/schema.js)
 export const schema = `
@@ -56,14 +56,20 @@ const pubsub = new PubSub();
 export { pubsub };
 ```
 
-Below example is for a Meteor/Apollo combination (server/main.js).
+Below example is for a Meteor (with Astronomy & Apollo modules) and an Express Server (tests/server/main.js).
 ```javascript
-// Reference: http://dev.apollodata.com/tools/graphql-subscriptions/meteor.html
-// and meteornl/ticker 
+// GraphQL
+import { createApolloServer } from 'meteor/apollo';
+import { makeExecutableSchema } from 'graphql-tools';
+const cors = require('cors');
+import { TodoList } from "/imports/models/TodoList.js";
+import { typeDefs } from '/imports/api/schema';
+import { resolvers } from '/imports/api/resolvers';
+
+// Subscriptions
 import { WebApp } from 'meteor/webapp';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { SubscriptionManager } from "graphql-subscriptions";
-import { pubsub } from "./pubsub";
+import { execute, subscribe } from 'graphql';
 
 // Setup GraphQL
 const schema = makeExecutableSchema({
@@ -75,24 +81,20 @@ createApolloServer({
 },
 {
     configServer: (graphQLServer) => {
-        if (Meteor.isDevelopment) {
-            // Enable unrestricted cors only in development
-            // @see https://github.com/expressjs/cors for customization
-            graphQLServer.use(cors());
-        }
+        graphQLServer.use(cors());
     }
 });
 
 // Subscriptions
-const subscriptionManager = new SubscriptionManager({
-    schema: schema,
-    pubsub: pubsub,
-});
+// Reference: https://www.apollographql.com/docs/graphql-subscriptions/setup.html
+
 new SubscriptionServer({
-    subscriptionManager: subscriptionManager,
+  schema: schema,
+  execute,
+  subscribe,
 }, {
-    server: WebApp.httpServer,
-    path: '/subscriptions',
+  server: WebApp.httpServer,
+  path: '/subscriptions',
 });
 ```
 
@@ -155,12 +157,7 @@ export const resolvers = {
     },
     Subscription: {
         todoList: {
-            resolve: (data, args, context, info) => {  
-                    //console.log("Resolvers:");
-                    //console.log(data);
-                    //console.log(args);
-                    //console.log(context);
-                    //console.log(info);
+            resolve: (data, args, context, info) => {
                     return data;
             },
             subscribe: () => pubsub.asyncIterator("todoList"),
@@ -196,13 +193,13 @@ self.todoList.startGraphqlSubscription(
         next: function(data) {
             switch (data.todoList.status) {
                 case "added":
-                  self.todoList.insert(data.todoList.value);
+                  self.todoList.insert(data.data.todoList.value);
                   break;
                 case "updated":
-                  self.todoList.upsert(data.todoList.value);
+                  self.todoList.upsert(data.data.todoList.value);
                   break;
                 case "deleted":
-                  var _id = data.todoList.value._id;
+                  var _id = data.data.todoList.value._id;
                   var exists = ko.utils.arrayFirst(self.todoList.peek(), function(item) {
                       return ko.unwrap(item._id) === _id;
                   });
@@ -214,6 +211,18 @@ self.todoList.startGraphqlSubscription(
         }
     }
   );
+```
+
+### Vanilla Subscription
+One could always just use the Apollo Client straight:
+```javascript
+apolloClient.subscribe({
+    query: graphqlDocumentTodoList
+}).subscribe({
+    next (data) {
+        // Do your stuff
+    }
+});
 ```
 
 ## Index

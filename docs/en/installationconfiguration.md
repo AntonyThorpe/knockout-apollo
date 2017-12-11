@@ -3,18 +3,17 @@
 ## Queries and Mutations
 
 ### Load Libraries
-#### Option 1: Import
-From the command line:
 ```sh
-npm install --save apollo-client graphql-tag knockout knockout-apollo ko.plus jquery
+npm install apollo-client apollo-link graphql-tag knockout knockout-apollo ko.plus jquery
 ```
 
-Load the libraries into the client
+### Import into the client
 ```javascript
 // set the JavaScript template literal tag that parses GraphQL query strings into the standard GraphQL AST
-import ApolloClient, {
-    createNetworkInterface
-} from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from 'graphql-tag';
 global.jQuery = require('jquery');
 import ko from 'knockout';
@@ -22,78 +21,59 @@ require('ko.plus');
 import 'knockout-apollo.js';
 ```
 
-
-#### Option 2: Bundle
-A little less flexible way is to install the above dependencies using bower and add as script tags to your html.  From the command line:
-```sh
-bower install --save knockout ko.plus jquery https://github.com/AntonyThorpe/knockout-apollo.git
-```
-Example below:
-```html
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
-<script type="text/javascript" src="bower_components/ko.plus/src/ko.command.js"></script>
-<script type="text/javascript" src="bower_components/knockout-apollo/dist/knockout-apollo.min.js"></script>
-<script type="text/javascript" src="bower_components/knockout-apollo/dist/apollo.umd.bundle.min.js"></script>
-```
-The `apollo-client.umd.bundle.min.js` file exposes `ApolloClient`, `createNetworkInterface` (of the Apollo Client library) and `gql` (from GraphQL Tag).
-
-
 ### Create an Apollo Client
-In the client:
-```javascript
-var apolloClient = new ApolloClient({
-    networkInterface: createNetworkInterface({ uri: "https://yourwebsite.net/graphql"})
-});
-```
+[Docs](https://www.apollographql.com/docs/link/#apollo-client)
 
 ## Next Step
 [Queries](queries.md) or [Mutations](mutations.md)
 
 
 ## Subscriptions
-### Load Library
-#### Option 1: Import
-From the command line install [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws):
+### Load Libraries
 ```sh
-npm install --S subscriptions-transport-ws
+npm install subscriptions-transport-ws graphql
 ```
 
-Load into the client
+### Import into the client
 ```javascript
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+...
+import { WebSocketLink } from 'apollo-link-ws';
+import { getOperationAST } from 'graphql';
+...
 ```
 
-#### Option 2: Bundle
-For [subscription-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) load the bundle:
-```html
-<script type="text/javascript" src="bower_components/knockout-apollo/dist/subscription-transport-ws.umd.bundle.min.js"></script>
-```
-The `subscription-transport-ws.umd.bundle.min.js` file exposes `SubscriptionClient` and `addGraphQLSubscriptions`.
+### Create an Apollo Client that includes a GraphQL Subscription connection
 
-### Create an Apollo Client that includes GraphQL Subscriptions
 In the client:
 ```javascript
-var wsClient = new SubscriptionClient("ws://localhost:3000/subscriptions", {
-    reconnect: true
-});
-
-// Create an Apollo Client
-var networkInterface = createNetworkInterface({ uri: "http://localhost:3000/graphql"});
-
-// Extend the network interface with the WebSocket
-var networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-    networkInterface,
-    wsClient
+// Establish a GraphQL connection
+const link = ApolloLink.split(
+  operation => {
+    const operationAST = getOperationAST(operation.query, operation.operationName);
+    return !!operationAST && operationAST.operation === 'subscription';
+  },
+  new WebSocketLink({
+    uri: 'ws://localhost:3000/subscriptions',
+    options: {
+      reconnect: true,
+    }
+  }),
+  new HttpLink(
+	  { uri: 'http://localhost:3000/graphql' }
+  )
 );
 
-var apolloClient = new ApolloClient({
-    networkInterface: networkInterfaceWithSubscriptions
+const cache = new InMemoryCache(window.__APOLLO_STATE);
+
+const apolloClient = new ApolloClient({
+  link,
+  cache
 });
 ```
+
+#### References
+* [Split example](https://github.com/anksvu/reactjs-graphql-nodejs/blob/master/client/src/client.js)
+* [Second split example from the Apollo Docs](https://www.apollographql.com/docs/react/features/subscriptions.html#subscriptions-client)
 
 ## Next Step
 [Subscriptions](subscriptions.md)
-
-
-

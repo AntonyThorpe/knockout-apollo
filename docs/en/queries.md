@@ -4,7 +4,7 @@
 ```javascript
 // Initialise via a Custom Function
 var self = this;
-self.yourObservable = ko.observable().launchApollo(apolloClient, errorCallback);
+self.yourObservable = ko.observable().launchApollo(apolloClient, defaultErrorCallback);
 
 // Now we are ready to make a query
 self.yourObservable.apollo({object for Apollo}, {object of callbacks});

@@ -1,10 +1,10 @@
 # Mutations
 
-## Getting Started in Knockout (similar to Queries)
+## Getting Started in Knockout
 ```javascript
-// Initialise via a Custom Function
+// Initialise via a Custom Function (same as with queries)
 var self = this;
-self.todoList = ko.observableArray().launchApollo(apolloClient, errorCallback);  // A todo list because we are very busy
+self.todoList = ko.observableArray().launchApollo(apolloClient, defaultErrorCallback);  // A todo list because we are very busy
 
 // Now we are ready to make a mutation
 self.todoList.apollo({object for Apollo}, {object of callbacks});
@@ -105,9 +105,8 @@ self.todoList.apollo({
 },
 {
     resolve: function(data) {
-        console.log(data.data.createTodo); 
-        // create viewModel instance
-        // update Redux cache if necessary
+        console.log(data.data.createTodo);
+        // create an instance
     }
 });
 
@@ -123,7 +122,7 @@ self.todoList.apollo({
 {
     resolve: function(data) {
         if (data.data.updateTodo) {
-            // update instance
+            // update the instance
         }
     }
 });
@@ -138,7 +137,7 @@ self.todoList.apollo({
 {
     resolve: function(data){
         self.todoList.remove(data.data.removeTodo);
-    } 
+    }
 });
 ```
 
