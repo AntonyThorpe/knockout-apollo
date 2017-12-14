@@ -3,7 +3,7 @@
  *
  * A knockoutjs extension to connect to a GraphQL endpoint through an Apollo Client instance
  */
-;(function(factory) {
+(function(factory) {
     // CommonJS
     if (
         typeof require === "function" &&
@@ -28,7 +28,7 @@
      */
     ko.observable.fn.launchApollo = function(client, reject) {
         // Definitions
-        const self = this;
+        var self = this;
         self.method = null;
         self.resolve = null;
         self.always = null;
@@ -37,7 +37,7 @@
         } else {
             self.reject = function(error) {
                 console.error(error);
-            }
+            };
         }
 
         /**
@@ -81,12 +81,11 @@
                 }
 
                 // Determine the Apollo Client/Observable Query method
-                const methods = ["query", "mutation", "mutate"];
+                var methods = ["query", "mutation", "mutate"];
 
-                self.method = ko.utils.arrayFilter(
-                    methods,
-                    item => item in graphqlDocument
-                )[0];
+                self.method = ko.utils.arrayFilter(methods, function(item) {
+                    return item in graphqlDocument;
+                })[0];
 
                 if (self.method === "mutation") {
                     self.method = "mutate";
@@ -129,10 +128,10 @@
                 }
             },
             context: self
-        })
+        });
 
         return this;
-    }
+    };
 
     /**
      * Knockout Custom Function for subcriptions via the ApolloClient
@@ -143,13 +142,13 @@
      */
     ko.observable.fn.liftOffSubscription = function(client, reject) {
         // Definitions
-        const self = this;
+        var self = this;
         if (reject) {
             self.reject = reject;
         } else {
             self.reject = function(error) {
                 console.error(error);
-            }
+            };
         }
 
         /**
@@ -171,10 +170,10 @@
             // @{link https://www.apollographql.com/docs/react/features/subscriptions.html}
             self.graphqlSubscription = client.subscribe(
                 graphqlDocument,
-                error => {
+                function(error) {
                     self.reject(error);
                 }
-            )
+            );
 
             self.graphqlSubscription.subscribe({
                 next: function next(data) {
@@ -189,7 +188,7 @@
                     }
                 }
             });
-        }
+        };
         return this;
-    }
+    };
 });
