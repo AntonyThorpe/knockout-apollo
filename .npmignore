@@ -1,6 +1,8 @@
 demo/
 dist/demo.js
 tests/
+.eslintrc
+.prettierrc
 .gitattributes
 .gitignore
 .npmignore

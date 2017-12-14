@@ -16,6 +16,8 @@
         "node_modules",
         "src",
         "tests",
+        ".eslintrc",
+        ".prettierrc",
         ".gitattributes",
         ".gitignore",
         ".npmignore",

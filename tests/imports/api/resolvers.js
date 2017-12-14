@@ -10,7 +10,7 @@ export const resolvers = {
     },
     Mutation: {
         removeTodo(root, args, context) {
-            let toRemove = TodoList.findOne({ _id: args._id});
+            let toRemove = TodoList.findOne({ _id: args._id });
             let result = toRemove.remove();
             if (result) {
                 return args;
@@ -21,16 +21,19 @@ export const resolvers = {
             let _id = todo.save();
             pubsub.publish("todoAdded", { todoAdded: { _id: _id } });
             if (_id) {
-                return {_id: _id};
+                return { _id: _id };
             }
         },
         updateTodo(root, args, context) {
-            let result = TodoList.update({
-                _id: args._id
-            }, {
-                task: args.task,
-                completed: args.completed
-            });
+            let result = TodoList.update(
+                {
+                    _id: args._id
+                },
+                {
+                    task: args.task,
+                    completed: args.completed
+                }
+            );
             if (result) {
                 return args;
             }
@@ -39,15 +42,15 @@ export const resolvers = {
     Subscription: {
         todoList: {
             resolve: (data, args, context, info) => {
-                    // Manipulate and return the new value
-                    //console.log("got to todoList resolver");
-                    //console.log(data);
-                    //console.log(args);
-                    //console.log(context);
-                    //console.log(info);
-                    return data;
+                // Manipulate and return the new value
+                //console.log("got to todoList resolver");
+                //console.log(data);
+                //console.log(args);
+                //console.log(context);
+                //console.log(info);
+                return data;
             },
-            subscribe: () => pubsub.asyncIterator("todoList"),
+            subscribe: () => pubsub.asyncIterator("todoList")
         }
     }
 };

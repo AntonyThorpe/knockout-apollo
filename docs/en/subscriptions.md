@@ -213,6 +213,13 @@ self.todoList.startGraphqlSubscription(
   );
 ```
 
+### Subscription
+You will find the subscription available:
+```javascript
+self.yourObservable.graphqlSubscription
+```
+if you need to cancel the subscription at a certain stage in the future.
+
 ### Vanilla Subscription
 One could always just use the Apollo Client straight:
 ```javascript

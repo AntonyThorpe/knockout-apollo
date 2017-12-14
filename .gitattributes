@@ -1,6 +1,8 @@
 /demo export-ignore
 /dist/demo.js export-ignore
 /tests export-ignore
+.eslintrc export-ignore
+.prettierrc export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 .npmignore export-ignore

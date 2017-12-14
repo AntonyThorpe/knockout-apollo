@@ -9,7 +9,6 @@ npm install apollo-client apollo-link graphql-tag knockout knockout-apollo ko.pl
 
 ### Import into the client
 ```javascript
-// set the JavaScript template literal tag that parses GraphQL query strings into the standard GraphQL AST
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
@@ -24,7 +23,7 @@ import 'knockout-apollo.js';
 ### Create an Apollo Client
 [Docs](https://www.apollographql.com/docs/link/#apollo-client)
 
-## Next Step
+### Next Step
 [Queries](queries.md) or [Mutations](mutations.md)
 
 
@@ -75,5 +74,5 @@ const apolloClient = new ApolloClient({
 * [Split example](https://github.com/anksvu/reactjs-graphql-nodejs/blob/master/client/src/client.js)
 * [Second split example from the Apollo Docs](https://www.apollographql.com/docs/react/features/subscriptions.html#subscriptions-client)
 
-## Next Step
+### Next Step
 [Subscriptions](subscriptions.md)

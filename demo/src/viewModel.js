@@ -3,7 +3,6 @@
  * @link https://www.apollographql.com/docs/react/features/subscriptions.html
  * @type function
  */
-
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
@@ -37,7 +36,10 @@ const apolloClient = new ApolloClient({
 });
 
 
-// viewModel
+/**
+ * viewModel
+ * @constructor
+ */
 function TodoViewModel() {
 	// GraphQL Queries and Mutations
 	var getTodoListQuery = gql`query {
