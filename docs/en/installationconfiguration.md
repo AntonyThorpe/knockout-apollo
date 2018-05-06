@@ -71,8 +71,7 @@ const apolloClient = new ApolloClient({
 ```
 
 #### References
-* [Split example](https://github.com/anksvu/reactjs-graphql-nodejs/blob/master/client/src/client.js)
-* [Second split example from the Apollo Docs](https://www.apollographql.com/docs/react/features/subscriptions.html#subscriptions-client)
+* [Split example from the Apollo Docs](https://www.apollographql.com/docs/react/features/subscriptions.html#subscriptions-client)
 
 ### Next Step
 [Subscriptions](subscriptions.md)

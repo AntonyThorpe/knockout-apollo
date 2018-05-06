@@ -32,9 +32,6 @@ In the terminal cd to the `tests` folder and `meteor test --driver-package=pract
 ## Creating a knockout-apollo min bundle
 * Then `npm run build`
 
-## Todo
-* write tests
-
 ## Contributions
 Pull requests are most welcome!
 
