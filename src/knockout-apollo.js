@@ -73,11 +73,11 @@
              *          	}
              *          );
              */
-            action(graphqlDocument, callback) {
+            action: function(graphqlDocument, callback) {
                 self.resolve = callback.resolve;
                 self.always = callback.allways;
                 if (callback.reject) {
-                    self.reject = reject;
+                    self.reject = callback.reject;
                 }
 
                 // Determine the Apollo Client/Observable Query method
@@ -96,7 +96,7 @@
                     return client[self.method](graphqlDocument);
                 }
                 console.error(
-                    `Error: the client method must be specified as a key in the object.  One of ${methods}`
+                    "Error: the client method must be specified as a key in the object.  One of query, mutation, mutate"
                 );
             },
             /**
@@ -105,7 +105,7 @@
              * @link { ApolloQueryResult, http://dev.apollodata.com/core/apollo-client-api.html#ApolloQueryResult }
              * @link{ Subscription, http://dev.apollodata.com/core/apollo-client-api.html#ObservableQuery}
              */
-            done(data) {
+            done: function(data) {
                 if (self.resolve) {
                     self.resolve(data);
                 }
@@ -115,14 +115,14 @@
              * @param  {object} error an ApolloError
              * @link http://dev.apollodata.com/core/apollo-client-api.html#ApolloError
              */
-            fail(error) {
+            fail: function(error) {
                 self.reject(error);
             },
             /**
              * A function called for success or failure of the call
              * @param  {object} data an ApolloQueryResult or ApolloError
              */
-            always(data) {
+            always: function(data) {
                 if (self.always) {
                     self.always(data);
                 }
