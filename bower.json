@@ -11,10 +11,10 @@
     ],
     "homepage": "https://github.com/AntonyThorpe/knockout-apollo",
     "ignore": [
+        "bower.json",
         "demo",
         "dist/demo.js",
         "node_modules",
-        "src",
         "tests",
         ".eslintrc",
         ".prettierrc",

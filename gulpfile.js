@@ -23,7 +23,9 @@ gulp.task('serve', [], function() {
         ],
         notify: false,
         browser: "google chrome",
-        reloadOnRestart: false
+        reloadOnRestart: false,
+        open: "local",
+        online: false
     });
 
     gulp.watch("./dist/demo.js").on('change', browserSync.reload);
