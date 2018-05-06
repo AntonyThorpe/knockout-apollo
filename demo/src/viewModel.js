@@ -28,7 +28,9 @@ const link = ApolloLink.split(
   )
 );
 
-const cache = new InMemoryCache(window.__APOLLO_STATE);
+const cache = new InMemoryCache({
+    dataIdFromObject: object => object._id
+});
 
 const apolloClient = new ApolloClient({
   link,
@@ -229,7 +231,7 @@ function TodoViewModel() {
 			self.todoList2.loading = false;
 		} else {
 			ko.utils.arrayForEach(v, function(item){
-				switch (item.status) {
+                switch (item.status) {
 					case "added":
 						self.todoList2.apollo({
 							mutation: createTodoMutation,
