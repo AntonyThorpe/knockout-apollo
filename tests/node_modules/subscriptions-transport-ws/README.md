@@ -236,12 +236,13 @@ ReactDOM.render(
 ### `Constructor(url, options, connectionCallback)`
 - `url: string` : url that the client will connect to, starts with `ws://` or `wss://`
 - `options?: Object` : optional, object to modify default client behavior
-  * `timeout?: number` : how long the client should wait in ms for a keep-alive message from the server (default 10000 ms), this parameter is ignored if the server does not send keep-alive messages. This will also be used to calculate the max connection time per connect/reconnect
+  * `timeout?: number` : how long the client should wait in ms for a keep-alive message from the server (default 30000 ms), this parameter is ignored if the server does not send keep-alive messages. This will also be used to calculate the max connection time per connect/reconnect
   * `lazy?: boolean` : use to set lazy mode - connects only when first subscription created, and delay the socket initialization
   * `connectionParams?: Object | Function` : object that will be available as first argument of `onConnect` (in server side), if passed a function - it will call it and send the return value
   * `reconnect?: boolean` : automatic reconnect in case of connection error
   * `reconnectionAttempts?: number` : how much reconnect attempts
   * `connectionCallback?: (error) => {}` : optional, callback that called after the first init message, with the error (if there is one)
+  * `inactivityTimeout?: number` : how long the client should wait in ms, when there are no active subscriptions, before disconnecting from the server. Set to 0 to disable this behavior. (default 0)
 - `webSocketImpl?: Object` - optional, WebSocket implementation. use this when your environment does not have a built-in native WebSocket (for example, with NodeJS client)
 
 ### Methods
@@ -255,7 +256,7 @@ ReactDOM.render(
 #### `unsubscribeAll() => void` - unsubscribes from all active subscriptions.
 
 #### `on(eventName, callback, thisContext) => Function`
-- `eventName: string`: the name of the event, available events are: `connecting`, `connected`, `reconnecting`, `reconnected` and `disconnected`
+- `eventName: string`: the name of the event, available events are: `connecting`, `connected`, `reconnecting`, `reconnected`, `disconnected` and `error`
 - `callback: Function`: function to be called when websocket connects and initialized.
 - `thisContext: any`: `this` context to use when calling the callback function.
 - => Returns an `off` method to cancel the event subscription.
@@ -285,6 +286,11 @@ ReactDOM.render(
 - `thisContext: any`: `this` context to use when calling the callback function.
 - => Returns an `off` method to cancel the event subscription.
 
+#### `onError(callback, thisContext) => Function` - shorthand for `.on('error', ...)`
+- `callback: Function`: function to be called when an error occurs.
+- `thisContext: any`: `this` context to use when calling the callback function.
+- => Returns an `off` method to cancel the event subscription.
+
 ### `close() => void` - closes the WebSocket connection manually, and ignores `reconnect` logic if it was set to `true`.
 
 ### `use(middlewares: MiddlewareInterface[]) => SubscriptionClient` - adds middleware to modify `OperationOptions` per each request
@@ -302,8 +308,8 @@ ReactDOM.render(
   * `subscribe?: (schema, document, rootValue, contextValue, variableValues, operationName) => Promise<ExecutionResult | AsyncIterator<ExecutionResult>>` : GraphQL `subscribe` function, provide the default one from `graphql` package.
   * `onOperation?: (message: SubscribeMessage, params: SubscriptionOptions, webSocket: WebSocket)` : optional method to create custom params that will be used when resolving this operation
   * `onOperationComplete?: (webSocket: WebSocket, opId: string)` : optional method that called when a GraphQL operation is done (for query and mutation it's immeditaly, and for subscriptions when unsubscribing)
-  * `onConnect?: (connectionParams: Object, webSocket: WebSocket)` : optional method that called when a client connects to the socket, called with the `connectionParams` from the client, if the return value is an object, its elements will be added to the context. return `false` or throw an exception to reject the connection. May return a Promise.
-  * `onDisconnect?: (webSocket: WebSocket)` : optional method that called when a client disconnects
+  * `onConnect?: (connectionParams: Object, webSocket: WebSocket, context: ConnectionContext)` : optional method that called when a client connects to the socket, called with the `connectionParams` from the client, if the return value is an object, its elements will be added to the context. return `false` or throw an exception to reject the connection. May return a Promise.
+  * `onDisconnect?: (webSocket: WebSocket, context: ConnectionContext)` : optional method that called when a client disconnects
   * `keepAlive?: number` : optional interval in ms to send `KEEPALIVE` messages to all clients
 
 - `socketOptions: {WebSocket.IServerOptions}` : options to pass to the WebSocket object (full docs [here](https://github.com/websockets/ws/blob/master/doc/ws.md))    

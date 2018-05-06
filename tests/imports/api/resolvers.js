@@ -18,7 +18,9 @@ export const resolvers = {
         },
         createTodo(root, args, context) {
             let todo = new TodoList(args);
-            let _id = todo.save();
+            let _id = todo.save({
+                simulation: false // Insert only on the server
+            });
             pubsub.publish("todoAdded", { todoAdded: { _id: _id } });
             if (_id) {
                 return { _id: _id };
