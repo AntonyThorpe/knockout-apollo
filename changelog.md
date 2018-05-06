@@ -1,5 +1,7 @@
 # Changelog of Knockout Apollo
 
+#### 0.4.1
+ * Upgraded Browsersync to lastest version to correct dependency vulnerability
 #### 0.4.0
  * Upgraded to Apollo v2 (no breaking change)
 #### 0.3.2
