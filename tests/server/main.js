@@ -1,19 +1,14 @@
 import { Meteor } from "meteor/meteor";
 
 // GraphQL
-import { createApolloServer } from "meteor/apollo";
-import { makeExecutableSchema } from "graphql-tools";
-const cors = require("cors");
+const { ApolloServer, gql } = require('apollo-server-hapi');
+const Hapi = require('hapi');
+
 import { TodoList } from "/imports/models/TodoList.js";
 import { typeDefs } from "/imports/api/schema";
 import { resolvers } from "/imports/api/resolvers";
 
-// Subscriptions
-// Reference: https://www.apollographql.com/docs/graphql-subscriptions/meteor.html
-import { WebApp } from "meteor/webapp";
-import { SubscriptionServer } from "subscriptions-transport-ws";
-import { execute, subscribe } from "graphql";
-
+// Populate database with initial data
 Meteor.startup(() => {
     if (TodoList.find().count() === 0) {
         TodoList.insert({
@@ -34,36 +29,32 @@ Meteor.startup(() => {
     }
 });
 
-// Setup GraphQL
-const schema = makeExecutableSchema({
-    typeDefs,
-    resolvers
-});
-createApolloServer(
-    {
-        schema
-    },
-    {
-        configServer: graphQLServer => {
-            if (Meteor.isDevelopment) {
-                // Enable unrestricted cors only in development
-                graphQLServer.use(cors());
-            }
-        }
-    }
-);
+/**
+ * Server startup
+ * @constructor
+ */
+async function StartServer() {
+  const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+      cors: true,
+      context: async ({ request, response }) => {
+      return {};
+  }
+  });
 
-// Subscriptions
-// Reference: https://www.apollographql.com/docs/graphql-subscriptions/setup.html
-// and meteornl/ticker
-new SubscriptionServer(
-    {
-        schema: schema,
-        execute,
-        subscribe
-    },
-    {
-        server: WebApp.httpServer,
-        path: "/subscriptions"
-    }
-);
+  const app = new Hapi.server({
+    port: 4000
+  });
+
+
+  await server.applyMiddleware({
+    app,
+  });
+
+  await server.installSubscriptionHandlers(app.listener);
+
+  await app.start();
+}
+
+StartServer().catch(error => console.log(error));
