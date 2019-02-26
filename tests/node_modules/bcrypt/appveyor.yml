@@ -1,21 +1,5 @@
 environment:
   matrix:
-  - nodejs_version: "0.10"
-    platform: x64
-  - nodejs_version: "0.10"
-    platform: x86
-  - nodejs_version: "0.12"
-    platform: x64
-  - nodejs_version: "0.12"
-    platform: x86
-  - nodejs_version: "4"
-    platform: x64
-  - nodejs_version: "4"
-    platform: x86
-  - nodejs_version: "5"
-    platform: x64
-  - nodejs_version: "5"
-    platform: x86
   - nodejs_version: "6"
     platform: x64
   - nodejs_version: "6"
@@ -27,20 +11,30 @@ environment:
   - nodejs_version: "8"
     platform: x64
   - nodejs_version: "8"
+    platform: x86
+  - nodejs_version: "9"
+    platform: x64
+  - nodejs_version: "9"
+    platform: x86
+  - nodejs_version: "10"
+    platform: x64
+  - nodejs_version: "10"
+    platform: x86
+  - nodejs_version: "11"
+    platform: x64
+  - nodejs_version: "11"
     platform: x86
 
 install:
   - where npm
   - where node
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - 'if %nodejs_version% lss 4 npm install -g npm@2'
-  - 'if %nodejs_version% geq 4 npm install -g npm@latest'
-  - 'if "%nodejs_version%_%platform%" == "4_x86" (npm config set -g cafile=package.json && npm config set -g strict-ssl=false)'
+  - 'npm install -g npm@latest'
 
 build: off
 
 artifacts:
-  - path: 'build/stage/**/bcrypt*.tar.gz'  
+  - path: 'build/stage/**/bcrypt*.tar.gz'
 
 test_script:
   - node --version
@@ -49,3 +43,12 @@ test_script:
 
 after_test:
   - .\node_modules\.bin\node-pre-gyp package
+
+on_success:
+  - ps: >
+        if ($env:NODE_PRE_GYP_GITHUB_TOKEN -ne $null -and $env:APPVEYOR_REPO_TAG_NAME -match '^v(0|[1-9]+)\.(0|[1-9]+)\.(0|[1-9]+)$') {
+            echo "Publishing $env:APPVEYOR_REPO_TAG_NAME"
+            npm install node-pre-gyp-github@1.4.3
+            ./node_modules/.bin/node-pre-gyp-github publish --release
+        }
+
