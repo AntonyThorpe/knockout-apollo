@@ -182,7 +182,7 @@
 				<div data-bind="foreach: todoList4">
 					<div class="note" data-bind="click: $root.todoList4.selectItem, css: completed() ? 'complete' : 'incomplete'">
 						<div>
-							<span data-bind="click: $root.todoList4.deleteItem, clickBubble: false" class="remove">X</span>
+							<span data-bind="click: $root.deleteItem4, clickBubble: false" class="remove">X</span>
 						</div>
 						<div data-bind="click: $root.todoList4.selectItem">
 							<p><span data-bind="text: task"></span></p>
@@ -198,7 +198,7 @@
 			<label>
 				 <input type="checkbox" data-bind="checked: completed">Complete
 			</label>
-			<button data-bind="click: $root.todoList4.acceptItem" class="button">Accept Edit</button>
+			<button data-bind="click: $root.acceptEditItem4" class="button">Accept Edit</button>
 			<button data-bind="click: $root.todoList4.revertItem" class="button">Revert Edit</button>
 		</div>
 
@@ -244,8 +244,6 @@
 			<!--  /ko -->
 		</div>
 		<hr/>
-
-
 
 	</body>
 </html>

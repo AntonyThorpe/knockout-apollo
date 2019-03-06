@@ -333,147 +333,178 @@ function TodoViewModel() {
         self.todoList4.itemForAdding(new TodoList({}));
     };
 
-    self.saveAdd4 = function(data) {
-        self.todoList4.insert(ko.toJS(data));
+    self.saveAdd4 = function(v) {
+        let item = self.todoList4.insert(ko.toJS(v));
         self.todoList4.itemForAdding(null);
+
+        // contact server
+        self.todoList4.apollo({
+            mutation: createTodoMutation,
+            variables: {
+                task: item.task.peek(),
+                completed: item.completed.peek()
+            },
+            // optimistic part
+            optimisticResponse: function(data){
+                data = Object.assign({_id: Math.round(Math.random() * -1000000)}, data);
+                data.__typename = 'TodoList';
+                return {
+                    createTodo: {
+                        _id: data._id,
+                        todoList: data,
+                        __typename: 'TodoList'
+                    }
+                };
+            },
+            update: function(cache, {data: {createTodo}}) {
+                // Read the data from our cache for this query.
+                const data = cache.readQuery({ query: getTodoListQuery });
+
+                if (createTodo._id < 0) {
+                    // Optimistic data goes into cache
+                    data.todoList.push(createTodo.todoList);
+                } else {
+                    // _id returned from server so push again
+                    data.todoList.push(
+                        {
+                            _id: createTodo._id,
+                            task: item.task.peek(),
+                            completed: item.completed.peek(),
+                            __typename: createTodo.__typename
+                        }
+                    );
+
+                    item._id(createTodo._id);  // update _id in knockout
+                }
+
+                // Write our data back to the cache.
+                cache.writeQuery({ query: getTodoListQuery, data });
+            }
+            // close optimistic update
+        },
+        {
+            resolve: function(data) {
+                self.todoList4.messages.push({title: "Added"}, {content: ko.toJSON(data.data.createTodo) });
+            }
+        });
+
     };
 
     self.cancelAdd4 = function() {
         self.todoList4.itemForAdding(null);
     };
 
-    self.todoList4.subscribe(function(v){
-        if (self.todoList4.loading) {
-            self.todoList4.loading = false;
-        } else {
-            ko.utils.arrayForEach(v, function(item){
-                switch (item.status) {
-                    case "added":
-                        self.todoList4.apollo({
-                            mutation: createTodoMutation,
-                            variables: {
-                                task: item.value.task.peek(),
-                                completed: item.value.completed.peek()
-                            },
-                            // optimistic part
-                            optimisticResponse: function(data){
-                                data = Object.assign({_id: Math.round(Math.random() * -1000000)}, data);
-                                data.__typename = 'TodoList';
-                                return {
-                                    createTodo: {
-                                        _id: data._id,
-                                        todoList: data,
-                                        __typename: 'TodoList'
-                                    }
-                                };
-                            },
-                            update: function(cache, {data: {createTodo}}) {
-                                // Read the data from our cache for this query.
-                                const data = cache.readQuery({ query: getTodoListQuery });
+    self.deleteItem4 = function(item) {
+        let index = self.todoList4.indexOf(item);
+        self.todoList4.remove(item);
 
-                                if (createTodo._id < 0) {
-                                    // Optimistic data goes into cache
-                                    data.todoList.push(createTodo.todoList);
-                                } else {
-                                    // _id returned from server so push again
-                                    data.todoList.push(
-                                        {
-                                            _id: createTodo._id,
-                                            task: item.value.task.peek(),
-                                            completed: item.value.completed.peek(),
-                                            __typename: createTodo.__typename
-                                        }
-                                    );
+        // contact server
+        self.todoList4.apollo({
+            mutation: removeTodoMutation,
+            variables: {
+                _id: item._id.peek()
+            },
+            // optimistic part
+            optimisticResponse: function(data){
+                data.__typename = 'TodoList';
+                return {
+                    removeTodo: {
+                        _id: data._id,
+                        todoList: data,
+                        __typename: 'TodoList'
+                    }
+                };
+            },
+            update: function(cache, {data: {removeTodo}}) {
+                // Read the data from our cache for this query.
+                const data = cache.readQuery({ query: getTodoListQuery });
 
-                                    item.value._id(createTodo._id);  // update _id in knockout
-                                }
+                // remove from store
+                ko.utils.arrayRemoveItem(
+                    data.todoList,
+                    ko.utils.arrayFirst(data.todoList, function(obj){
+                        return obj._id === removeTodo._id;
+                    })
+                );
 
-                                // Write our data back to the cache.
-                                cache.writeQuery({ query: getTodoListQuery, data });
-                            }
-                            // close optimistic update
-                        },
-                        {
-                            resolve: function(data) {
-                                self.todoList4.messages.push({title: "Added"}, {content: ko.toJSON(data.data.createTodo) });
-                            }
-                        });
-                        break;
-                    case "deleted":
-                        self.todoList4.apollo({
-                            mutation: removeTodoMutation,
-                            variables: {
-                                _id: item.value._id.peek()
-                            },
-                            // optimistic part
-                            optimisticResponse: function(data){
-                                data.__typename = 'TodoList';
-                                return {
-                                    removeTodo: {
-                                        _id: data._id,
-                                        todoList: data,
-                                        __typename: 'TodoList'
-                                    }
-                                };
-                            },
-                            update: function(cache, {data: {removeTodo}}) {
-                                // Read the data from our cache for this query.
-                                const data = cache.readQuery({ query: getTodoListQuery });
+                // Write our data back to the cache.
+                cache.writeQuery({ query: getTodoListQuery, data });
+            }
+            // close optimistic update
+        },
+        {
+            resolve: function(data){
+                self.todoList4.messages.push({title: "Deleted"}, {content: ko.toJSON(data.data.removeTodo) });
+            },
+            reject: function(error) {
+                self.todoList4.apollo.failMessage("Hey, that didnt work " + error);
+                alert("hey, that didnt work. Error: " + error + ".  Will need to revert to previous state");
 
-                                // remove from store
-                                ko.utils.arrayRemoveItem(
-                                    data.todoList,
-                                    ko.utils.arrayFirst(data.todoList, function(obj){
-                                        return obj._id === removeTodo._id;
-                                    })
-                                );
+                self.todoList4.splice(index, 0, item);
+            }
+        });
+    };
 
-                                // Write our data back to the cache.
-                                cache.writeQuery({ query: getTodoListQuery, data });
-                            }
-                            // close optimistic update
-                        },
-                        {
-                            resolve: function(data){
-                                self.todoList4.messages.push({title: "Deleted"}, {content: ko.toJSON(data.data.removeTodo) });
-                            }
-                        });
-                        break;
-                    case "updated":
-                        self.todoList4.apollo({
-                            mutation: updateTodoMutation,
-                            variables: {
-                                _id: item.value._id.peek(),
-                                task: item.value.task.peek(),
-                                completed: item.value.completed.peek()
-                            },
-                            // optimistic part
-                            optimisticResponse: function(data){
-                                data.__typename = 'TodoList';
-                                return {
-                                    updateTodo: {
-                                        _id: data._id,
-                                        task: data.task,
-                                        completed: data.completed,
-                                        __typename: 'TodoList'
-                                    }
-                                };
-                            }
-                            // close optimistic update (no need for update as is automatic)
-                        },
-                        {
-                            resolve: function(data) {
-                                if (data.data.updateTodo) {
-                                    self.todoList4.messages.push({title: "Updated ", content: ko.toJSON(data.data.updateTodo)});
-                                }
+    /**
+     * Provide a clean object for saving
+     * @param  {object} item object with update function
+     * @return {object} return object
+     */
+    let cleanItem = function(item) {
+        item = ko.toJS(item);
+        delete item.update; // remove method
+        return item;
+    };
 
-                            }
-                        });
-                        break;
+    self.acceptEditItem4 = function(item) {
+        let selected = self.todoList4.selectedItem(); // obtain "this"
+        let originalItem = ko.toJS(self.todoList4.selectedItem.peek());
+
+        //apply updates from the edited item to the selected item
+        selected.update(cleanItem(item));
+
+        //clear editing values
+        self.todoList4.selectedItem(null);
+        self.todoList4.itemForEditing(null);
+
+        // Communicate with server
+        self.todoList4.apollo({
+            mutation: updateTodoMutation,
+            variables: {
+                _id: item._id.peek(),
+                task: item.task.peek(),
+                completed: item.completed.peek()
+            },
+            // optimistic part
+            optimisticResponse: function(data){
+                data.__typename = 'TodoList';
+                return {
+                    updateTodo: {
+                        _id: data._id,
+                        task: data.task,
+                        completed: data.completed,
+                        __typename: 'TodoList'
+                    }
+                };
+            }
+            // close optimistic update (no need for update as is automatic)
+        },
+        {
+            resolve: function(data) {
+                if (data.data.updateTodo) {
+                    self.todoList4.messages.push({title: "Updated ", content: ko.toJSON(data.data.updateTodo)});
                 }
-            });
-        }
-    }, null, "arrayChange");
+
+            },
+            reject: function(error) {
+                self.todoList4.apollo.failMessage("Hey, that didnt work " + error);
+                alert("hey, that didnt work. Error: " + error + ".  Will need to revert to previous state");
+
+                selected.update(cleanItem(originalItem));
+            }
+        });
+    };
+
 
 
 

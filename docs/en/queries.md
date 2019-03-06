@@ -52,7 +52,7 @@ self.yourObservable.apollo(
         },
         // callback to report errors (optional)
         reject: function(error) {
-            self.yourObservable.failMessage("Hey, that didnt work " + error);
+            self.yourObservable.apollo.failMessage("Hey, that didnt work " + error);
         },
         // called for both success and failure (optional)
         always: function(){
@@ -66,7 +66,7 @@ self.yourObservable.apollo(
 Thanks to the `ko.plus` knockout plugin there are a couple of useful public observables.  A loading indicator can be used through `yourObservable.apollo.isRunning` and if failed through `yourObservable.apollo.failed`.  See [link](https://github.com/stevegreatrex/ko.plus/blob/master/README.md#example-implementation).
 
 ## Error Callback
-The `defaultErrorCallback` is to console log the error.  To customise, provide a callback function as a second arguement to the `launchApollo` function when initialising (or the third option is that you can simply pass it in with the call).  Note that `ko.plus` provides a `failMessage` observable that can be set within the error callback.
+The `defaultErrorCallback` is to console log the error.  To customise, provide a callback function as a second argument to the `launchApollo` function when initialising (or the third option is that you can simply pass it in with the call).  Note that `ko.plus` provides a `failMessage` observable that can be set within the error callback.
 
 ## Index
 [Link](index.md)
