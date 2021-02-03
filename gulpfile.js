@@ -3,14 +3,16 @@
 // npm install gulp --save-dev
 // npm install browser-sync --save-dev
 
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
+const { gulp, watch, series, parallel, src, dest } = require('gulp');
+const browserSync = require('browser-sync').create();
 
-// Static Server + watching scss/html files
-gulp.task('serve', [], function() {
-
-    // Serve files from the root of this project
-    browserSync.init({
+/**
+ * [serve description]
+ */
+function serve() {
+	// Serve files from the root of this project
+	// https://www.browsersync.io/docs/options
+	browserSync.init({
         server: {
             baseDir: "./"
         },
@@ -21,14 +23,15 @@ gulp.task('serve', [], function() {
             "./dist/demo.js",
             "./src/knockout-apollo.js"
         ],
+		browser: "firefox",
         notify: false,
-        browser: "google chrome",
-        reloadOnRestart: false,
+		port: 3003,
         open: "local",
-        online: false
+        reloadOnRestart: false
     });
+    watch("./dist/demo.js").on('change', browserSync.reload);
+    watch("./demo/src/**.*").on('change', browserSync.reload);
+    watch("index.html").on('change', browserSync.reload);
+};
 
-    gulp.watch("./dist/demo.js").on('change', browserSync.reload);
-    gulp.watch("./demo/src/**.*").on('change', browserSync.reload);
-    gulp.watch("index.html").on('change', browserSync.reload);
-});
+exports.serve = series(serve);

@@ -81,11 +81,11 @@
                 }
 
                 // Determine the Apollo Client/Observable Query method
-                var methods = ["query", "mutation", "mutate"];
+                var methods = ["query", "mutation", "mutate", "watchQuery", "subscribe", "readQuery", "readFragment", "writeQuery", "writeFragment", "resetStore", "onResetStore", "clearStore", "onClearStore", "stop", "reFetchObservableQueries"];
 
-                self.method = ko.utils.arrayFilter(methods, function(item) {
+                self.method = ko.utils.arrayFirst(methods, function(item) {
                     return item in graphqlDocument;
-                })[0];
+                });
 
                 if (self.method === "mutation") {
                     self.method = "mutate";
@@ -96,7 +96,7 @@
                     return client[self.method](graphqlDocument);
                 }
                 console.error(
-                    "Error: the client method must be specified as a key in the object.  One of query, mutation, mutate"
+                    "Error: the client method must be specified as a key in the object.  One of: " + methods.join(', ')
                 );
             },
             /**

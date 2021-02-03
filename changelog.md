@@ -1,5 +1,8 @@
 # Changelog of Knockout Apollo
 
+#### 0.5.0
+* Upgraded to Apollo v3 (no breaking changes)
+* Enabled accessible methods for the Apollo Client of watchQuery, subscribe, readQuery, readFragment, writeQuery, writeFragment, resetStore, onResetStore, clearStore, onClearStore, stop and reFetchObservableQueries
 #### 0.4.1
  * Upgraded Browsersync to lastest version to correct dependency vulnerability
 #### 0.4.0

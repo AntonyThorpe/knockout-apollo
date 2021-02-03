@@ -1,37 +1,20 @@
 /**
  * viewModel
  * @link https://www.apollographql.com/docs/react/advanced/subscriptions.html#subscriptions-client
- * @type function
+ * @link https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/#using-apollo-client-without-react
  */
-import { ApolloClient } from 'apollo-client';
-import { split } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
-import { WebSocketLink } from 'apollo-link-ws';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { getMainDefinition } from 'apollo-utilities';
-import gql from 'graphql-tag';
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { SubscriptionClient } from "subscriptions-transport-ws";
 
-// Establish a GraphQL connection
-const link = split(
-    // split based on operation type
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-  new WebSocketLink({
-    uri: 'ws://localhost:4000/graphql',
-    options: {
-      reconnect: true
-    }
-  }),
-  new HttpLink(
-	  { uri: 'http://localhost:4000/graphql' }
-  )
-);
-
-const cache = new InMemoryCache({
-    dataIdFromObject: object => object._id
+// Establish a GraphQL connection using websockets
+// @link
+const client = new SubscriptionClient('ws://localhost:4000/graphql', {
+  reconnect: true
 });
+const link = new WebSocketLink(client);
+
+const cache = new InMemoryCache();
 
 const apolloClient = new ApolloClient({
   link,
@@ -87,12 +70,12 @@ function TodoViewModel() {
 	var self = this;
 	var data;
 
+    // First example - update server based upon multiple changes
 	self.todoList = ko.observableArray().crud({
 		constructor: TodoList,
 		uniqueIdentifier: "_id"
 	}).launchApollo(apolloClient);
 	self.todoList.messages = ko.observableArray();
-
 	self.todoList.apollo(
 	    {
 	        query: getTodoListQuery
@@ -197,7 +180,7 @@ function TodoViewModel() {
 	};
 
 	self.cancel = function() {
-		// return model to cache version
+		// return model to prior version
 		self.todoList.cancelEdit();
 		self.todoList.beforeEdit(null);
 	};
@@ -207,7 +190,7 @@ function TodoViewModel() {
 		self.todoList.selectItem(item);
 	};
 
-	// Second example
+	// Second example - subscribe to changes in the ViewModel and update the server for each change
 	self.todoList2 = ko.observableArray().crud({
 		constructor: TodoList,
 		uniqueIdentifier: "_id"
@@ -291,13 +274,14 @@ function TodoViewModel() {
 		constructor: TodoList,
 		uniqueIdentifier: "_id"
 	}).liftOffSubscription(apolloClient);
-
+    self.todoList3.messages = ko.observableArray();
 	self.todoList3.startGraphqlSubscription(
 		{
 			query: graphqlDocumentTodoList,
 		},
 		{
 			next: function(data) {
+                self.todoList3.messages.push(ko.toJSON(data));
 				switch (data.data.todoList.status) {
     	        	case "added":
     	        		self.todoList3.insert(data.data.todoList.value);
@@ -325,7 +309,6 @@ function TodoViewModel() {
         constructor: TodoList,
         uniqueIdentifier: "_id"
     }).launchApollo(apolloClient);
-
     self.todoList4.messages = ko.observableArray();
     self.todoList4.loading = true;
 
@@ -357,28 +340,36 @@ function TodoViewModel() {
                 };
             },
             update: function(cache, {data: {createTodo}}) {
-                // Read the data from our cache for this query.
+                // Read the data from our cache for this query
                 const data = cache.readQuery({ query: getTodoListQuery });
 
                 if (createTodo._id < 0) {
-                    // Optimistic data goes into cache
-                    data.todoList.push(createTodo.todoList);
+                    // Optimistic data goes into the cache
+                    let newDataOptimistic = {
+                        ...data,
+                        todoList: [...data.todoList, createTodo.todoList]
+                    };
+                    // Write the Optimistic data back to the cache
+                    cache.writeQuery({ query: getTodoListQuery, newDataOptimistic });
                 } else {
                     // _id returned from server so push again
-                    data.todoList.push(
-                        {
-                            _id: createTodo._id,
-                            task: item.task.peek(),
-                            completed: item.completed.peek(),
-                            __typename: createTodo.__typename
-                        }
-                    );
+                    let newData = {
+                        ...data,
+                        todoList: [
+                            ...data.todoList,
+                            {
+                                _id: createTodo._id,
+                                task: item.task.peek(),
+                                completed: item.completed.peek(),
+                                __typename: createTodo.__typename
+                            }
+                        ]
+                    };
 
+                    // Write our data back to the cache
+                    cache.writeQuery({ query: getTodoListQuery, newData });
                     item._id(createTodo._id);  // update _id in knockout
                 }
-
-                // Write our data back to the cache.
-                cache.writeQuery({ query: getTodoListQuery, data });
             }
             // close optimistic update
         },
@@ -416,19 +407,24 @@ function TodoViewModel() {
                 };
             },
             update: function(cache, {data: {removeTodo}}) {
-                // Read the data from our cache for this query.
+                // Read the data from our cache for this query
                 const data = cache.readQuery({ query: getTodoListQuery });
 
-                // remove from store
+                let newData = {
+                    ...data,
+                    todoList: [...data.todoList]
+                };  // clone
+
+                // remove from newData
                 ko.utils.arrayRemoveItem(
-                    data.todoList,
-                    ko.utils.arrayFirst(data.todoList, function(obj){
+                    newData.todoList,
+                    ko.utils.arrayFirst(newData.todoList, function(obj){
                         return obj._id === removeTodo._id;
                     })
                 );
 
-                // Write our data back to the cache.
-                cache.writeQuery({ query: getTodoListQuery, data });
+                // Write our data back to the cache
+                cache.writeQuery({ query: getTodoListQuery, newData });
             }
             // close optimistic update
         },
@@ -504,8 +500,6 @@ function TodoViewModel() {
             }
         });
     };
-
-
 
 
 	//  Vanilla subscription

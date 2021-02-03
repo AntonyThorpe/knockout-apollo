@@ -87,8 +87,7 @@
 				</div>
 			<!--  /ko -->
 		</div>
-		<hr/>
-
+        <hr/>
 
 
 		<h2>2) Adding a new object to an Observable Array with a cancellation option</h2>
@@ -166,9 +165,15 @@
 		<hr/>
 
 
-		<h2>3) Adjust List based upon the results received from a subscription</h2>
+		<h2>3) Adjusted List based upon the results received from an Apollo subscription</h2>
 		<tasks-list params="todoList: todoList3"></tasks-list>
-
+        <!-- ko if:todoList3.messages().length -->
+            <div class="alert success">
+                <!-- ko foreach: todoList3.messages -->
+                    <div data-bind="text: $data"></div>
+                <!-- /ko -->
+            </div>
+        <!--  /ko -->
 
         <!-- example 4 with Optimistic Updates -->
         <h2>4) Example showing Optimistic Updates</h2>
@@ -244,6 +249,5 @@
 			<!--  /ko -->
 		</div>
 		<hr/>
-
 	</body>
 </html>
