@@ -38,6 +38,6 @@
     "watch": "node_modules/.bin/webpack --mode=development --watch"
   },
   "dependencies": {
-    "@apollo/client": "^3.0.0"
+    "@apollo/client": "^3.4.0"
   }
 }
